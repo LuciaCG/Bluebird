@@ -1,0 +1,4 @@
+db_repository/
+__pycache__/
+testing/__pycache__/
+testing.db
