@@ -1,6 +1,8 @@
-from testing import testing
+from app import app, models, db
 from flask import render_template, url_for
 
-@testing.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-      return render_template('/table.html')
+      movies = models.Movies.query.all()
+      return render_template('table.html',
+                                movies = movies)

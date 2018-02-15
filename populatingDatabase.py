@@ -1,4 +1,4 @@
-from testing import models, db
+from app import models, db
 
 #be careful not to run the same movie twice otherwise it will be in the database twice
 

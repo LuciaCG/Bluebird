@@ -1,4 +1,4 @@
 db_repository/
 __pycache__/
-testing/__pycache__/
+app/__pycache__/
 testing.db
