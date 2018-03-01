@@ -10,13 +10,26 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     //Connects the database
     QSqlDatabase mydb=QSqlDatabase::addDatabase("QSQLITE");
-    mydb.setDatabaseName("\testing.db");
+    mydb.setDatabaseName("\app.db");
     mydb.open();
     //Checks if the Database is open, changes label to its current status
     if(!mydb.open())
         ui->label->setText("FAILED");
     else
         ui->label->setText("Connected");
+
+    QSqlTableModel model;
+    model.setTable("Movies");
+    model.select();
+
+    QTableView view;
+    view.setModel(&model);
+    view.show();
+
+    //model.setHeaderData(0, Qt::Horizontal, QObject::tr("movieTitle"));
+    //ui->tableView->setModel(&model);
+
+
 
 //All the methods dont throw errors but none of them display the data
     //TRY ONE TO DISPLAY
@@ -35,6 +48,11 @@ MainWindow::MainWindow(QWidget *parent) :
      //model->setHeaderData(0, Qt::Horizontal, tr("Film"));
      //ui->tableView->setModel(model);
 
+    // Create model for the sql table
+    //QSqlTableModel * model = new QSqlTableModel(this, mydb);
+     //   model->setTable("Movies");
+    //    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    //    model->select();
 
             //TRY Three TO DISPLAY
  //QSqlQueryModel * model = new QSqlQueryModel();
