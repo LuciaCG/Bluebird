@@ -1,4 +1,4 @@
-from testing import db
+from app import db
 import datetime
 
 class Movies(db.Model):
