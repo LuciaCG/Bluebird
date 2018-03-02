@@ -4,12 +4,12 @@
 #include <QTableView>
 #include <QtSql>
 #include <QHeaderView>
+#include <QtWidgets>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
 
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
     firstDB.setHostName("bluebird");
@@ -28,6 +28,16 @@ MainWindow::MainWindow(QWidget *parent) :
     model->setHeaderData(1, Qt::Horizontal, tr("Movie Title"));
     ui->tableView->setModel(model);
     ui->tableView->show();
+
+
+    QTimer *timer = new QTimer(this);
+    timer->setInterval(1000);
+    connect(timer, &QTimer::timeout, [&]() {
+       QString ct = QTime::currentTime().toString();
+       ui->clock->setText(ct);
+    } );
+    timer->start();
+
 }
 
 MainWindow::~MainWindow()

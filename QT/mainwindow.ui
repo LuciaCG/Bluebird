@@ -79,16 +79,6 @@ border:0;</string>
       <string>Logout</string>
      </property>
     </widget>
-    <widget class="QDateTimeEdit" name="dateTimeEdit">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>70</y>
-       <width>194</width>
-       <height>30</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QLabel" name="lblTitle_2">
      <property name="geometry">
       <rect>
@@ -123,6 +113,23 @@ font-size: 21px;</string>
      </property>
      <property name="text">
       <string>Connection Status</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="clock">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>80</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #FFFFFF;
+font-size: 21px;</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
      </property>
     </widget>
    </widget>
