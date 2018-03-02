@@ -24,8 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
     model->setTable("Movies");
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->select();
-    model->setHeaderData(0, Qt::Horizontal, tr("Row1"));
-    model->setHeaderData(1, Qt::Horizontal, tr("Row2"));
+    model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+    model->setHeaderData(1, Qt::Horizontal, tr("Movie Title"));
     ui->tableView->setModel(model);
     ui->tableView->show();
 }
