@@ -1,7 +1,10 @@
 db_repository/
 __pycache__/
 app/__pycache__/
-testing.db
+*.db
 *.pyc
+<<<<<<< HEAD
 *.pro.user
 .gitignore~
+=======
+>>>>>>> 4098adea8bed49622f531104dae0c98bab672a78
