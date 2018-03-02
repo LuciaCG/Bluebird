@@ -4,12 +4,12 @@ import datetime
 
 ############## useful queries ###############
 
-from app import models, db
-import datetime
-for movies in models.Movies.query.all():
-  print(movies.movieTitle)
-  print(movies.synopsis)
-  print(movies.rating)
+# from app import models, db
+# import datetime
+# for movies in models.Movies.query.all():
+#   print(movies.movieTitle)
+#   print(movies.synopsis)
+#   print(movies.rating)
 #
 # from app import models, db
 # import datetime
