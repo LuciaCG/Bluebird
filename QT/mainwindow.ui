@@ -17,8 +17,8 @@
    <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>170</y>
+      <x>200</x>
+      <y>130</y>
       <width>611</width>
       <height>501</height>
      </rect>
@@ -29,6 +29,24 @@
       <height>501</height>
      </size>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>100</number>
+    </attribute>
+    <attribute name="horizontalHeaderMinimumSectionSize">
+     <number>50</number>
+    </attribute>
+    <attribute name="horizontalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+    <attribute name="verticalHeaderStretchLastSection">
+     <bool>false</bool>
+    </attribute>
    </widget>
    <widget class="QWidget" name="Header" native="true">
     <property name="geometry">

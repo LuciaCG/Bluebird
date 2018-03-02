@@ -28,7 +28,18 @@ MainWindow::MainWindow(QWidget *parent) :
     //Selecting the Table we want from DB
     model->setTable("Movies");
     model->select();
+
+    //Aesthetics
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Title"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Synopsis"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Rating"));
+
+    ui->tableView->setColumnWidth(0,20);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     //Displaying the table in the Tableview
+    ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setModel(model);
     ui->tableView->show();
 
