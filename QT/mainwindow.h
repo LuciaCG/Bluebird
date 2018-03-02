@@ -19,6 +19,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private slots:
+    void on_tableView_activated(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
 };
