@@ -34,13 +34,14 @@ MainWindow::MainWindow(QWidget *parent) :
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("Synopsis"));
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("Rating"));
 
-    ui->tableView->setColumnWidth(0,20);
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
     //Displaying the table in the Tableview
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setModel(model);
+
+    //ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->resizeColumnsToContents();
+    ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     ui->tableView->show();
 
 
