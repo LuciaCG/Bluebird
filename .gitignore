@@ -3,5 +3,5 @@ __pycache__/
 app/__pycache__/
 testing.db
 *.pyc
+*.db
 *.pro.user
-.gitignore~
