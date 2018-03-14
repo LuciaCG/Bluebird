@@ -6,7 +6,7 @@ def home():
       return render_template('home.html')
 
 
-@app.route('/viewmovies', methods=['GET', 'POST'])
+@app.route('/nowshowing', methods=['GET', 'POST'])
 def viewmovies():
       movies = models.Movies.query.all()
       movieOne = models.Movies.query.get(1)
@@ -14,9 +14,15 @@ def viewmovies():
       movieThree = models.Movies.query.get(3)
 
 
-      return render_template('viewmovies.html',
+      return render_template('nowshowing.html',
                                 movies = movies,
                                 movieOne = movieOne,
                                 movieTwo = movieTwo,
                                 movieThree = movieThree
                                 )
+
+
+@app.route('/showtimes', methods=['GET', 'POST'])
+def showtimes():
+
+      return render_template('showtimes.html')
