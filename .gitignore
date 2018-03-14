@@ -1,6 +1,7 @@
 db_repository/
 __pycache__/
 app/__pycache__/
-testing.db
+*.db
 *.pyc
- app.db
+*.db
+*.pro.user
