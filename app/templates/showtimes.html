@@ -2,5 +2,57 @@
 {% block content %}
 
 
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">Black Panther</h1>
+  </div>
+</section>
+
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">Wednesday 14th</h1>
+  </div>
+</section>
+
+{% for movie in movies %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mb-4 box-shadow">
+        <div class="card-body">
+          <p class="card-text" id="nowShowingTitle"><a class = "modal-pointer" data-toggle="modal" data-target="#{{movie.id}}">{{movie.movieTitle}}</a></p>
+          <p class="card-text" id="{{movie.movieTitle}}">{{movie.screening}} </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!--
+<div class = "container">
+  <div class="row">
+    <div class="col-md-12">hello</div>
+    <div class="col-md-12">{{movie.screening}}</div>
+    <div class="col-md-12">{{movie.screening}}</div>
+  </div>
+</div>
+
+-->
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% endblock %}
