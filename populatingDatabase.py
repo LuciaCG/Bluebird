@@ -4,18 +4,25 @@ import datetime
 
 ############## useful queries ###############
 
-# from app import models, db
-# import datetime
-# for movies in models.Movies.query.all():
-#   print(movies.movieTitle)
-#   print(movies.synopsis)
-#   print(movies.rating)
-#
-# from app import models, db
-# import datetime
-# for screenings in models.Screenings.query.all():
-#    print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
-#    print(screenings.time)
+from app import models, db
+import datetime
+for movies in models.Movies.query.all():
+  print(movies.movieTitle)
+  print(movies.synopsis)
+  print(movies.rating)
+
+from app import models, db
+import datetime
+for screens in models.Screen.query.all():
+  print(screens.screenName)
+  print(screens.Capacity)
+
+from app import models, db
+import datetime
+for screenings in models.Screenings.query.all():
+   print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
+   print(models.Screen.query.filter_by(id=screenings.screen_id).first().screenName)
+   print(screenings.time)
 
 
 # models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle
@@ -31,6 +38,10 @@ import datetime
 ############### del all relivant db tables ##############
 for movies in models.Movies.query.all():
     db.session.delete(movies)
+    db.session.commit()
+
+for screens in models.Screen.query.all():
+    db.session.delete(screens)
     db.session.commit()
 
 for screenings in models.Screenings.query.all():
@@ -53,6 +64,24 @@ db.session.commit()
 
 ############### adding movie to Movies tables ##############
 
+############### adding screens to Screen tables ##############
+screen1 = models.Screen(screenName="Screen 1", Capacity=35)
+screen2 = models.Screen(screenName="Screen 2", Capacity=40)
+screen3 = models.Screen(screenName="Screen 3", Capacity=20)
+
+
+#adding and commit the movies to the database
+db.session.add(screen1)
+db.session.add(screen2)
+db.session.add(screen3)
+db.session.commit()
+
+screen1ID = models.Screen.query.filter_by(screenName="Screen 1").first().id
+screen2ID = models.Screen.query.filter_by(screenName="Screen 2").first().id
+screen3ID = models.Screen.query.filter_by(screenName="Screen 3").first().id
+
+############### adding screens to Screen tables ##############
+
 
 ############### adding screenings to Screenings tables ##############
 #setting times for screenings
@@ -69,18 +98,18 @@ screeningTime9 = datetime.datetime(2018, 3, 2, 21, tzinfo=datetime.timezone.utc)
 
 #assigning times to black panther
 blackPatherID = models.Movies.query.filter_by(movieTitle="Black Panther").first().id
-blackPantherScreening1 = models.Screenings(movies_id=blackPatherID, time = screeningTime1)
-blackPantherScreening2 = models.Screenings(movies_id=blackPatherID, time = screeningTime2)
-blackPantherScreening3 = models.Screenings(movies_id=blackPatherID, time = screeningTime3)
-blackPantherScreening4 = models.Screenings(movies_id=blackPatherID, time = screeningTime4)
-blackPantherScreening5 = models.Screenings(movies_id=blackPatherID, time = screeningTime5)
-blackPantherScreening6 = models.Screenings(movies_id=blackPatherID, time = screeningTime6)
+blackPantherScreening1 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime1)
+blackPantherScreening2 = models.Screenings(movies_id=blackPatherID, screen_id=screen2ID ,time = screeningTime2)
+blackPantherScreening3 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime3)
+blackPantherScreening4 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime4)
+blackPantherScreening5 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime5)
+blackPantherScreening6 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime6)
 
 #assigning times to the greatest showman
 theGreatestShowmanID = models.Movies.query.filter_by(movieTitle="The Greatest Showman").first().id
-theGreatestShowmanScreening1 = models.Screenings(movies_id=theGreatestShowmanID, time = screeningTime7)
-theGreatestShowmanScreening2 = models.Screenings(movies_id=theGreatestShowmanID, time = screeningTime8)
-theGreatestShowmanScreening3 = models.Screenings(movies_id=theGreatestShowmanID, time = screeningTime9)
+theGreatestShowmanScreening1 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen1ID ,time = screeningTime7)
+theGreatestShowmanScreening2 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen2ID ,time = screeningTime8)
+theGreatestShowmanScreening3 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen3ID , time = screeningTime9)
 
 
 
