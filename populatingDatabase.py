@@ -3,27 +3,27 @@ import datetime
 
 
 ############## useful queries ###############
-
-from app import models, db
-import datetime
-for movies in models.Movies.query.all():
-  print(movies.movieTitle)
-  print(movies.synopsis)
-  print(movies.rating)
-
-from app import models, db
-import datetime
-for screens in models.Screen.query.all():
-  print(screens.screenName)
-  print(screens.Capacity)
-
-from app import models, db
-import datetime
-for screenings in models.Screenings.query.all():
-   print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
-   print(models.Screen.query.filter_by(id=screenings.screen_id).first().screenName)
-   print(screenings.time)
-
+# 
+# from app import models, db
+# import datetime
+# for movies in models.Movies.query.all():
+#   print(movies.movieTitle)
+#   print(movies.synopsis)
+#   print(movies.rating)
+#
+# from app import models, db
+# import datetime
+# for screens in models.Screen.query.all():
+#   print(screens.screenName)
+#   print(screens.Capacity)
+#
+# from app import models, db
+# import datetime
+# for screenings in models.Screenings.query.all():
+#    print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
+#    print(models.Screen.query.filter_by(id=screenings.screen_id).first().screenName)
+#    print(screenings.time)
+#
 
 # models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle
 # a = models.Movies.query.filter_by(movieTitle="...").first()
