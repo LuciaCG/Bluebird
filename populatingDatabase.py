@@ -43,12 +43,14 @@ for screenings in models.Screenings.query.all():
 ############### adding movie to Movies tables ##############
 newMovieBlackPanther = models.Movies(movieTitle="Black Panther", synopsis="T'Challa, the King of Wakanda, rises to the throne in the isolated, technologically advanced African nation, but his claim is challenged by a vengeful outsider who was a childhood victim of T'Challa's father's mistake", rating=4)
 newMovieTheGreatestShowman = models.Movies(movieTitle="The Greatest Showman", synopsis="Celebrates the birth of show business, and tells of a visionary who rose from nothing to create a spectacle that became a worldwide sensation.", rating=4.1)
+newMovieRedSparrow = models.Movies(movieTitle="Red Sparrow", synopsis="Ballerina Dominika Egorova is recruited to 'Sparrow School,' a Russian intelligence service where she is forced to use her body as a weapon. Her first mission, targeting a C.I.A. agent, threatens to unravel the security of both nations.", rating=4.1)
 
 
 
 #adding and commit the movies to the database
 db.session.add(newMovieBlackPanther)
 db.session.add(newMovieTheGreatestShowman)
+db.session.add(newMovieRedSparrow)
 db.session.commit()
 
 ############### adding movie to Movies tables ##############
