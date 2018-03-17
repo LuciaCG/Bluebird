@@ -1,10 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 #include <QSqlTableModel>
 #include <QTableView>
 #include <QtSql>
 #include <QHeaderView>
 #include <QtWidgets>
+#include "learn.h"
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -27,12 +31,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QSqlTableModel *model = new QSqlTableModel(this,firstDB);
     //Selecting the Table we want from DB
     model->setTable("Movies");
+    model->removeColumn(2); // don't show the synopsis
     model->select();
 
     //Aesthetics
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("Title"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Synopsis"));
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Rating"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Rating"));
 
     //Displaying the table in the Tableview
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -63,4 +67,11 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_BlackPanther_clicked()
+{
+    learn *instance = new learn(this);
+    instance->show();
+
 }

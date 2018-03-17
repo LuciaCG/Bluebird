@@ -1,4 +1,6 @@
 #include "mainwindow.h"
+//#include "learn.h"
+//#include "seatsspace.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

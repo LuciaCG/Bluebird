@@ -13,8 +13,11 @@ TEMPLATE = app
 CONFIG += c++11
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    learn.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    learn.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    learn.ui
