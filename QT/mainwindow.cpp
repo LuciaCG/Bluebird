@@ -8,7 +8,6 @@
 #include <QtWidgets>
 #include "learn.h"
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -31,20 +30,20 @@ MainWindow::MainWindow(QWidget *parent) :
     QSqlTableModel *model = new QSqlTableModel(this,firstDB);
     //Selecting the Table we want from DB
     model->setTable("Movies");
-    model->removeColumn(2); // don't show the synopsis
+    model->removeColumn(0); // don't show the id
+    model->removeColumn(1); // don't show the synopsis
     model->select();
 
     //Aesthetics
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Title"));
-    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Rating"));
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Title"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Rating"));
 
     //Displaying the table in the Tableview
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setModel(model);
 
-    //ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableView->resizeColumnsToContents();
     ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     ui->tableView->show();
 
@@ -71,7 +70,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_BlackPanther_clicked()
 {
-    learn *instance = new learn(this);
+    //check if title has been selected
+    //check what title has been selected
+    //send title to learn
+    int row = modelindex.row();
+
+    learn *instance = new learn(this, row);
     instance->show();
 
 }

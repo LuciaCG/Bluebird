@@ -7,6 +7,8 @@
 #include <QtDebug>
 #include <QFileInfo>
 #include <QLCDNumber>
+#include <QModelIndex>
+
 namespace Ui {
 class MainWindow;
 }
@@ -27,6 +29,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QModelIndex modelindex;
 };
 
 #endif // MAINWINDOW_H
