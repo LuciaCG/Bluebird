@@ -4,43 +4,43 @@ import datetime
 
 ############## useful queries ###############
 
-# from app import models, db
-# import datetime
-# for movies in models.Movies.query.all():
-#   print(movies.movieTitle)
-#   print(movies.synopsis)
-#   print(movies.rating)
-#   print()
-#
-# from app import models, db
-# import datetime
-# for screens in models.Screen.query.all():
-#   print(screens.screenName)
-#   print(screens.Capacity)
-#   print()
-#
-# from app import models, db
-# import datetime
-# for screenings in models.Screenings.query.all():
-#    print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
-#    print(models.Screen.query.filter_by(id=screenings.screen_id).first().screenName)
-#    print(screenings.time)
-#    print()
-#
-# from app import models, db
-# import datetime
-# for seats in models.Seats.query.all():
-#    print(seats)
-#
-# from app import models, db
-# import datetime
-# for seata in models.Seats.query.filter_by(row="A"):
-#    print(seata)
-#
-# from app import models, db
-# import datetime
-# for row1 in models.Seats.query.filter_by(seatNumber=1):
-#    print(row1)
+from app import models, db
+import datetime
+for movies in models.Movies.query.all():
+  print(movies.movieTitle)
+  print(movies.synopsis)
+  print(movies.ageRating)
+  print()
+
+from app import models, db
+import datetime
+for screens in models.Screen.query.all():
+  print(screens.screenName)
+  print(screens.Capacity)
+  print()
+
+from app import models, db
+import datetime
+for screenings in models.Screenings.query.all():
+   print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
+   print(screen_id)
+   print(screenings.time)
+   print()
+
+from app import models, db
+import datetime
+for seats in models.Seats.query.all():
+   print(seats)
+
+from app import models, db
+import datetime
+for seata in models.Seats.query.filter_by(row="A"):
+   print(seata)
+
+from app import models, db
+import datetime
+for row1 in models.Seats.query.filter_by(seatNumber=1):
+   print(row1)
 
 
 # models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle
@@ -73,8 +73,8 @@ for seats in models.Seats.query.all():
 ############### del all relivant db tables ##############
 
 ############### adding movie to Movies tables ##############
-newMovieBlackPanther = models.Movies(movieTitle="Black Panther", synopsis="T'Challa, the King of Wakanda, rises to the throne in the isolated, technologically advanced African nation, but his claim is challenged by a vengeful outsider who was a childhood victim of T'Challa's father's mistake", rating=4)
-newMovieTheGreatestShowman = models.Movies(movieTitle="The Greatest Showman", synopsis="Celebrates the birth of show business, and tells of a visionary who rose from nothing to create a spectacle that became a worldwide sensation.", rating=4.1)
+newMovieBlackPanther = models.Movies(movieTitle="Black Panther", synopsis="T'Challa, the King of Wakanda, rises to the throne in the isolated, technologically advanced African nation, but his claim is challenged by a vengeful outsider who was a childhood victim of T'Challa's father's mistake", ageRating="12A")
+newMovieTheGreatestShowman = models.Movies(movieTitle="The Greatest Showman", synopsis="Celebrates the birth of show business, and tells of a visionary who rose from nothing to create a spectacle that became a worldwide sensation.", ageRating="PG")
 
 
 
@@ -97,9 +97,9 @@ db.session.add(screen2)
 db.session.add(screen3)
 db.session.commit()
 
-screen1ID = models.Screen.query.filter_by(screenName="Screen 1").first().id
-screen2ID = models.Screen.query.filter_by(screenName="Screen 2").first().id
-screen3ID = models.Screen.query.filter_by(screenName="Screen 3").first().id
+screen1ID = models.Screen.query.filter_by(screenName="Screen 1").first().screenName
+screen2ID = models.Screen.query.filter_by(screenName="Screen 2").first().screenName
+screen3ID = models.Screen.query.filter_by(screenName="Screen 3").first().screenName
 
 ############### adding screens to Screen tables ##############
 
