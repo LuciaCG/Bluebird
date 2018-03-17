@@ -33,3 +33,12 @@ class Screen(db.Model):
 
     def __repr__(self):
         return '' % (self.id, self.Capacity, self.screenName)
+
+class Seats(db.Model):
+    row = db.Column(db.String(1), primary_key=True)
+    seatNumber = db.Column(db.Integer, primary_key=True)
+    # seatReserved = db.relationship('SeatReserved', backref='screenings', lazy='dynamic')
+    # userReciept = db.relationship('Reciept', backref='screenings', lazy='dynamic')
+
+    def __repr__(self):
+        return '' % (self.row, self.seatNumber)
