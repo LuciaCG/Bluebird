@@ -22,9 +22,9 @@ MainWindow::MainWindow(QWidget *parent) :
     //Checks database connection
     firstDB.open();
     if(!firstDB.open())
-        ui->label->setText("FAILED");
+        ui->label_2->setText("FAILED");
      else
-        ui->label->setText("Connected");
+        ui->label_2->setText("Connected");
 
     //Creating an SQL table model
     QSqlTableModel *model = new QSqlTableModel(this,firstDB);
@@ -56,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
        //Getting current time from the system and turning into string to be displayed
        QString ct = QTime::currentTime().toString();
        //setting the clock label to the current time
-       ui->clock->setText(ct);
+       ui->clock_2->setText(ct);
     } );
     //updates the clock
     timer->start();
@@ -70,12 +70,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_BlackPanther_clicked()
 {
+    QModelIndex index = ui->tableView->currentIndex();
     //check if title has been selected
-    //check what title has been selected
-    //send title to learn
-    int row = modelindex.row();
-
-    learn *instance = new learn(this, row);
-    instance->show();
-
+    if ((ui->tableView->selectionModel()->isSelected(ui->tableView->currentIndex()))) {
+        //check what title has been selected
+        int row = index.row() + 1;
+        //send title to learn
+        learn *instance = new learn(this, row);
+        instance->show();
+    }
 }
