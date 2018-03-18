@@ -74,9 +74,10 @@ void MainWindow::on_BlackPanther_clicked()
     //check if title has been selected
     if ((ui->tableView->selectionModel()->isSelected(ui->tableView->currentIndex()))) {
         //check what title has been selected
-        int row = index.row() + 1;
+        int row = index.row();
+        QString name = ui->tableView->model()->data(ui->tableView->model()->index(row,0)).toString();
         //send title to learn
-        learn *instance = new learn(this, row);
+        learn *instance = new learn(this, name);
         instance->show();
     }
 }

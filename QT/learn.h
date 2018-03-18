@@ -12,12 +12,12 @@ class learn : public QWidget
     Q_OBJECT
 
 public:
-    explicit learn(QWidget *parent = 0, int _row = 10);
+    explicit learn(QWidget *parent = 0, QString _name = "");
     ~learn();
 
 private:
     Ui::learn *ui;
-    int row;
+    QString name;
 };
 
 #endif // LEARN_H
