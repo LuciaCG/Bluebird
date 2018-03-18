@@ -12,13 +12,16 @@ class learn : public QWidget
     Q_OBJECT
 
 public:
-    explicit learn(QWidget *parent = 0, QString _name = "", int _row = 0);
+    explicit learn(QWidget *parent = 0, QString _name = "", int _id = 0);
     ~learn();
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::learn *ui;
     QString name;
-    int row;
+    int id;
 };
 
 #endif // LEARN_H

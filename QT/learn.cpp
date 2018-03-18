@@ -1,15 +1,16 @@
 #include "learn.h"
 #include "ui_learn.h"
+#include "chairs.h"
 
 #include <QtWidgets>
 #include <QSqlTableModel>
 #include <QTableView>
 
-learn::learn(QWidget *parent, QString _name, int _row) :
+learn::learn(QWidget *parent, QString _name, int _id) :
     QWidget(parent),
     ui(new Ui::learn),
     name(_name),
-    row(_row)
+    id(_id)
 {
     ui->setupUi(this);
 
@@ -35,7 +36,7 @@ learn::learn(QWidget *parent, QString _name, int _row) :
     model->setTable("Screenings");
     model->removeColumn(0); // don't show the id
     model->removeColumn(0); // remove movies_id
-    model->setFilter(QString("movies_id = %1").arg(row));
+    model->setFilter(QString("movies_id = %1").arg(id));
     model->select();
 
     //Aesthetics
@@ -71,4 +72,18 @@ learn::learn(QWidget *parent, QString _name, int _row) :
 learn::~learn()
 {
     delete ui;
+}
+
+void learn::on_pushButton_clicked()
+{
+    QModelIndex index = ui->tableView2->currentIndex();
+    //check if time has been selected
+    if ((ui->tableView2->selectionModel()->isSelected(ui->tableView2->currentIndex()))) {
+        //check what time has been selected
+        int row = index.row();
+        QString time = ui->tableView2->model()->data(ui->tableView2->model()->index(row,0)).toString();
+        //send title to learn
+        chairs *instance = new chairs(this, time, id);
+        instance->show();
+    }
 }

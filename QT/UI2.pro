@@ -14,10 +14,13 @@ CONFIG += c++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    learn.cpp
+    learn.cpp \
+    chairs.cpp
 
 HEADERS  += mainwindow.h \
-    learn.h
+    learn.h \
+    chairs.h
 
 FORMS    += mainwindow.ui \
-    learn.ui
+    learn.ui \
+    chairs.ui

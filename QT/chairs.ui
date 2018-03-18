@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>learn</class>
- <widget class="QWidget" name="learn">
+ <class>chairs</class>
+ <widget class="QWidget" name="chairs">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1050</width>
-    <height>680</height>
+    <width>1046</width>
+    <height>686</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
-  </property>
-  <property name="layoutDirection">
-   <enum>Qt::LeftToRight</enum>
   </property>
   <widget class="QWidget" name="Body" native="true">
    <property name="geometry">
@@ -93,7 +90,7 @@ font-size:26pt;
 font-weight:bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Movies Screening&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;402&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_3">
@@ -130,32 +127,6 @@ font-size: 21px;</string>
       <string>TextLabel</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QTableView" name="tableView2">
-    <property name="geometry">
-     <rect>
-      <x>170</x>
-      <y>150</y>
-      <width>601</width>
-      <height>341</height>
-     </rect>
-    </property>
-    <attribute name="verticalHeaderVisible">
-     <bool>false</bool>
-    </attribute>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>790</x>
-      <y>150</y>
-      <width>161</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Select</string>
-    </property>
    </widget>
   </widget>
  </widget>
