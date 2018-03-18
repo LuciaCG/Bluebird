@@ -1,12 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "learn.h"
 
 #include <QSqlTableModel>
 #include <QTableView>
 #include <QtSql>
 #include <QHeaderView>
 #include <QtWidgets>
-#include "learn.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -77,7 +77,7 @@ void MainWindow::on_BlackPanther_clicked()
         int row = index.row();
         QString name = ui->tableView->model()->data(ui->tableView->model()->index(row,0)).toString();
         //send title to learn
-        learn *instance = new learn(this, name);
+        learn *instance = new learn(this, name, row + 1);
         instance->show();
     }
 }

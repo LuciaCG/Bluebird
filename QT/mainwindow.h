@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QWidget>
-#include <QtSql>
 #include <QtDebug>
 #include <QFileInfo>
 #include <QLCDNumber>

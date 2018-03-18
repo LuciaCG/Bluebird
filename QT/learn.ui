@@ -131,6 +131,19 @@ font-size: 21px;</string>
      </property>
     </widget>
    </widget>
+   <widget class="QTableView" name="tableView2">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>150</y>
+      <width>601</width>
+      <height>341</height>
+     </rect>
+    </property>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
+   </widget>
   </widget>
  </widget>
  <resources/>
