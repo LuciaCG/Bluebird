@@ -3,44 +3,44 @@ import datetime
 
 
 ############## useful queries ###############
-
-from app import models, db
-import datetime
-for movies in models.Movies.query.all():
-  print(movies.movieTitle)
-  print(movies.synopsis)
-  print(movies.ageRating)
-  print()
-
-from app import models, db
-import datetime
-for screens in models.Screen.query.all():
-  print(screens.screenName)
-  print(screens.Capacity)
-  print()
-
-from app import models, db
-import datetime
-for screenings in models.Screenings.query.all():
-   print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
-   print(screen_id)
-   print(screenings.time)
-   print()
-
-from app import models, db
-import datetime
-for seats in models.Seats.query.all():
-   print(seats)
-
-from app import models, db
-import datetime
-for seata in models.Seats.query.filter_by(row="A"):
-   print(seata)
-
-from app import models, db
-import datetime
-for row1 in models.Seats.query.filter_by(seatNumber=1):
-   print(row1)
+#
+# from app import models, db
+# import datetime
+# for movies in models.Movies.query.all():
+#   print(movies.movieTitle)
+#   print(movies.synopsis)
+#   print(movies.ageRating)
+#   print()
+#
+# from app import models, db
+# import datetime
+# for screens in models.Screen.query.all():
+#   print(screens.screenName)
+#   print(screens.Capacity)
+#   print()
+#
+# from app import models, db
+# import datetime
+# for screenings in models.Screenings.query.all():
+#    print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
+#    print(screenings.screen_id)
+#    print(screenings.time)
+#    print()
+#
+# from app import models, db
+# import datetime
+# for seats in models.Seats.query.all():
+#    print(seats)
+#
+# from app import models, db
+# import datetime
+# for seata in models.Seats.query.filter_by(row="A"):
+#    print(seata)
+#
+# from app import models, db
+# import datetime
+# for row1 in models.Seats.query.filter_by(seatNumber=1):
+#    print(row1)
 
 
 # models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle
