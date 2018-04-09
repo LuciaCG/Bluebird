@@ -17,7 +17,7 @@ class Screenings(db.Model):
     movies_id = db.Column(db.Integer, db.ForeignKey('movies.id'))
     screen_id = db.Column(db.String(150), db.ForeignKey('screen.screenName'))
     time = db.Column(db.DateTime)
-    # seatReserved = db.relationship('SeatReserved', backref='screenings', lazy='dynamic')
+    seatReserved = db.relationship('Seat_Reserved', backref='screenings', lazy='dynamic')
     # userReciept = db.relationship('Reciept', backref='screenings', lazy='dynamic')
 
     def __repr__(self):
@@ -34,7 +34,38 @@ class Screen(db.Model):
         return '' % (self.screenName, self.Capacity)
 
 class Seats(db.Model):
-    row = db.Column(db.String(1), primary_key=True)
-    seatNumber = db.Column(db.Integer, primary_key=True)
-    # seatReserved = db.relationship('SeatReserved', backref='screenings', lazy='dynamic')
+    rowSeatNumber = db.Column(db.String(3), primary_key=True)
+    seatReserved = db.relationship('Seat_Reserved', backref='seats', lazy='dynamic')
     # userReciept = db.relationship('Reciept', backref='screenings', lazy='dynamic')
+
+    def __repr__(self):
+        return '' % (self.rowSeatNumber)
+
+
+class Seat_Reserved(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    screening = db.Column(db.Integer, db.ForeignKey('screenings.id'))
+    seatRow = db.Column(db.String(3), db.ForeignKey('seats.rowSeatNumber'))
+
+    def __repr__(self):
+        return '' % (self.rowSeatNumber)
+
+class Employee(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+    password = db.Column(db.String(50))
+    #referenceReceipt
+
+    def __repr__(self):
+        return '' % (self.id, self.name, self.password)
+
+
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(20))
+    name = db.Column(db.String(20))
+    password = db.Column(db.String(50))
+    #referenceReceipt
+
+    def __repr__(self):
+        return '' % (self.id, self.name, self.password)
