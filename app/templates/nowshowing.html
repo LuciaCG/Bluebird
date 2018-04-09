@@ -13,7 +13,7 @@
         <div class="container">
           <div class="carousel-caption text-left">
             <h1 class = "carousel-text">{{ movieOne.movieTitle }}</h1>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">View Times and Tickets</a></p>
+            <p><a class="btn btn-lg btn-primary" href="/showtimes" role="button">View Times and Tickets</a></p>
           </div>
         </div>
       </div>
@@ -22,7 +22,7 @@
         <div class="container">
           <div class="carousel-caption">
             <h1 class = "carousel-text">{{ movieTwo.movieTitle }}</h1>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">View Times and Tickets</a></p>
+            <p><a class="btn btn-lg btn-primary" href="/showtimes" role="button">View Times and Tickets</a></p>
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
         <div class="container">
           <div class="carousel-caption text-right">
             <h1 class = "carousel-text">{{ movieThree.movieTitle }}</h1>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">View Times and Tickets</a></p>
+            <p><a class="btn btn-lg btn-primary" href="/showtimes" role="button">View Times and Tickets</a></p>
           </div>
         </div>
       </div>
@@ -58,11 +58,18 @@
         <div class="card mb-4 box-shadow">
           <!-- <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap"> -->
           <div class="card-body">
-            <p class="card-text"><a class = "modal-pointer" data-toggle="modal" data-target="#exampleModalLong">{{movie.movieTitle}}</a></p>
-            <p class="card-text">{{movie.synopsis}} </p>
+            <p class="card-text" id="nowShowingTitle"><a class = "modal-pointer" data-toggle="modal" data-target="#{{movie.id}}">{{movie.movieTitle}}</a></p>
+            <p class="card-text" id="{{movie.movieTitle}}">{{movie.synopsis}} </p>
+            <script type="text/javascript">
+              var myid=document.getElementById('{{movie.movieTitle}}');
+              myid.innerHTML=myid.innerHTML.substring(0,75)+'...';
+            </script>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View Times and Tickets</button>
+                <form method="post">
+                <!-- <p><a class="btn btn-sm btn-outline-secondary" href="/showtimes" input type="submit" name="submit" value=1>View Times and Tickets</a></p> -->
+                <button name="subject" type="submit" value="{{movie.id}}">Get Times and Tickets</button>
+                </form>
               </div>
               <small class="text-muted">9 mins</small>
             </div>
@@ -71,30 +78,31 @@
       </div>
     </div>
   </div>
-  {% endfor %}
-
-
-
   <!-- Modal -->
-  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal fade" id="{{movie.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle">{{movie.movieTitle}}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          ...
+          <p>{{movie.synopsis}}</p>
+          <p>{{movie.rating}}</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
     </div>
   </div>
+  {% endfor %}
+
+
+
+
 
 
 

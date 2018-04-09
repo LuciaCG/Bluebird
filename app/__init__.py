@@ -7,4 +7,6 @@ db = SQLAlchemy(app)
 
 app.static_folder = 'static'
 
+app.secret_key = 'anything'
+
 from app import views, models

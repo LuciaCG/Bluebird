@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<section class="jumbotron text-center">
+  <div class="container">
+    <h1 class="jumbotron-heading">{{movieName.movieTitle}}</h1>
+  </div>
+</section>
+
+<div class="container">
+  {% for movie in screenings %}
+
+
+  <div class="row">
+      <!-- <h1>{{movie.time.strftime('%B %d %Y')  }}</h1> -->
+    <div class="col-md-12">
+      <div class="card mb-4 box-shadow">
+        <div class="card-body">
+          <h1>{{movie.time.strftime('%B %d %Y')  }}</h1>
+          <h2>{{movie.time.strftime('%-H:00')  }}</h2>
+          <button name="bookSeat" type="submit" value="{{movie.id}}">Book a seat</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+</div>
+
+
+{% endblock %}
