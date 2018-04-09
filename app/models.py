@@ -15,7 +15,7 @@ class Movies(db.Model):
 class Screenings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     movies_id = db.Column(db.Integer, db.ForeignKey('movies.id'))
-    screen_id = db.Column(db.Integer, db.ForeignKey('screen.screenName'))
+    screen_id = db.Column(db.String(150), db.ForeignKey('screen.screenName'))
     time = db.Column(db.DateTime)
     # seatReserved = db.relationship('SeatReserved', backref='screenings', lazy='dynamic')
     # userReciept = db.relationship('Reciept', backref='screenings', lazy='dynamic')
@@ -25,12 +25,13 @@ class Screenings(db.Model):
 
 
 class Screen(db.Model):
+    # id = db.Column(db.Integer, primary_key=True)
     screenName = db.Column(db.String(150), primary_key=True)
     Capacity = (db.Column(db.Integer))
     screening = db.relationship('Screenings', backref='screen', lazy='dynamic')
 
     def __repr__(self):
-        return '' % (self.Capacity, self.screenName)
+        return '' % (self.screenName, self.Capacity)
 
 class Seats(db.Model):
     row = db.Column(db.String(1), primary_key=True)
