@@ -3,29 +3,21 @@ import datetime
 
 
 ############## useful queries ###############
-<<<<<<< HEAD
+#
 
-=======
-# 
->>>>>>> web_UI
 # from app import models, db
 # import datetime
 # for movies in models.Movies.query.all():
 #   print(movies.movieTitle)
 #   print(movies.synopsis)
-<<<<<<< HEAD
 #   print(movies.ageRating)
 #   print()
-=======
-#   print(movies.rating)
->>>>>>> web_UI
 #
 # from app import models, db
 # import datetime
 # for screens in models.Screen.query.all():
 #   print(screens.screenName)
 #   print(screens.Capacity)
-<<<<<<< HEAD
 #   print()
 #
 # from app import models, db
@@ -70,17 +62,6 @@ import datetime
 
 
 # print(models.Seats.query.get(("A",1)))
-=======
-#
-# from app import models, db
-# import datetime
-# for screenings in models.Screenings.query.all():
-#    print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
-#    print(models.Screen.query.filter_by(id=screenings.screen_id).first().screenName)
-#    print(screenings.time)
-#
-
->>>>>>> web_UI
 # models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle
 # a = models.Movies.query.filter_by(movieTitle="...").first()
 
@@ -119,14 +100,10 @@ for user in models.Users.query.all():
 ############### del all relivant db tables ##############
 
 ############### adding movie to Movies tables ##############
-<<<<<<< HEAD
-newMovieBlackPanther = models.Movies(movieTitle="Black Panther", synopsis="T'Challa, the King of Wakanda, rises to the throne in the isolated, technologically advanced African nation, but his claim is challenged by a vengeful outsider who was a childhood victim of T'Challa's father's mistake", ageRating="12A")
-newMovieTheGreatestShowman = models.Movies(movieTitle="The Greatest Showman", synopsis="Celebrates the birth of show business, and tells of a visionary who rose from nothing to create a spectacle that became a worldwide sensation.", ageRating="PG")
-=======
 newMovieBlackPanther = models.Movies(movieTitle="Black Panther", synopsis="T'Challa, the King of Wakanda, rises to the throne in the isolated, technologically advanced African nation, but his claim is challenged by a vengeful outsider who was a childhood victim of T'Challa's father's mistake", rating=4)
 newMovieTheGreatestShowman = models.Movies(movieTitle="The Greatest Showman", synopsis="Celebrates the birth of show business, and tells of a visionary who rose from nothing to create a spectacle that became a worldwide sensation.", rating=4.1)
 newMovieRedSparrow = models.Movies(movieTitle="Red Sparrow", synopsis="Ballerina Dominika Egorova is recruited to 'Sparrow School,' a Russian intelligence service where she is forced to use her body as a weapon. Her first mission, targeting a C.I.A. agent, threatens to unravel the security of both nations.", rating=4.1)
->>>>>>> web_UI
+
 
 
 
