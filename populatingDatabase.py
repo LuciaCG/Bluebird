@@ -3,7 +3,7 @@ import datetime
 
 
 ############## useful queries ###############
-#
+
 # from app import models, db
 # import datetime
 # for movies in models.Movies.query.all():
@@ -21,7 +21,7 @@ import datetime
 #
 # from app import models, db
 # import datetime
-# for screenings in models.Screenings.query.all():
+# for screenings in models.Screenings.query.filter_by(movies_id = 1).all():
 #    print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
 #    print(screenings.screen_id)
 #    print(screenings.time)
@@ -30,19 +30,37 @@ import datetime
 # from app import models, db
 # import datetime
 # for seats in models.Seats.query.all():
-#    print(seats)
+#    print(seats.rowSeatNumber)
 #
 # from app import models, db
 # import datetime
 # for seata in models.Seats.query.filter_by(row="A"):
-#    print(seata)
+#    print(seats.rowSeatNumber)
 #
 # from app import models, db
 # import datetime
 # for row1 in models.Seats.query.filter_by(seatNumber=1):
-#    print(row1)
+#    print(seats.rowSeatNumber)
+
+# from app import models, db
+# import datetime
+# for e in models.Employee.query.all():
+#     print(e.name)
+#     print(e.password)
+#     print()
+#
+# from app import models, db
+# import datetime
+# for u in models.Users.query.all():
+#     print(u.email)
+#     print(u.name)
+#     print(u.password)
+#     print()
 
 
+
+
+# print(models.Seats.query.get(("A",1)))
 # models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle
 # a = models.Movies.query.filter_by(movieTitle="...").first()
 
@@ -68,6 +86,14 @@ for screenings in models.Screenings.query.all():
 
 for seats in models.Seats.query.all():
     db.session.delete(seats)
+    db.session.commit()
+
+for employee in models.Employee.query.all():
+    db.session.delete(employee)
+    db.session.commit()
+
+for user in models.Users.query.all():
+    db.session.delete(user)
     db.session.commit()
 
 ############### del all relivant db tables ##############
@@ -152,60 +178,61 @@ db.session.commit()
 
 
 ############### adding seats to Seats tables ##############
-rowA1 = models.Seats(row="A", seatNumber=1)
-rowA2 = models.Seats(row="A", seatNumber=2)
-rowA3 = models.Seats(row="A", seatNumber=3)
-rowA4 = models.Seats(row="A", seatNumber=4)
-rowA5 = models.Seats(row="A", seatNumber=5)
-rowA6 = models.Seats(row="A", seatNumber=6)
-rowA7 = models.Seats(row="A", seatNumber=7)
-rowA8 = models.Seats(row="A", seatNumber=8)
-rowA9 = models.Seats(row="A", seatNumber=9)
-rowA10 = models.Seats(row="A", seatNumber=10)
+rowA1 = models.Seats(rowSeatNumber="A1")
+rowA2 = models.Seats(rowSeatNumber="A2")
+rowA3 = models.Seats(rowSeatNumber="A3")
+rowA4 = models.Seats(rowSeatNumber="A4")
+rowA5 = models.Seats(rowSeatNumber="A5")
+rowA6 = models.Seats(rowSeatNumber="A6")
+rowA7 = models.Seats(rowSeatNumber="A7")
+rowA20 = models.Seats(rowSeatNumber="A20")
+rowA8 = models.Seats(rowSeatNumber="A8")
+rowA9 = models.Seats(rowSeatNumber="A9")
+rowA10 = models.Seats(rowSeatNumber="A10")
 
-rowB1 = models.Seats(row="B", seatNumber=1)
-rowB2 = models.Seats(row="B", seatNumber=2)
-rowB3 = models.Seats(row="B", seatNumber=3)
-rowB4 = models.Seats(row="B", seatNumber=4)
-rowB5 = models.Seats(row="B", seatNumber=5)
-rowB6 = models.Seats(row="B", seatNumber=6)
-rowB7 = models.Seats(row="B", seatNumber=7)
-rowB8 = models.Seats(row="B", seatNumber=8)
-rowB9 = models.Seats(row="B", seatNumber=9)
-rowB10 = models.Seats(row="B", seatNumber=10)
+rowB1 = models.Seats(rowSeatNumber="B1")
+rowB2 = models.Seats(rowSeatNumber="B2")
+rowB3 = models.Seats(rowSeatNumber="B3")
+rowB4 = models.Seats(rowSeatNumber="B4")
+rowB5 = models.Seats(rowSeatNumber="B5")
+rowB6 = models.Seats(rowSeatNumber="B6")
+rowB7 = models.Seats(rowSeatNumber="B7")
+rowB8 = models.Seats(rowSeatNumber="B8")
+rowB9 = models.Seats(rowSeatNumber="B9")
+rowB10 = models.Seats(rowSeatNumber="B10")
 
-rowC1 = models.Seats(row="C", seatNumber=1)
-rowC2 = models.Seats(row="C", seatNumber=2)
-rowC3 = models.Seats(row="C", seatNumber=3)
-rowC4 = models.Seats(row="C", seatNumber=4)
-rowC5 = models.Seats(row="C", seatNumber=5)
-rowC6 = models.Seats(row="C", seatNumber=6)
-rowC7 = models.Seats(row="C", seatNumber=7)
-rowC8 = models.Seats(row="C", seatNumber=8)
-rowC9 = models.Seats(row="C", seatNumber=9)
-rowC10 = models.Seats(row="C", seatNumber=10)
+rowC1 = models.Seats(rowSeatNumber="C1")
+rowC2 = models.Seats(rowSeatNumber="C2")
+rowC3 = models.Seats(rowSeatNumber="C3")
+rowC4 = models.Seats(rowSeatNumber="C4")
+rowC5 = models.Seats(rowSeatNumber="C5")
+rowC6 = models.Seats(rowSeatNumber="C6")
+rowC7 = models.Seats(rowSeatNumber="C7")
+rowC8 = models.Seats(rowSeatNumber="C8")
+rowC9 = models.Seats(rowSeatNumber="C9")
+rowC10 = models.Seats(rowSeatNumber="C10")
 
-rowD1 = models.Seats(row="D", seatNumber=1)
-rowD2 = models.Seats(row="D", seatNumber=2)
-rowD3 = models.Seats(row="D", seatNumber=3)
-rowD4 = models.Seats(row="D", seatNumber=4)
-rowD5 = models.Seats(row="D", seatNumber=5)
-rowD6 = models.Seats(row="D", seatNumber=6)
-rowD7 = models.Seats(row="D", seatNumber=7)
-rowD8 = models.Seats(row="D", seatNumber=8)
-rowD9 = models.Seats(row="D", seatNumber=9)
-rowD10 = models.Seats(row="D", seatNumber=10)
+rowD1 = models.Seats(rowSeatNumber="D1")
+rowD2 = models.Seats(rowSeatNumber="D2")
+rowD3 = models.Seats(rowSeatNumber="D3")
+rowD4 = models.Seats(rowSeatNumber="D4")
+rowD5 = models.Seats(rowSeatNumber="D5")
+rowD6 = models.Seats(rowSeatNumber="D6")
+rowD7 = models.Seats(rowSeatNumber="D7")
+rowD8 = models.Seats(rowSeatNumber="D8")
+rowD9 = models.Seats(rowSeatNumber="D9")
+rowD10 = models.Seats(rowSeatNumber="D10")
 
-rowE1 = models.Seats(row="E", seatNumber=1)
-rowE2 = models.Seats(row="E", seatNumber=2)
-rowE3 = models.Seats(row="E", seatNumber=3)
-rowE4 = models.Seats(row="E", seatNumber=4)
-rowE5 = models.Seats(row="E", seatNumber=5)
-rowE6 = models.Seats(row="E", seatNumber=6)
-rowE7 = models.Seats(row="E", seatNumber=7)
-rowE8 = models.Seats(row="E", seatNumber=8)
-rowE9 = models.Seats(row="E", seatNumber=9)
-rowE10 = models.Seats(row="E", seatNumber=10)
+rowE1 = models.Seats(rowSeatNumber="E1")
+rowE2 = models.Seats(rowSeatNumber="E2")
+rowE3 = models.Seats(rowSeatNumber="E3")
+rowE4 = models.Seats(rowSeatNumber="E4")
+rowE5 = models.Seats(rowSeatNumber="E5")
+rowE6 = models.Seats(rowSeatNumber="E6")
+rowE7 = models.Seats(rowSeatNumber="E7")
+rowE8 = models.Seats(rowSeatNumber="E8")
+rowE9 = models.Seats(rowSeatNumber="E9")
+rowE10 = models.Seats(rowSeatNumber="E10")
 
 
 #adding and commit the movies to the database
@@ -219,6 +246,7 @@ db.session.add(rowA7)
 db.session.add(rowA8)
 db.session.add(rowA9)
 db.session.add(rowA10)
+db.session.add(rowA20)
 
 db.session.add(rowB1)
 db.session.add(rowB2)
@@ -267,3 +295,25 @@ db.session.add(rowE10)
 db.session.commit()
 
 ############### adding movie to Movies tables ##############
+
+############### adding employees to empoyees tables ##############
+
+employeeOnline = models.Employee(name="online", password="online")
+tempEmployee = models.Employee(name="temp empoyee 1", password="password123")
+
+db.session.add(employeeOnline)
+db.session.add(tempEmployee)
+
+db.session.commit()
+
+############### adding employees to empoyees tables ##############
+
+############### adding unsers to empoyees tables ##############
+
+guestUser = models.Users(name="guest", password="password123", email="guest@cinema.com")
+
+db.session.add(guestUser)
+
+db.session.commit()
+
+############### adding users to empoyees tables ##############
