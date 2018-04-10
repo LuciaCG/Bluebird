@@ -59,6 +59,15 @@ import datetime
 #     print(u.name)
 #     print(u.password)
 #     print()
+#
+# for a in models.TypeOfTickets.query.all():
+#     print(a.ticketType , (a.price))
+# 
+# for a in models.Receipts.query.all():
+#      b = models.Screenings.query.get(a.screening).movies_id
+#      c = models.Movies.query.get(b).movieTitle
+#      print(c)
+
 
 
 
@@ -101,6 +110,10 @@ for employee in models.Employee.query.all():
 
 for user in models.Users.query.all():
     db.session.delete(user)
+    db.session.commit()
+
+for ticket in models.TypeOfTickets.query.all():
+    db.session.delete(ticket)
     db.session.commit()
 
 ############### del all relivant db tables ##############
@@ -351,3 +364,23 @@ db.session.add(guestUser)
 db.session.commit()
 
 ############### adding users to empoyees tables ##############
+
+############### adding type of ticket to TypeOfTickets tables ##############
+
+child = models.TypeOfTickets(ticketType = "Child", price=6.5)
+adult = models.TypeOfTickets(ticketType = "Adult", price=9)
+senior = models.TypeOfTickets(ticketType = "Senior", price=7)
+VIP = models.TypeOfTickets(ticketType = "VIP", price=12)
+
+
+db.session.add(child)
+db.session.add(adult)
+db.session.add(senior)
+db.session.add(VIP)
+
+db.session.commit()
+
+############### adding type of ticket to TypeOfTickets tables ##############
+a = models.Receipts(userName="guest", employeeName="online", screening=1, price=9, pricePaid=9, change=0, transactionTime=datetime.datetime.utcnow())
+db.session.add(a)
+db.session.commit()
