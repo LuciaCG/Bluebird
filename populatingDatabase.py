@@ -31,7 +31,9 @@ import datetime
 # from app import models, db
 # import datetime
 # for seats in models.Seats.query.all():
-#    print(seats.rowSeatNumber)
+#    print(seats.row)
+#    print(seats.seatNumber)
+#    print()
 #
 # from app import models, db
 # import datetime
@@ -57,6 +59,15 @@ import datetime
 #     print(u.name)
 #     print(u.password)
 #     print()
+#
+# for a in models.TypeOfTickets.query.all():
+#     print(a.ticketType , (a.price))
+# 
+# for a in models.Receipts.query.all():
+#      b = models.Screenings.query.get(a.screening).movies_id
+#      c = models.Movies.query.get(b).movieTitle
+#      print(c)
+
 
 
 
@@ -81,6 +92,10 @@ for screen in models.Screen.query.all():
     db.session.delete(screen)
     db.session.commit()
 
+for seatRes in models.Seat_Reserved.query.all():
+    db.session.delete(seatRes)
+    db.session.commit()
+
 for screenings in models.Screenings.query.all():
     db.session.delete(screenings)
     db.session.commit()
@@ -95,6 +110,10 @@ for employee in models.Employee.query.all():
 
 for user in models.Users.query.all():
     db.session.delete(user)
+    db.session.commit()
+
+for ticket in models.TypeOfTickets.query.all():
+    db.session.delete(ticket)
     db.session.commit()
 
 ############### del all relivant db tables ##############
@@ -182,61 +201,60 @@ db.session.commit()
 
 
 ############### adding seats to Seats tables ##############
-rowA1 = models.Seats(rowSeatNumber="A1")
-rowA2 = models.Seats(rowSeatNumber="A2")
-rowA3 = models.Seats(rowSeatNumber="A3")
-rowA4 = models.Seats(rowSeatNumber="A4")
-rowA5 = models.Seats(rowSeatNumber="A5")
-rowA6 = models.Seats(rowSeatNumber="A6")
-rowA7 = models.Seats(rowSeatNumber="A7")
-rowA20 = models.Seats(rowSeatNumber="A20")
-rowA8 = models.Seats(rowSeatNumber="A8")
-rowA9 = models.Seats(rowSeatNumber="A9")
-rowA10 = models.Seats(rowSeatNumber="A10")
+rowA1 = models.Seats(row="A", seatNumber=1)
+rowA2 = models.Seats(row="A", seatNumber=2)
+rowA3 = models.Seats(row="A", seatNumber=3)
+rowA4 = models.Seats(row="A", seatNumber=4)
+rowA5 = models.Seats(row="A", seatNumber=5)
+rowA6 = models.Seats(row="A", seatNumber=6)
+rowA7 = models.Seats(row="A", seatNumber=7)
+rowA8 = models.Seats(row="A", seatNumber=8)
+rowA9 = models.Seats(row="A", seatNumber=9)
+rowA10 = models.Seats(row="A", seatNumber=10)
 
-rowB1 = models.Seats(rowSeatNumber="B1")
-rowB2 = models.Seats(rowSeatNumber="B2")
-rowB3 = models.Seats(rowSeatNumber="B3")
-rowB4 = models.Seats(rowSeatNumber="B4")
-rowB5 = models.Seats(rowSeatNumber="B5")
-rowB6 = models.Seats(rowSeatNumber="B6")
-rowB7 = models.Seats(rowSeatNumber="B7")
-rowB8 = models.Seats(rowSeatNumber="B8")
-rowB9 = models.Seats(rowSeatNumber="B9")
-rowB10 = models.Seats(rowSeatNumber="B10")
+rowB1 = models.Seats(row="B", seatNumber=1)
+rowB2 = models.Seats(row="B", seatNumber=2)
+rowB3 = models.Seats(row="B", seatNumber=3)
+rowB4 = models.Seats(row="B", seatNumber=4)
+rowB5 = models.Seats(row="B", seatNumber=5)
+rowB6 = models.Seats(row="B", seatNumber=6)
+rowB7 = models.Seats(row="B", seatNumber=7)
+rowB8 = models.Seats(row="B", seatNumber=8)
+rowB9 = models.Seats(row="B", seatNumber=9)
+rowB10 = models.Seats(row="B", seatNumber=10)
 
-rowC1 = models.Seats(rowSeatNumber="C1")
-rowC2 = models.Seats(rowSeatNumber="C2")
-rowC3 = models.Seats(rowSeatNumber="C3")
-rowC4 = models.Seats(rowSeatNumber="C4")
-rowC5 = models.Seats(rowSeatNumber="C5")
-rowC6 = models.Seats(rowSeatNumber="C6")
-rowC7 = models.Seats(rowSeatNumber="C7")
-rowC8 = models.Seats(rowSeatNumber="C8")
-rowC9 = models.Seats(rowSeatNumber="C9")
-rowC10 = models.Seats(rowSeatNumber="C10")
+rowC1 = models.Seats(row="C", seatNumber=1)
+rowC2 = models.Seats(row="C", seatNumber=2)
+rowC3 = models.Seats(row="C", seatNumber=3)
+rowC4 = models.Seats(row="C", seatNumber=4)
+rowC5 = models.Seats(row="C", seatNumber=5)
+rowC6 = models.Seats(row="C", seatNumber=6)
+rowC7 = models.Seats(row="C", seatNumber=7)
+rowC8 = models.Seats(row="C", seatNumber=8)
+rowC9 = models.Seats(row="C", seatNumber=9)
+rowC10 = models.Seats(row="C", seatNumber=10)
 
-rowD1 = models.Seats(rowSeatNumber="D1")
-rowD2 = models.Seats(rowSeatNumber="D2")
-rowD3 = models.Seats(rowSeatNumber="D3")
-rowD4 = models.Seats(rowSeatNumber="D4")
-rowD5 = models.Seats(rowSeatNumber="D5")
-rowD6 = models.Seats(rowSeatNumber="D6")
-rowD7 = models.Seats(rowSeatNumber="D7")
-rowD8 = models.Seats(rowSeatNumber="D8")
-rowD9 = models.Seats(rowSeatNumber="D9")
-rowD10 = models.Seats(rowSeatNumber="D10")
+rowD1 = models.Seats(row="D", seatNumber=1)
+rowD2 = models.Seats(row="D", seatNumber=2)
+rowD3 = models.Seats(row="D", seatNumber=3)
+rowD4 = models.Seats(row="D", seatNumber=4)
+rowD5 = models.Seats(row="D", seatNumber=5)
+rowD6 = models.Seats(row="D", seatNumber=6)
+rowD7 = models.Seats(row="D", seatNumber=7)
+rowD8 = models.Seats(row="D", seatNumber=8)
+rowD9 = models.Seats(row="D", seatNumber=9)
+rowD10 = models.Seats(row="D", seatNumber=10)
 
-rowE1 = models.Seats(rowSeatNumber="E1")
-rowE2 = models.Seats(rowSeatNumber="E2")
-rowE3 = models.Seats(rowSeatNumber="E3")
-rowE4 = models.Seats(rowSeatNumber="E4")
-rowE5 = models.Seats(rowSeatNumber="E5")
-rowE6 = models.Seats(rowSeatNumber="E6")
-rowE7 = models.Seats(rowSeatNumber="E7")
-rowE8 = models.Seats(rowSeatNumber="E8")
-rowE9 = models.Seats(rowSeatNumber="E9")
-rowE10 = models.Seats(rowSeatNumber="E10")
+rowE1 = models.Seats(row="E", seatNumber=1)
+rowE2 = models.Seats(row="E", seatNumber=2)
+rowE3 = models.Seats(row="E", seatNumber=3)
+rowE4 = models.Seats(row="E", seatNumber=4)
+rowE5 = models.Seats(row="E", seatNumber=5)
+rowE6 = models.Seats(row="E", seatNumber=6)
+rowE7 = models.Seats(row="E", seatNumber=7)
+rowE8 = models.Seats(row="E", seatNumber=8)
+rowE9 = models.Seats(row="E", seatNumber=9)
+rowE10 = models.Seats(row="E", seatNumber=10)
 
 
 #adding and commit the movies to the database
@@ -250,7 +268,6 @@ db.session.add(rowA7)
 db.session.add(rowA8)
 db.session.add(rowA9)
 db.session.add(rowA10)
-db.session.add(rowA20)
 
 db.session.add(rowB1)
 db.session.add(rowB2)
@@ -300,6 +317,32 @@ db.session.commit()
 
 ############### adding movie to Movies tables ##############
 
+
+############### Seat Reserved table tests ##################
+# from app import models, db
+# import datetime
+
+a = models.Seat_Reserved(screening=1, rowReservedID="A", seatNumberReservedID=4)
+b = models.Seat_Reserved(screening=1, rowReservedID="A", seatNumberReservedID=1)
+c = models.Seat_Reserved(screening=1, rowReservedID="B", seatNumberReservedID=4)
+d = models.Seat_Reserved(screening=2, rowReservedID="A", seatNumberReservedID=4)
+e = models.Seat_Reserved(screening=1, rowReservedID="B", seatNumberReservedID=2)
+f = models.Seat_Reserved(screening=1, rowReservedID="E", seatNumberReservedID=4)
+g = models.Seat_Reserved(screening=4, rowReservedID="A", seatNumberReservedID=4)
+
+db.session.add(a)
+db.session.add(b)
+db.session.add(c)
+db.session.add(d)
+db.session.add(e)
+db.session.add(f)
+db.session.add(g)
+
+db.session.commit()
+
+############### Seat Reserved table tests ##################
+
+
 ############### adding employees to empoyees tables ##############
 
 employeeOnline = models.Employee(name="online", password="online")
@@ -321,3 +364,23 @@ db.session.add(guestUser)
 db.session.commit()
 
 ############### adding users to empoyees tables ##############
+
+############### adding type of ticket to TypeOfTickets tables ##############
+
+child = models.TypeOfTickets(ticketType = "Child", price=6.5)
+adult = models.TypeOfTickets(ticketType = "Adult", price=9)
+senior = models.TypeOfTickets(ticketType = "Senior", price=7)
+VIP = models.TypeOfTickets(ticketType = "VIP", price=12)
+
+
+db.session.add(child)
+db.session.add(adult)
+db.session.add(senior)
+db.session.add(VIP)
+
+db.session.commit()
+
+############### adding type of ticket to TypeOfTickets tables ##############
+a = models.Receipts(userName="guest", employeeName="online", screening=1, price=9, pricePaid=9, change=0, transactionTime=datetime.datetime.utcnow())
+db.session.add(a)
+db.session.commit()
