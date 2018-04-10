@@ -18,3 +18,7 @@
 {
   cursor: pointer;
 }
+/*to remove padding at bottom of login and registration modals*/
+.panel {
+  margin-bottom: 0px!important;
+}

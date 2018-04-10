@@ -1,0 +1,100 @@
+/***********************************************
+
+	Template Name: Elegant Responsive Registration & Login Form
+	Author: BootstrapLayouts
+	URI: http://www.bootstraplayouts.com
+
+***********************************************/
+html,body{
+	/*background:linear-gradient(#cceeff,#1ab2ff);*/
+}
+#register .panel{
+	/*margin-top:100px;*/
+
+}
+#register .nopadding{
+	padding-top:0 !important;
+	padding-bottom:0 !important;
+}
+#register .col-lg-12{
+		background-color:#f4f5f7;
+}
+
+/**Registration Form**/
+
+#registration_form{
+	padding:10px 0px 10px 0px;
+}
+
+#registration_form .registration_logo{
+	display:inline-block;
+	margin-bottom:30px;
+	font-size:28px;
+	color:#286090;
+
+}
+
+#registration_form .butn{
+	margin-top:20px;
+}
+
+#registration_form .already_member {
+	padding-top:10px;
+}
+
+#registration_form .in{
+	border:0px;
+	border-radius:0px;
+	padding:20px;
+	color:black;
+	background-color:white;
+}
+
+/**Social Buttons**/
+
+.social-buttons .btn-default{
+	border-radius:0px;
+	margin-bottom:10px;
+	margin-top:5px;
+}
+
+.social-buttons i{
+	margin-right:5px;
+}
+
+.social-buttons .btn_facebook{
+	background-color:#003380;
+	color:white;
+	border:0px;
+}
+
+.social-buttons .btn_twitter{
+	background-color:skyblue;
+	color:white;
+	border:0px;
+}
+.social-buttons .btn_gmail{
+	background-color:#b30000;
+	color:white;
+	border:0px;
+}
+
+/**Media Query**/
+
+@media (max-width:800px){
+.social-buttons .btn-default{
+	margin-bottom:10px;
+}
+
+}
+
+#footer{
+	margin-top:20px;
+	padding:2px;
+	color:White;
+}
+
+#footer a{
+	color:white;
+	text-decoration:underline;
+}
