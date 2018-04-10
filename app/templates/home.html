@@ -2,8 +2,53 @@
 
 {% block content %}
 
+<div class="container">
+  <img id="marvellogohome" class="first-slide" src="static/images/logo.png" alt="Marvel Logo">
+  <h2>How to find us</h2>
 
 
 
+  <!-- <div id="map">My map will go here</div> -->
+</div>
+<footer class="footer-area">
+  <div class="container">
+    <div class="col-md-6">
+      <div class="footer-left">
+        <h2><i class="fa fa-user" aria-hidden="true"></i> Marvel Studios Cinema</h2>
+        <h2><i class="fa fa-phone" aria-hidden="true"></i> 0555 55 55 55 </h2>
+        <h2><i class="fa fa-at" aria-hidden="true"></i> marvelstudios@cinema.com </h2>
+        <adress>
+          <p> The Cooling Pond,<br> University of Leeds,<br>Leeds,<br> UK,<br> LS2 9JT.</p>
+        </adress>
+      </div>
+    </div>
+      <div class="col-md-6">
+        <div class="footer-right">
+          <div class="row">
+            <div id="map">My map will go here</div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</footer>
+
+<script>
+function myMap() {
+    var cinema = {lat: 53.804831, lng: -1.554077}
+    var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: cinema
+        });
+    var marker = new google.maps.Marker({
+          position: cinema,
+          map: map
+        });
+    }
+
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBb6E4M8FZu2ta6NICGvYoxuzE0waBQsMg&callback=myMap">
+</script>
 
 {% endblock %}

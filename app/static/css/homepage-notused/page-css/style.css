@@ -1,0 +1,860 @@
+/* ----------------------------------------------------
+Theme Name:		EREAL - HTML & Bootstrap Template
+Version:		1.0.0
+Author:			EREAL
+------------------------------------------------------- */
+
+
+/* ======================================================
+	TABLE OF CONTENTS
+   ====================================================== */
+
+/**
+
+* 1.0	Settings
+* 1.1	Navbar
+* 1.2	Slider
+* 1.3	About
+* 1.4	About Tabs
+* 1.5	Rooms
+* 1.6	Banner
+* 1.7	Services
+* 1.8	Newsletter
+* 1.9	Rates & Booking
+* 1.10	Testimonials	
+* 1.11	Contact
+* 1.12	Footer
+
+**/
+
+
+/* -----------------------------------------------------
+	1.0		Settings
+   ----------------------------------------------------- */
+   
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+h1,h2,h3,h4,h5,.btn,input,select,textarea{
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+/*.fixed {
+    position: fixed;
+    top:0; left:0;
+    width: 100%; 
+	z-index:9998;
+}
+
+.affix {
+    position: fixed;
+    top:0; left:0;
+    width: 100%; 
+	z-index:9998;
+}*/
+
+p{
+	font-weight:normal;
+	font-family: 'Roboto', sans-serif;
+	font-size:15px;
+	line-height:1.8em;
+}
+
+.navbar a, .nav-tabs a{
+	font-family: 'Roboto', sans-serif;
+}
+
+.page-heading{
+	font-size:35px;
+	text-align:center;
+	margin-top:0px;
+	display:inline-block;
+	margin-bottom:40px;
+}
+
+.heading-info{
+	width:85%;
+	margin:0 auto;
+}
+
+.heading-info{
+	padding-bottom:2em;
+	position:relative;
+	margin-bottom:50px;
+	text-align:center;
+}
+
+.heading-info::after{
+	content:'';
+	position:absolute;
+	width:5%;
+	height:2px;
+	bottom:0%;
+	left:48%;
+}
+
+.section-padding{
+	padding-top:115px;
+	padding-bottom:115px;
+}
+
+.banner-padding{
+	padding-top:90px;
+	padding-bottom:90px;
+}
+
+.nav-padding{
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
+.nav-no-padding{
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+.no-padding{
+	padding-left:0px;
+	padding-right:0px;
+}
+
+@media(max-width:991px){
+	
+	.section-padding{
+		padding-top:90px;
+		padding-bottom:90px;
+	}
+	
+	.banner-padding{
+		padding-top:80px;
+		padding-bottom:80px;
+	}
+	
+	.heading-info{
+		width:100%;
+	}
+	
+}
+
+@media(max-width:768px){
+	
+	.section-padding{
+		padding-top:80px;
+		padding-bottom:80px;
+	}
+	
+	.page-heading{
+		font-size:30px;
+	}
+}
+
+@media(max-width:640px){
+	
+	.heading-info::after{
+		width:10%;
+		left:45%;
+	}
+}
+
+@media(max-width:450px){
+	
+	.page-heading{
+		font-size:30px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.1		Navbar
+   ----------------------------------------------------- */
+
+.navbar-default {
+	-webkit-transition: all 0.35s;
+	-moz-transition: all 0.35s;
+	transition: all 0.35s;
+	font-weight: 200;
+	letter-spacing: 1px;
+	margin-bottom:0px;
+}
+
+.navbar-default .navbar-header .navbar-brand {
+    padding-top:0px;
+    padding-bottom:0px;
+}
+
+.navbar-default .navbar-brand img{
+	max-height:55px;
+	min-height:55px;
+	margin-top:-3px;
+}
+
+.navbar-default .navbar-header .navbar-toggle {
+    font-size: 12px;
+    padding: 8px 10px;
+}
+
+.navbar-default .nav > li > a {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+}
+
+@media(max-width:768px){
+	
+	.navbar-default{
+		padding-top:0;
+		padding-bottom:0;
+		text-align:center;
+	}
+	
+	.navbar-toggle{
+		margin-top:14px;
+	}
+	
+	.navbar-default .navbar-brand img{
+		max-height:40px;
+		min-height:40px;
+		margin-top:8px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.2		Slider
+   ----------------------------------------------------- */
+
+.slider-mask{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+}
+
+.flexslider li {
+	position: relative;
+}
+
+.flexslider li .meta {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+	height:100%;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction:column;
+}
+
+.flexslider li h1 {
+	margin-bottom: 0;
+	font-size: 65px;
+	font-weight: normal;
+}
+
+.flexslider li .category .btn-lg {
+	margin-top:20px;
+}
+	
+.flexslider li h2 {
+	padding: 13px 18px 11px;
+	font-size: 1.1em;
+	margin-top: 0;
+	font-weight: 300;
+	letter-spacing:2px;
+	line-height:1.5em;
+}
+
+.flexslider li .category {
+	display: flex;
+	flex-direction: row;
+}
+
+.flexslider li h1,
+.flexslider li h2,
+.flexslider li .category .btn {
+	-webkit-animation-duration: .6s;
+	animation-duration: .6s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-name: fadeOutTop;
+	animation-name: fadeOutTop;
+}
+
+.flexslider li.flex-active-slide .meta h1,
+.flexslider li.flex-active-slide .meta h2,
+.flexslider li.flex-active-slide .meta .category .btn {
+	-webkit-animation-delay: .4s;
+	animation-delay: .4s;
+	-webkit-animation-duration: .6s;
+	animation-duration: .6s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-name: fadeInTop;
+	animation-name: fadeInTop;
+}
+
+.flexslider li.flex-active-slide .meta h2 {
+	-webkit-animation-delay: .5s;
+	animation-delay: .5s;
+}
+
+.flexslider li.flex-active-slide .meta .category .btn {
+	-webkit-animation-delay: .8s;
+	animation-delay: .8s;
+}
+
+.flex-direction-nav {
+	display:none;		
+}
+
+@-webkit-keyframes fadeInTop {
+	
+	0% {
+		opacity: 0;
+		-webkit-transform: translate3d(0, -50%, 0);
+		transform: translate3d(0, -50%, 0);
+	}
+	
+	100% {
+		opacity: 1;
+		-webkit-transform: none;
+		transform: none;
+	}
+}
+
+@keyframes fadeInTop {
+	
+	0% {
+		opacity: 0;
+		-webkit-transform: translate3d(0, -50%, 0);
+		transform: translate3d(0, -50%, 0);
+	}
+	
+	100% {
+		opacity: 1;
+		-webkit-transform: none;
+		transform: none;
+	}
+}
+
+@-webkit-keyframes fadeOutTop {
+	
+	0% {
+		opacity: 1;
+	}
+	
+	100% {
+		opacity: 0;
+		-webkit-transform: translate3d(0, -50%, 0);
+		transform: translate3d(0, -50%, 0);
+	}
+}
+
+@keyframes fadeOutTop {
+	
+	0% {
+		opacity: 1;
+	}
+	
+	100% {
+		opacity: 0;
+		-webkit-transform: translate3d(0, -50%, 0);
+		transform: translate3d(0, -50%, 0);
+	}
+}
+
+@media(min-width:1200px){
+	
+	.flexslider ul li{
+		padding:400px 0px;
+	}
+}
+
+@media(max-width:1024px){
+	
+	.flexslider li h1{
+		font-size:50px;
+	}	
+}
+
+@media(min-width:991px) and (max-width:1200px){
+	
+	.flexslider ul li{
+		padding:400px 0px;
+	}
+}
+
+@media(min-width:768px) and (max-width:991px){
+	
+	.flexslider ul li{
+		padding:330px 0px;
+	}
+}
+
+@media(min-width:550px) and (max-width:768px){
+	
+	.flexslider ul li{
+		padding:280px 0px;
+	}
+}
+
+@media(max-width:550px){
+	
+	.flexslider li h1{
+		font-size:30px;
+	}	
+	
+	.flexslider li .category .btn-lg {
+		padding:7px;
+		font-size:14px;
+	}
+}
+
+@media(max-width:400px){
+	
+	.flexslider li h1{
+		font-size:25px;
+	}	
+}
+
+@media(min-width:320px) and (max-width:550px){
+	
+	.flexslider ul li{
+		padding:250px 0px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.3		About
+   ----------------------------------------------------- */
+
+.figure-box{
+	padding-top:25px;
+	padding-bottom:25px;
+}
+
+.figure-box h4{
+	margin-bottom:0px;
+}
+
+@media(max-width:991px){
+	
+	.figure-box{
+		margin-bottom:30px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.4		About Tabs
+   ----------------------------------------------------- */
+   
+#about-tabs .nav-tabs{
+	margin-top:45px;
+	text-align:center;
+	margin-bottom:1px;
+}
+
+#about-tabs .nav-tabs li{
+	border-radius:0px;
+	float:none;
+    display:inline-block;
+	text-transform:uppercase;
+	font-size:18px;
+	position:relative;
+}
+
+#about-tabs .nav-tabs li:hover{
+	border-radius:0px;
+}
+
+#about-tabs .nav-tabs li.active:after{
+	content:'';
+	position:absolute;
+	width:4px;
+	height:44px;
+}
+
+#about-tabs .tab-content{
+	margin-top:45px;
+}
+
+#about-tabs .tab-content .tab-pane .tab-text{
+	padding:40px;
+}
+
+#about-tabs .tab-content .tab-pane .tab-text .tab-heading{
+	padding-bottom:15px;
+	display:inline-block;
+	margin-bottom:30px;
+	margin-top:0px;
+}
+
+#about-tabs .tab-content .tab-pane .award-block{
+	margin-top:40px;
+	margin-bottom:40px;
+}	
+
+#about-tabs .tab-content .tab-pane ul li p{
+	display:inline;
+}
+
+#about-tabs .tab-content .tab-pane ul li .fa{
+	margin-right:10px;
+}
+
+@media(max-width:500px){
+	
+	#about-tabs .nav-tabs li{
+		font-size:14px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.5		Rooms
+   ----------------------------------------------------- */
+
+.room-image{
+	position:relative;
+	overflow:hidden;
+}
+
+.room-info{
+	position:absolute;
+	bottom:-100%;
+	height:100%;
+	width:100%;
+	padding:10px;	
+	transition:.3s;
+	display:flex;
+	align-items:center;
+	justify-content:center;	
+}
+
+.room-block:hover .room-info{
+	bottom:0%;
+}
+
+.room-info ul li .fa{
+	font-size:20px;
+	height:35px;
+	width:35px;
+	padding-top:5px;
+	text-align:center;
+}
+
+.room-info p{
+	font-size:13px;
+}
+
+.room-title{
+	padding:15px;
+}
+
+.room-title h4{
+	margin:0px;
+}
+
+#owl-rooms .item{
+	padding:10px;
+}
+
+#owl-rooms .owl-controls .owl-buttons div{
+	font-size:20px;
+	padding:0px 10px;
+	margin-top:20px;
+}
+
+#owl-rooms .owl-controls .owl-buttons div .fa{
+	margin-bottom:5px;
+}
+
+@media(min-width:1200px){
+	
+	.room-image img{
+		max-height:250px;
+		min-height:250px;
+		width:100%;
+	}
+}
+
+@media(min-width:991px) and (max-width:1200px){
+	
+	.room-image img{
+		max-height:200px;
+		min-height:200px;
+		width:100%;
+	}
+}
+
+@media(min-width:768px) and (max-width:991px){
+	
+	.room-image img{
+		max-height:250px;
+		min-height:250px;
+		width:100%;
+	}
+}
+
+@media(min-width:768px){
+	
+	.room-title .price{
+		float:right;
+	}
+}
+
+@media(max-width:768px){
+	
+	.room-title {
+		text-align:center;
+	}
+	
+	.room-title .price{
+		float:none;
+		margin-top:10px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.6		Banner
+   ----------------------------------------------------- */
+
+@media(max-width:991px){
+	
+	#promotional-1 .highlight-box{
+		margin-top:25px;
+		margin-bottom:25px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.7		Services
+   ----------------------------------------------------- */
+   
+.s-margin{
+	margin-bottom:40px;
+}
+
+.service-block:hover .service-icon .fa{
+	transition:.4s;
+}
+
+.service-block .service-info h4{
+	margin-top:0px;
+}
+
+.service-block .service-info p{
+	margin-bottom:0px;
+}
+
+@media(max-width:991px){
+	
+	.s-margin{
+		margin-bottom:0px;
+	}
+	
+	.service-block{
+		margin-bottom:40px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.8		Newsletter
+   ----------------------------------------------------- */
+
+#newsletter .fa{
+	font-size:35px;
+	height:70px;
+	width:70px;
+	text-align:center;
+	padding-top:15px;
+	display:inline-block;
+	margin-bottom:10px;
+}
+
+#newsletter{
+	text-transform:uppercase;
+}
+
+#newsletter h1{
+	font-weight:bold;
+	font-size:45px;
+}
+
+#newsletter h2{
+	font-size:25px;
+	margin-top:5px;
+	margin-bottom:25px;
+	line-height:1.5em;
+}
+
+#newsletter form{
+	padding-top:30px;
+}
+
+@media(max-width:670px){
+	
+	#newsletter h1{
+		font-size:35px;
+	}
+	
+	#newsletter h2{
+		font-size:20px;
+	}
+}
+
+@media(max-width:480px){
+	
+	#newsletter h1{
+		font-size:30px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.9		Rates & Booking
+   ----------------------------------------------------- */
+
+.rate-block{
+	padding:30px 20px;
+	transition:.4s;
+}
+
+.rate-block .rate-desc{
+	margin:35px 0;
+}
+
+.rate-block .rate-price h1{
+	font-size:70px;
+	font-weight:bold;
+}
+
+.rate-block .rate-price h4{
+	margin-bottom:40px;
+}
+
+@media(max-width:991px){
+	
+	.rate-block{
+		margin-top:15px;
+		margin-bottom:15px;
+	}
+}
+
+@media(max-width:768px){
+	
+	.rate-block .rate-price h1{
+		font-size:60px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.10	Testimonials
+   ----------------------------------------------------- */
+
+#testimonials #owl-testimonial .item{
+	padding:15px;
+}
+
+#testimonials #owl-testimonial .testi-block{
+	padding:20px;
+	text-align:center;
+}
+
+#testimonials #owl-testimonial .testi-image img{
+	height:100px;
+	width:100px;
+	display:inline-block;
+}
+
+#testimonials #owl-testimonial .testi-text p{
+	position:relative;
+	padding-top:30px;
+	padding-bottom:30px;
+}
+
+#testimonials #owl-testimonial .testi-text p::before{
+	position:absolute;
+	content: '\f10d';
+	font-family: 'FontAwesome';
+	font-size:30px;
+	left:0px;
+	top:0px;
+}
+
+#testimonials #owl-testimonial .testi-text p::after{
+	position:absolute;
+	content: '\f10d';
+	font-family: 'FontAwesome';
+	font-size:30px;
+	right:0px;
+	bottom:0px;
+	transform:rotate(180deg);
+}
+
+@media(max-width:600px){
+	
+	#testimonials #owl-testimonial .testi-block h3{
+		font-size:20px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.11	Contact
+   ----------------------------------------------------- */
+
+#contact #addresses .address-text-icon{
+	margin-bottom:20px;
+}
+
+#contact #addresses .address-text-icon p{
+	margin-bottom:0px;
+}
+
+@media(max-width:991px){
+
+	#contact #addresses .address-text-icon .text{
+		padding-left:0px;
+	}
+}
+	
+@media(min-width:768px){
+	
+	#contact #contact-form .btn{
+		float:right;
+	}
+}
+
+@media(max-width:768px){
+	
+	#contact #addresses{
+		margin-top:40px;
+	}
+}
+
+
+/* -----------------------------------------------------
+	1.12	Footer
+   ----------------------------------------------------- */
+
+#footer{
+	padding-top:60px;
+	padding-bottom:60px;
+}
+
+#footer .copyright p{
+	margin-bottom:0;
+	margin-top:20px;
+}

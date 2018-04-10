@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta content="charset=utf-8">
+	<title>FlexSlider 2</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+  <!-- Demo CSS -->
+	<link rel="stylesheet" href="test.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+
+
+</head>
+<body class="loading">
+
+	<div id="main" role="main">
+      <section class="slider">
+      
+        <div class="flexslider">
+          <ul class="slides">
+            <li>
+  	    	    <img src="http://placehold.it/1920x800" />
+              	<div class="meta">
+					<h1>Great journeys - fascinating places.</h1>
+                    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque egestas magna non ligula interdum.</h2>
+                    <div class="category">
+                        <button class="btn btn-default">Explore More</button>
+                    </div>
+                </div>
+  	    	</li>
+  	    	
+            <li>
+  	    	    <img src="http://placehold.it/1920x800" />
+             	 <div class="meta">
+                    <h1>Let us show you the world!</h1>
+                    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+                    <div class="category">
+                        <button class="btn btn-default">Explore More</button>
+                    </div>
+                </div>
+  	    	</li>
+  	    		
+            <li>
+  	    	    <img src="http://placehold.it/1920x800" />
+              	<div class="meta">
+                    <h1>Travel with a clear conscience.</h1>
+                    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+                    <div class="category">
+                        <button class="btn btn-default">Explore More</button>
+                    </div>
+                </div>
+  	    	</li>
+  	    		
+            <li>
+  	    	    <img src="http://placehold.it/1920x800" />
+              	<div class="meta">
+                    <h1>We bet you'll love it.</h1>
+                    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+                    <div class="category">
+                        <button class="btn btn-default">Explore More</button>
+                    </div>
+                </div>
+  	    	</li>
+            
+          </ul>
+        </div>
+        
+      </section>
+      
+  </div>
+
+  <!-- jQuery -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+ 
+  <!-- FlexSlider -->
+  <script defer src="js/jquery.flexslider.js"></script>
+
+  <script type="text/javascript">
+    $(function(){
+      SyntaxHighlighter.all();
+    });
+    $(window).load(function(){
+      $('.flexslider').flexslider({
+        animation: "slide",
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+      });
+    });
+	
+	$('.flexslider').flexslider({
+		animation: "slide",
+		controlNav: false
+	});
+
+  </script>
+
+  <!-- Optional FlexSlider Additions -->
+  <script src="js/jquery.easing.js"></script>
+  <script src="js/jquery.mousewheel.js"></script>
+
+</body>
+</html>

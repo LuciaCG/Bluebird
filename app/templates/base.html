@@ -32,8 +32,8 @@
 
 
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="/home">Fixed navbar</a>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="navbarpadedit">
+    <a class="navbar-brand" id="navlogoplace" href="/home"><img id="marvellogonav" class="first-slide" src="static/images/logo.png" alt="First slide"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -45,10 +45,13 @@
         <li class="nav-item">
           <a class="nav-link" href="/nowshowing">Now Showing</a>
         </li>
-        <li class="nav-item">
+
+      </ul>
+      <ul class="navbar-nav" id="log_reg">
+        <li class="nav-item" id="loginbutton">
           <button name="subject" type="submit" value="login" class = "modal-pointer" data-toggle="modal" data-target="#login">Login</button>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" id="regbutton">
           <button name="subject" type="submit" value="registration" class = "modal-pointer" data-toggle="modal" data-target="#registration">Registration</button>
         </li>
       </ul>
@@ -57,7 +60,7 @@
   </nav>
 
   <!-- <main role="main" class="container"> -->
-    <div class="jumbotron">
+    <div class="jumbotron" id="background">
       {% block content %}{% endblock %}
     </div>
   <!-- </main> -->
