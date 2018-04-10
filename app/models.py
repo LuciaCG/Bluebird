@@ -60,7 +60,7 @@ class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
     password = db.Column(db.String(50))
-    #referenceReceipt
+    reciept = db.relationship('Receipts', backref='employee', lazy='dynamic')
 
     def __repr__(self):
         return '' % (self.id, self.name, self.password)
@@ -71,7 +71,26 @@ class Users(db.Model):
     email = db.Column(db.String(20))
     name = db.Column(db.String(20))
     password = db.Column(db.String(50))
-    #referenceReceipt
+    reciept = db.relationship('Receipts', backref='users', lazy='dynamic')
 
     def __repr__(self):
         return '' % (self.id, self.name, self.password)
+
+
+class TypeOfTickets(db.Model):
+    ticketType = db.Column(db.String(25), primary_key=True)
+    price = db.Column(db.Float)
+
+    def __repr__(self):
+        return '' % (self.ticketType, self.price)
+
+
+class Receipts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    userName = db.Column(db.String(20), db.ForeignKey('users.name'))
+    employeeName = db.Column(db.String(20), db.ForeignKey('employee.name'))
+    screening = db.Column(db.Integer, db.ForeignKey('screenings.id'))
+    price = db.Column(db.Float)
+    pricePaid = db.Column(db.Float)
+    change = db.Column(db.Float)
+    transactionTime = db.Column(db.DateTime)
