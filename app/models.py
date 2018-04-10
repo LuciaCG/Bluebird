@@ -34,21 +34,27 @@ class Screen(db.Model):
         return '' % (self.screenName, self.Capacity)
 
 class Seats(db.Model):
-    rowSeatNumber = db.Column(db.String(3), primary_key=True)
-    seatReserved = db.relationship('Seat_Reserved', backref='seats', lazy='dynamic')
+    row = db.Column(db.String(1), primary_key=True)
+    seatNumber = db.Column(db.Integer, primary_key=True)
+
     # userReciept = db.relationship('Reciept', backref='screenings', lazy='dynamic')
 
     def __repr__(self):
-        return '' % (self.rowSeatNumber)
+        return '' % (self.row, self.seatNumber)
 
 
 class Seat_Reserved(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    screening = db.Column(db.Integer, db.ForeignKey('screenings.id'))
-    seatRow = db.Column(db.String(3), db.ForeignKey('seats.rowSeatNumber'))
+    screening = db.Column(db.Integer, db.ForeignKey('screenings.id'), primary_key=True)
+
+    rowReservedID = db.Column(db.String(1), db.ForeignKey('seats.row'), primary_key=True)
+    seatNumberReservedID = db.Column(db.Integer, db.ForeignKey('seats.seatNumber'), primary_key=True)
+
+    rowReserved = db.relationship("Seats", foreign_keys=[rowReservedID])
+    seatNumberReserved = db.relationship("Seats", foreign_keys=[seatNumberReservedID])
+
 
     def __repr__(self):
-        return '' % (self.rowSeatNumber)
+        return '' % (self.screening, self.rowReservedID, self.seatNumberReservedID)
 
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
