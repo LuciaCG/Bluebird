@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1019</width>
-    <height>732</height>
+    <height>719</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <double>1.000000000000000</double>
   </property>
   <property name="autoFillBackground">
-   <bool>true</bool>
+   <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: #f8f8f8;</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTableView" name="tableView">
@@ -293,6 +293,13 @@ font-size: 21px;</string>
       <string>Select</string>
      </property>
     </widget>
+    <zorder>lblTitle</zorder>
+    <zorder>btnHome</zorder>
+    <zorder>lblTitle_2</zorder>
+    <zorder>label</zorder>
+    <zorder>clock</zorder>
+    <zorder>BlackPanther_2</zorder>
+    <zorder>Header_2</zorder>
    </widget>
    <widget class="QPushButton" name="BlackPanther">
     <property name="geometry">
@@ -307,6 +314,9 @@ font-size: 21px;</string>
      <string>Select</string>
     </property>
    </widget>
+   <zorder>BlackPanther</zorder>
+   <zorder>Header</zorder>
+   <zorder>tableView</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
