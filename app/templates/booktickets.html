@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+Book a ticket page<br>
+
+
+{{movieName.movieTitle}}<br>
+{{movieName.synopsis}}<br>
+{{movieName.ageRating}}<br>
+
+{{screening.time}}<br>
+
+{{screening.screen_id}}<br>
+Seats Reserved<br>
+{% for seats in seatsRes %}
+
+  {{seats.rowReservedID}}
+  {{seats.seatNumberReservedID}}
+
+{% endfor %}<br>
+All Seats<br>
+{% for seats in seatsAll %}
+<table>
+
+<tr>
+  <td>{{seats.row}}{{seats.seatNumber}}</td>
+</tr>
+
+</table>
+
+
+{% endfor %}<br>
+
+
+
+
+
+
+
+{% endblock %}

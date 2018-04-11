@@ -39,15 +39,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link" href="/home">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/nowshowing">Now Showing</a>
         </li>
-
-      </ul>
-      <ul class="navbar-nav" id="log_reg">
         <li class="nav-item" id="loginbutton">
           <button name="subject" type="submit" value="login" class = "modal-pointer" data-toggle="modal" data-target="#login">Login</button>
         </li>
@@ -55,6 +52,7 @@
           <button name="subject" type="submit" value="registration" class = "modal-pointer" data-toggle="modal" data-target="#registration">Registration</button>
         </li>
       </ul>
+
 
     </div>
   </nav>
@@ -86,7 +84,7 @@
       <div class="modal-content">
           <div class="container text-center" id="login">
         		<div class="row">
-        				<div class="panel panel-default">
+        				<div class="panel panel-default" id="modal-login-back">
         					<div class="panel-body nopadding">
         						<div class="row">
         							<div class="col-lg-12">

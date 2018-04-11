@@ -10,12 +10,11 @@ import datetime
 # for movies in models.Movies.query.all():
 #   print(movies.movieTitle)
 #   print(movies.synopsis)
-<<<<<<< HEAD
+
 #   print(movies.rating)
-=======
 #   print(movies.ageRating)
 #   print()
->>>>>>> master
+
 #
 # from app import models, db
 # import datetime
@@ -66,7 +65,7 @@ import datetime
 #
 # for a in models.TypeOfTickets.query.all():
 #     print(a.ticketType , (a.price))
-# 
+#
 # for a in models.Receipts.query.all():
 #      b = models.Screenings.query.get(a.screening).movies_id
 #      c = models.Movies.query.get(b).movieTitle
