@@ -16,6 +16,23 @@
   float:right;
 }
 
+#loginbutton {
+  margin-top: 12.5px;
+  height: 25px;
+  color: #6D0101;
+}
+
+#modal-login-back {
+  background-color: black;
+}
+
+#regbutton {
+  margin-top: 12.5px;
+  margin-left: 15px;
+  height: 25px;
+  color: #6D0101;
+}
+
 #navlogoplace {
   padding: 0!important;
 }

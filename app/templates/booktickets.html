@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+Book a ticket page<br>
+
+
+{{movieName.movieTitle}}<br>
+{{movieName.synopsis}}<br>
+{{movieName.ageRating}}<br>
+
+{{screening.time}}<br>
+
+{{screening.screen_id}}<br>
+Seats Reserved<br>
+{% for seats in seatsRes %}
+
+  {{seats.rowReservedID}}
+  {{seats.seatNumberReservedID}}
+
+{% endfor %}<br>
+All Seats<br>
+
+<table>
+{% for seats in seatsAll %}
+<tr>
+  <td>
+    <form method="post">
+      <button name="bookThisSeat" type="submit" value="{{seats.row}}{{seats.seatNumber}}">{{seats.row}}{{seats.seatNumber}}</button>
+    </form>
+  </td>
+</tr>
+
+{% endfor %}<br>
+</table>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -19,7 +19,7 @@ def viewmovies():
             movieID = request.form.get('subject')
             # return redirect(url_for('showtimes'))
 
-        session['variable'] = movieID
+        session['movieVar'] = movieID
 
         if movieID != None:
             return redirect(url_for('showtimes'))
@@ -37,25 +37,65 @@ def viewmovies():
 def showtimes():
         screeningID = None
 
-        if 'variable' in session:
-            movieID = session['variable']
+        if 'movieVar' in session:
+            movieID = session['movieVar']
             movieName = models.Movies.query.filter_by(id=movieID).first()
             screenings = models.Screenings.query.filter_by(movies_id = movieID).all()
 
 
         else:
-            # movieName = models.Movies.query.filter_by(id=1).first()
             return redirect(url_for('home'))
 
 
         if request.method == 'POST':
             screeningID = request.form.get('bookSeat')
-            # return redirect(url_for('showtimes'))
 
         session['scrnVar'] = screeningID
+
+        if screeningID != None:
+            return redirect(url_for('booktickets'))
+
 
 
         return render_template('showtimes.html',
                                 movieName = movieName,
                                 screenings = screenings
+                                )
+
+
+@app.route('/booktickets', methods=['GET', 'POST'])
+def booktickets():
+        movieID = None
+        screeningID = None
+        seatID = None
+        seatsAll = models.Seats.query.all()
+
+        if 'movieVar' in session:
+            movieID = session['movieVar']
+            movieName = models.Movies.query.filter_by(id=movieID).first()
+
+
+
+        if 'scrnVar' in session:
+            screeningID = session['scrnVar']
+            screening = models.Screenings.query.filter_by(id=screeningID).first()
+            seatsRes = models.Seat_Reserved.query.filter_by(screening=screeningID).all()
+
+        else:
+            return redirect(url_for('home'))
+
+        if request.method == 'POST':
+            seatID = request.form.get('bookThisSeat')
+            wordlist = list(seatID)
+            a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1])
+            db.session.add(a)
+            db.session.commit()
+
+            return redirect(url_for('booktickets'))
+
+        return render_template('booktickets.html',
+                                movieName = movieName,
+                                screening = screening,
+                                seatsRes = seatsRes,
+                                seatsAll = seatsAll,
                                 )
