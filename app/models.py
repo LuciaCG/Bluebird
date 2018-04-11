@@ -1,5 +1,7 @@
 from app import db
 import datetime
+import hashlib
+
 
 class Movies(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -18,7 +20,7 @@ class Screenings(db.Model):
     screen_id = db.Column(db.String(150), db.ForeignKey('screen.screenName'))
     time = db.Column(db.DateTime)
     seatReserved = db.relationship('Seat_Reserved', backref='screenings', lazy='dynamic')
-    # userReciept = db.relationship('Reciept', backref='screenings', lazy='dynamic')
+    userReciept = db.relationship('Receipts', backref='screenings', lazy='dynamic')
 
     def __repr__(self):
         return '' % (self.id, self.movies_id, self.screen_id, self.time)
@@ -62,6 +64,12 @@ class Employee(db.Model):
     password = db.Column(db.String(50))
     reciept = db.relationship('Receipts', backref='employee', lazy='dynamic')
 
+    def __init__(self, name, password):
+        self.name = name
+        a = hashlib.sha256()
+        a.update(password.encode('utf-8'))
+        self.password = a.hexdigest()
+
     def __repr__(self):
         return '' % (self.id, self.name, self.password)
 
@@ -72,9 +80,17 @@ class Users(db.Model):
     name = db.Column(db.String(20))
     password = db.Column(db.String(50))
     reciept = db.relationship('Receipts', backref='users', lazy='dynamic')
+    cardDetails = db.relationship('CardDetails', backref='users', lazy='dynamic')
+
+    def __init__(self, password, name, email):
+        self.name = name
+        a = hashlib.sha256()
+        a.update(password.encode('utf-8'))
+        self.password = a.hexdigest()
+        self.email = email
 
     def __repr__(self):
-        return '' % (self.id, self.name, self.password)
+        return '' % (self.id, self.name, self.password, self.email)
 
 
 class TypeOfTickets(db.Model):
@@ -87,10 +103,33 @@ class TypeOfTickets(db.Model):
 
 class Receipts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    userName = db.Column(db.String(20), db.ForeignKey('users.name'))
-    employeeName = db.Column(db.String(20), db.ForeignKey('employee.name'))
+    userName = db.Column(db.String(20), db.ForeignKey('users.id'))
+    employeeName = db.Column(db.String(20), db.ForeignKey('employee.id'))
     screening = db.Column(db.Integer, db.ForeignKey('screenings.id'))
     price = db.Column(db.Float)
     pricePaid = db.Column(db.Float)
     change = db.Column(db.Float)
     transactionTime = db.Column(db.DateTime)
+
+    def __repr__(self):
+        return '' % (self.id, self.userName, self.employeeName, self.screening, self.price, self.pricePaid, self.change, self.transactionTime)
+
+
+class CardDetails(db.Model):
+    userID = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    cardNumber = db.Column(db.String(16), primary_key=True)
+    exMonth = db.Column(db.String(2))
+    exYear = db.Column(db.String(4))
+    securityNumber = db.Column(db.String(3))
+
+    def __repr__(self):
+        return '' % (self.userID, self.cardNumber, self.exMonth, self.exYear, self.securityNumber)
+
+    # def __init__(self, userID, cardNumber, exMonth, exYear, securityNumber):
+    #     self.userID = userID
+    #     a = hashlib.sha256()
+    #     a.update(cardNumber.encode('utf-8'))
+    #     self.cardNumber = a.hexdigest()
+    #     self.exMonth = exMonth
+    #     self.exYear = exYear
+    #     self.securityNumber = securityNumber
