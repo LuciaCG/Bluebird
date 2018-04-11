@@ -10,11 +10,17 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = UI2
 TEMPLATE = app
-
+CONFIG += c++11
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    learn.cpp \
+    chairs.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    learn.h \
+    chairs.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    learn.ui \
+    chairs.ui

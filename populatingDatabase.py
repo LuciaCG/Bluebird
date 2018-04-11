@@ -10,8 +10,12 @@ import datetime
 # for movies in models.Movies.query.all():
 #   print(movies.movieTitle)
 #   print(movies.synopsis)
+<<<<<<< HEAD
+#   print(movies.rating)
+=======
 #   print(movies.ageRating)
 #   print()
+>>>>>>> master
 #
 # from app import models, db
 # import datetime
@@ -166,7 +170,7 @@ screeningTime7 = datetime.datetime(2018, 3, 2, 9, tzinfo=datetime.timezone.utc)
 screeningTime8 = datetime.datetime(2018, 3, 2, 14, tzinfo=datetime.timezone.utc)
 screeningTime9 = datetime.datetime(2018, 3, 2, 21, tzinfo=datetime.timezone.utc)
 
-#assigning times to black panther
+ #assigning times to black panther
 blackPatherID = models.Movies.query.filter_by(movieTitle="Black Panther").first().id
 blackPantherScreening1 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime1)
 blackPantherScreening2 = models.Screenings(movies_id=blackPatherID, screen_id=screen2ID ,time = screeningTime2)
@@ -175,7 +179,7 @@ blackPantherScreening4 = models.Screenings(movies_id=blackPatherID, screen_id=sc
 blackPantherScreening5 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime5)
 blackPantherScreening6 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime6)
 
-#assigning times to the greatest showman
+ #assigning times to the greatest showman
 theGreatestShowmanID = models.Movies.query.filter_by(movieTitle="The Greatest Showman").first().id
 theGreatestShowmanScreening1 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen1ID ,time = screeningTime7)
 theGreatestShowmanScreening2 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen2ID ,time = screeningTime8)
