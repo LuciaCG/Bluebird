@@ -12,6 +12,7 @@ chairs::chairs(QWidget *parent, QString _time, int _id) :
     ui->setupUi(this);
 
 
+
     QTimer *timer = new QTimer(this);
     //Sets an delay between each updateS
     timer->setInterval(1000);

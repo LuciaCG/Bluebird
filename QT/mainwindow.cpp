@@ -17,9 +17,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
     firstDB.setHostName("bluebird");
-    //Database location
-    firstDB.setDatabaseName("/home/csunix/sc16rk/Year2/Project/bluebird/app.db");
-    //Checks database connection
+        //getting the relative path of the database
+    QDir bluebird = QDir::current();
+    bluebird.cdUp();
+    QString database = bluebird.path();
+    firstDB.setDatabaseName(database + "/app.db");
+        //connecting
     firstDB.open();
     if(!firstDB.open())
         ui->label_2->setText("FAILED");

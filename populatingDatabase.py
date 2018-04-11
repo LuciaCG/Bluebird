@@ -10,12 +10,8 @@ import datetime
 # for movies in models.Movies.query.all():
 #   print(movies.movieTitle)
 #   print(movies.synopsis)
-<<<<<<< HEAD
-#   print(movies.rating)
-=======
 #   print(movies.ageRating)
 #   print()
->>>>>>> master
 #
 # from app import models, db
 # import datetime

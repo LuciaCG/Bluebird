@@ -14,12 +14,15 @@ learn::learn(QWidget *parent, QString _name, int _id) :
 {
     ui->setupUi(this);
 
-    //
     //Initialising the data base connection
-    //
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
     firstDB.setHostName("bluebird");
-    firstDB.setDatabaseName("/home/csunix/sc16rk/Year2/Project/bluebird/app.db");
+        //getting the relative path of the database
+    QDir bluebird = QDir::current();
+    bluebird.cdUp();
+    QString database = bluebird.path();
+    firstDB.setDatabaseName(database + "/app.db");
+        //connecting
     firstDB.open();
     if(!firstDB.open())
         ui->label_3->setText("FAILED");
