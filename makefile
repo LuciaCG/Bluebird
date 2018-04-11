@@ -1,23 +1,20 @@
 db:
-	python db_create.py
+	python3 db_create.py
 
 pop:
-	python populatingDatabase.py
+	python3 populatingDatabase.py
 
 mig:
-	python db_migrate.py
+	python3 db_migrate.py
 
 freshAll:
-	rm -rf app.db
-	rm -r __pycache__
-	rm -r db_repository
-	rm -r app/__pycache__
-	python db_create.py
-	python populatingDatabase.py
+	make clean
+	python3 db_create.py
+	python3 populatingDatabase.py
 
 oldAll:
-	python db_migrate.py
-	python populatingDatabase.py
+	python3 db_migrate.py
+	python3 populatingDatabase.py
 
 clean:
 	rm -rf app.db
