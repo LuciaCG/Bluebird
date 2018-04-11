@@ -48,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->setStyleSheet("QHeaderView::section { background-color:red }");
     ui->tableView->show();
 
 

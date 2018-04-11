@@ -25,7 +25,7 @@ class Screenings(db.Model):
 
 
 class Screen(db.Model):
-    # id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     screenName = db.Column(db.String(150), primary_key=True)
     Capacity = (db.Column(db.Integer))
     screening = db.relationship('Screenings', backref='screen', lazy='dynamic')

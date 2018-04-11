@@ -83,7 +83,7 @@ void learn::on_pushButton_clicked()
     QModelIndex index = ui->tableView2->currentIndex();
     //check if time has been selected
     if ((ui->tableView2->selectionModel()->isSelected(ui->tableView2->currentIndex()))) {
-        //check what time has been selected
+        //check what screen has been selected
         int row = index.row();
         QString time = ui->tableView2->model()->data(ui->tableView2->model()->index(row,0)).toString();
         //send title to learn
