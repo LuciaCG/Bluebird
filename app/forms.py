@@ -9,9 +9,9 @@ class LoginForm(Form):
     remember_me = BooleanField('remember_me', default=False)
 
 class RegistrationForm(Form):
-    name = StringField('teamname', [validators.Required(),
+    name = StringField('name', [validators.Required(),
         validators.Length(min = 1, max = 40)])
-    email = StringField('teamname', [validators.Required(),
+    email = StringField('email', [validators.Required(),
         validators.Length(min = 1, max = 40)])
     password = PasswordField('New Password', [validators.Required(),
         validators.Length(min=1, max=16)])
