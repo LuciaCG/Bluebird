@@ -29,32 +29,35 @@ chairs::chairs(QWidget *parent, QString _screen, int _id) :
         ui->label_3->setText("Connected");
 
 
-    ui->lblTitle_6->setText("FUCK!");
-
-
 
     // SCREENING
-    //Creating an SQL table model
+
+    // get capacity of room
+    QSqlQuery query;
+    query.exec("SELECT * FROM Screen");
+    int capacity = 0;
+    while (query.next()) {
+            if (query.value(0).toString() == screen){
+                capacity = query.value(1).toInt();
+             }
+        }
+
+    //Create table with all screen seats
     QSqlTableModel *model = new QSqlTableModel(this,firstDB);
 
     //Selecting the Table we want from DB
-    model->setTable("Screen");
+    model->setTable("Seats");
+    model->select();
+    ui->tableView3->setModel(model);
 
-    QSqlQuery query;
-    query.exec("SELECT * FROM Screen");
-    while (query.next()) {
-            if (query.value(0).toString() == screen)
-                ui->lblTitle_6->setText(query.value(1).toString());
-        }
-
+    for (int i = capacity; i < model->rowCount(); i++){
+        ui->tableView3->hideRow(i); // remove seats that dont exist
+    }
 
     //Displaying the table in the Tableview
     ui->tableView3->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableView3->setModel(model);
-
     ui->tableView3->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView3->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
     ui->tableView3->show();
 
 
