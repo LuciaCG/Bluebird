@@ -67,6 +67,7 @@ def showtimes():
 def booktickets():
         movieID = None
         screeningID = None
+        seatID = None
         seatsAll = models.Seats.query.all()
 
         if 'movieVar' in session:
@@ -83,12 +84,18 @@ def booktickets():
         else:
             return redirect(url_for('home'))
 
+        if request.method == 'POST':
+            seatID = request.form.get('bookThisSeat')
+            wordlist = list(seatID)
+            a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1])
+            db.session.add(a)
+            db.session.commit()
 
-
+            return redirect(url_for('booktickets'))
 
         return render_template('booktickets.html',
                                 movieName = movieName,
                                 screening = screening,
                                 seatsRes = seatsRes,
-                                seatsAll = seatsAll
+                                seatsAll = seatsAll,
                                 )

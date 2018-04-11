@@ -19,17 +19,22 @@ Seats Reserved<br>
 
 {% endfor %}<br>
 All Seats<br>
-{% for seats in seatsAll %}
-<table>
 
+<table>
+{% for seats in seatsAll %}
 <tr>
-  <td>{{seats.row}}{{seats.seatNumber}}</td>
+  <td>
+    <form method="post">
+      <button name="bookThisSeat" type="submit" value="{{seats.row}}{{seats.seatNumber}}">{{seats.row}}{{seats.seatNumber}}</button>
+    </form>
+  </td>
 </tr>
 
+{% endfor %}<br>
 </table>
 
 
-{% endfor %}<br>
+
 
 
 
