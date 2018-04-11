@@ -43,7 +43,8 @@ learn::learn(QWidget *parent, QString _name, int _id) :
     model->select();
 
     //Aesthetics
-    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Times Available"));
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Screens"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Times Available"));
 
     //Displaying the table in the Tableview
     ui->tableView2->setEditTriggers(QAbstractItemView::NoEditTriggers);

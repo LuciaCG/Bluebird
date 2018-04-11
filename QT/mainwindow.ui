@@ -20,7 +20,7 @@
    <bool>true</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">&quot;background-color : black;&quot;</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTableView" name="tableView">
@@ -39,7 +39,10 @@
      </size>
     </property>
     <property name="autoFillBackground">
-     <bool>true</bool>
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold;}</string>
     </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAsNeeded</enum>
@@ -50,8 +53,14 @@
     <property name="sizeAdjustPolicy">
      <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
     </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
     <attribute name="horizontalHeaderDefaultSectionSize">
      <number>100</number>
+    </attribute>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>false</bool>
     </attribute>
     <attribute name="horizontalHeaderMinimumSectionSize">
      <number>50</number>
@@ -289,7 +298,7 @@ font-size: 21px;</string>
     <property name="geometry">
      <rect>
       <x>780</x>
-      <y>180</y>
+      <y>200</y>
       <width>211</width>
       <height>81</height>
      </rect>

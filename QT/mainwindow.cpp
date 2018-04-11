@@ -41,13 +41,13 @@ MainWindow::MainWindow(QWidget *parent) :
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("Title"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("Rating"));
 
+
     //Displaying the table in the Tableview
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setModel(model);
 
     ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
     ui->tableView->show();
 
 
