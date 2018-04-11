@@ -44,10 +44,11 @@ import datetime
 # import datetime
 # for row1 in models.Seats.query.filter_by(seatNumber=1):
 #    print(seats.rowSeatNumber)
-
+#
 # from app import models, db
 # import datetime
 # for e in models.Employee.query.all():
+#     print(e.id)
 #     print(e.name)
 #     print(e.password)
 #     print()
@@ -55,6 +56,7 @@ import datetime
 # from app import models, db
 # import datetime
 # for u in models.Users.query.all():
+#     print(u.id)
 #     print(u.email)
 #     print(u.name)
 #     print(u.password)
@@ -384,3 +386,15 @@ db.session.commit()
 a = models.Receipts(userName="guest", employeeName="online", screening=1, price=9, pricePaid=9, change=0, transactionTime=datetime.datetime.utcnow())
 db.session.add(a)
 db.session.commit()
+
+
+# from app import models, db
+# import datetime
+# import hashlib
+# a = models.CardDetails(userID=1, cardNumber="1212121212121212", exMonth="11", exYear="1111", securityNumber="111")
+# db.session.add(a)
+# db.session.commit()
+#
+#
+# for a in models.CardDetails.query.all():
+    #  print(a.userID , a.cardNumber)
