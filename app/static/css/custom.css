@@ -1,0 +1,60 @@
+#mine {
+  border-color: grey;
+  background-image: url(../images/polygon-background.jpg);
+  color: black;
+}
+
+#navbarpadedit {
+  margin-bottom: 0px!important;
+  border-radius: 0px!important;
+  /*padding: 0px!important;*/
+}
+
+#log_reg {
+  padding-top: 12.5px;
+  height: 50px;
+  float:right;
+}
+
+#navlogoplace {
+  padding: 0!important;
+}
+
+#nowShowingTitle {
+  font-size: 40px;
+}
+
+.carousel-text
+{
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#marvellogohome {
+  max-width: 100%;
+}
+#marvellogonav {
+  max-width: 100px;
+  height: 50px;
+  border-radius: 50%;
+
+}
+
+#map {
+  height: 500px;
+  width: 100%;
+}
+
+#background
+{
+    /*background-image: url(../images/polygon-background.jpg);*/
+}
+
+
+.modal-pointer
+{
+  cursor: pointer;
+}
+/*to remove padding at bottom of login and registration modals*/
+.panel {
+  margin-bottom: 0px!important;
+}
