@@ -68,7 +68,10 @@ def booktickets():
         movieID = None
         screeningID = None
         seatID = None
+        movies = models.Movies.query.all()
         seatsAll = models.Seats.query.all()
+        seatNumber = models.Seats.query.with_entities(models.Seats.seatNumber).group_by(models.Seats.seatNumber).all()
+        rows = models.Seats.query.with_entities(models.Seats.row).group_by(models.Seats.row).all()
 
         if 'movieVar' in session:
             movieID = session['movieVar']
@@ -86,8 +89,13 @@ def booktickets():
 
         if request.method == 'POST':
             seatID = request.form.get('bookThisSeat')
+            # print(wordlist)
             wordlist = list(seatID)
-            a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1])
+            print(len(wordlist))
+            if len(wordlist) == 2:
+                a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1])
+            elif len(wordlist) == 3:
+                a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1]+wordlist[2])
             db.session.add(a)
             db.session.commit()
 
@@ -98,4 +106,7 @@ def booktickets():
                                 screening = screening,
                                 seatsRes = seatsRes,
                                 seatsAll = seatsAll,
+                                seatNumber = seatNumber,
+                                rows = rows,
+                                movies = movies
                                 )

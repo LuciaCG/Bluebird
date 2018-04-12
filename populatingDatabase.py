@@ -146,7 +146,9 @@ for ticket in models.TypeOfTickets.query.all():
 newMovieBlackPanther = models.Movies(movieTitle="Black Panther", synopsis="T'Challa, the King of Wakanda, rises to the throne in the isolated, technologically advanced African nation, but his claim is challenged by a vengeful outsider who was a childhood victim of T'Challa's father's mistake", ageRating="12A")
 newMovieTheGreatestShowman = models.Movies(movieTitle="The Greatest Showman", synopsis="Celebrates the birth of show business, and tells of a visionary who rose from nothing to create a spectacle that became a worldwide sensation.", ageRating="PG")
 newMovieRedSparrow = models.Movies(movieTitle="Red Sparrow", synopsis="Ballerina Dominika Egorova is recruited to 'Sparrow School,' a Russian intelligence service where she is forced to use her body as a weapon. Her first mission, targeting a C.I.A. agent, threatens to unravel the security of both nations.", ageRating="15")
-
+newMovieSpiderManHomecoming = models.Movies(movieTitle="Spider-Man: Homecoming", synopsis="Thrilled by his experience with the Avengers, young Peter Parker returns home to live with his Aunt May. Under the watchful eye of mentor Tony Stark, Parker starts to embrace his newfound identity as Spider-Man. He also tries to return to his normal daily routine -- distracted by thoughts of proving himself to be more than just a friendly neighborhood superhero. Peter must soon put his powers to the test when the evil Vulture emerges to threaten everything that he holds dear.", ageRating="12A")
+newMovieCaptainAmericaCivilWar = models.Movies(movieTitle="Captain America: Civil War", synopsis="Political pressure mounts to install a system of accountability when the actions of the Avengers lead to collateral damage. The new status quo deeply divides members of the team. Captain America (Chris Evans) believes superheroes should remain free to defend humanity without government interference. Iron Man (Robert Downey Jr.) sharply disagrees and supports oversight. As the debate escalates into an all-out feud, Black Widow (Scarlett Johansson) and Hawkeye (Jeremy Renner) must pick a side.", ageRating="12A")
+newMovieAntMan = models.Movies(movieTitle="Ant-Man", synopsis="Forced out of his own company by former protégé Darren Cross, Dr. Hank Pym (Michael Douglas) recruits the talents of Scott Lang (Paul Rudd), a master thief just released from prison. Lang becomes Ant-Man, trained by Pym and armed with a suit that allows him to shrink in size, possess superhuman strength and control an army of ants. The miniature hero must use his new skills to prevent Cross, also known as Yellowjacket, from perfecting the same technology and using it as a weapon for evil.", ageRating="12A")
 
 
 
@@ -154,6 +156,9 @@ newMovieRedSparrow = models.Movies(movieTitle="Red Sparrow", synopsis="Ballerina
 db.session.add(newMovieBlackPanther)
 db.session.add(newMovieTheGreatestShowman)
 db.session.add(newMovieRedSparrow)
+db.session.add(newMovieSpiderManHomecoming)
+db.session.add(newMovieCaptainAmericaCivilWar)
+db.session.add(newMovieAntMan)
 db.session.commit()
 
 ############### adding movie to Movies tables ##############

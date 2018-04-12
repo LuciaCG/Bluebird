@@ -46,7 +46,7 @@
     </a>
   </div>
 
-  <section class="jumbotron text-center">
+  <section id="background" class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Now Showing</h1>
     </div>
@@ -62,13 +62,13 @@
             <p class="card-text" id="{{movie.movieTitle}}">{{movie.synopsis}} </p>
             <script type="text/javascript">
               var myid=document.getElementById('{{movie.movieTitle}}');
-              myid.innerHTML=myid.innerHTML.substring(0,75)+'...';
+              myid.innerHTML=myid.innerHTML.substring(0,100)+'...';
             </script>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
                 <form method="post">
                 <!-- <p><a class="btn btn-sm btn-outline-secondary" href="/showtimes" input type="submit" name="submit" value=1>View Times and Tickets</a></p> -->
-                <button name="subject" type="submit" value="{{movie.id}}">Get Times and Tickets</button>
+                <button class ="button button5" name="subject" type="submit" value="{{movie.id}}">Get Times and Tickets</button>
                 </form>
               </div>
               <small class="text-muted">9 mins</small>

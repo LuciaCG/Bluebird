@@ -1,35 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
 
-Book a ticket page<br>
+<h1> Now Booking Your Tickets </h1><br>
+
+<h2>{{screening.time}} {{screening.screen_id}}</h2><br>
+<h2>{{movieName.movieTitle}}</h2><br>
 
 
-{{movieName.movieTitle}}<br>
+
 {{movieName.synopsis}}<br>
 {{movieName.ageRating}}<br>
 
-{{screening.time}}<br>
 
-{{screening.screen_id}}<br>
-Seats Reserved<br>
+
+
+Unavailable Seats<br>
 {% for seats in seatsRes %}
 
-  {{seats.rowReservedID}}
-  {{seats.seatNumberReservedID}}
+  (  {{seats.rowReservedID}}
+  {{seats.seatNumberReservedID}} )
 
 {% endfor %}<br>
-All Seats<br>
+            <br>
+Seats Available<br>
 
-<table>
-{% for seats in seatsAll %}
+<table style="width:100%">
+{% for row in rows %}
+<th>
+      {{row.row}}
+</th>
 <tr>
+  {% for seat in seatNumber %}
   <td>
     <form method="post">
-      <button name="bookThisSeat" type="submit" value="{{seats.row}}{{seats.seatNumber}}">{{seats.row}}{{seats.seatNumber}}</button>
+      <button class ="button button5" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
     </form>
   </td>
+  {% endfor %}
 </tr>
-
 {% endfor %}<br>
 </table>
 
