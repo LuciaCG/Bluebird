@@ -44,10 +44,11 @@ import datetime
 # import datetime
 # for row1 in models.Seats.query.filter_by(seatNumber=1):
 #    print(seats.rowSeatNumber)
-
+#
 # from app import models, db
 # import datetime
 # for e in models.Employee.query.all():
+#     print(e.id)
 #     print(e.name)
 #     print(e.password)
 #     print()
@@ -55,6 +56,7 @@ import datetime
 # from app import models, db
 # import datetime
 # for u in models.Users.query.all():
+#     print(u.id)
 #     print(u.email)
 #     print(u.name)
 #     print(u.password)
@@ -62,7 +64,7 @@ import datetime
 #
 # for a in models.TypeOfTickets.query.all():
 #     print(a.ticketType , (a.price))
-# 
+#
 # for a in models.Receipts.query.all():
 #      b = models.Screenings.query.get(a.screening).movies_id
 #      c = models.Movies.query.get(b).movieTitle
@@ -75,6 +77,28 @@ import datetime
 # print(models.Seats.query.get(("A",1)))
 # models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle
 # a = models.Movies.query.filter_by(movieTitle="...").first()
+
+
+# from app import models, db
+# import datetime
+# seatNumber = models.Seats.query.with_entities(models.Seats.seatNumber).group_by(models.Seats.seatNumber).all()
+# rows = models.Seats.query.with_entities(models.Seats.row).group_by(models.Seats.row).all()
+# x = 0
+#
+# for a in rows:
+#     if x == 15:
+#         break
+#     print(a.row)
+#     for b in seatNumber:
+#         if x == 15:
+#             break
+#         print(a.row , b.seatNumber)
+#         x+=1
+
+
+
+
+        # print(x)
 
 
 
@@ -384,3 +408,15 @@ db.session.commit()
 a = models.Receipts(userName="guest", employeeName="online", screening=1, price=9, pricePaid=9, change=0, transactionTime=datetime.datetime.utcnow())
 db.session.add(a)
 db.session.commit()
+
+
+# from app import models, db
+# import datetime
+# import hashlib
+# a = models.CardDetails(userID=1, cardNumber="1212121212121212", exMonth="11", exYear="1111", securityNumber="111")
+# db.session.add(a)
+# db.session.commit()
+#
+#
+# for a in models.CardDetails.query.all():
+    #  print(a.userID , a.cardNumber)
