@@ -8,6 +8,7 @@ mig:
 	python3 db_migrate.py
 
 freshAll:
+	clear
 	make clean
 	python3 db_create.py
 	python3 populatingDatabase.py
@@ -18,6 +19,6 @@ oldAll:
 
 clean:
 	rm -rf app.db
-	rm -r __pycache__
-	rm -r db_repository
-	rm -r app/__pycache__
+	rm -rf __pycache__
+	rm -rf db_repository
+	rm -rf app/__pycache__
