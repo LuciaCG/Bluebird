@@ -3,7 +3,19 @@ from flask import render_template, url_for, request, session, redirect
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-      return render_template('home.html')
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        p = models.Users(name=form.name.data,
+                        email=form.email.data,
+                        password=form.password.data,
+                        )
+        db.session.add(p)
+        db.session.commit()
+        return redirect(url_for('signup'))
+
+
+
+    return render_template('home.html')
 
 
 @app.route('/nowshowing', methods=['GET', 'POST'])
