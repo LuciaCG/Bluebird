@@ -79,6 +79,28 @@ import datetime
 # a = models.Movies.query.filter_by(movieTitle="...").first()
 
 
+# from app import models, db
+# import datetime
+# seatNumber = models.Seats.query.with_entities(models.Seats.seatNumber).group_by(models.Seats.seatNumber).all()
+# rows = models.Seats.query.with_entities(models.Seats.row).group_by(models.Seats.row).all()
+# x = 0
+#
+# for a in rows:
+#     if x == 15:
+#         break
+#     print(a.row)
+#     for b in seatNumber:
+#         if x == 15:
+#             break
+#         print(a.row , b.seatNumber)
+#         x+=1
+
+
+
+
+        # print(x)
+
+
 
 ############## useful queries ###############
 
