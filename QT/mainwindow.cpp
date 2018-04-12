@@ -17,9 +17,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
     firstDB.setHostName("bluebird");
-    //Database location
-    firstDB.setDatabaseName("/home/csunix/sc16rk/Year2/Project/bluebird/app.db");
-    //Checks database connection
+        //getting the relative path of the database
+    QDir bluebird = QDir::current();
+    bluebird.cdUp();
+    QString database = bluebird.path();
+    firstDB.setDatabaseName(database + "/app.db");
+        //connecting
     firstDB.open();
     if(!firstDB.open())
         ui->label_2->setText("FAILED");
@@ -38,13 +41,14 @@ MainWindow::MainWindow(QWidget *parent) :
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("Title"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("Rating"));
 
+
     //Displaying the table in the Tableview
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setModel(model);
 
     ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
+    ui->tableView->setStyleSheet("QHeaderView::section { background-color:red }");
     ui->tableView->show();
 
 

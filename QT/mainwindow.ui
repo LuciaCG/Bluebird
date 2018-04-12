@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1019</width>
-    <height>732</height>
+    <height>719</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <double>1.000000000000000</double>
   </property>
   <property name="autoFillBackground">
-   <bool>true</bool>
+   <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">&quot;background-color : black;&quot;</string>
+   <string notr="true">background-color: #f8f8f8;</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTableView" name="tableView">
@@ -39,7 +39,10 @@
      </size>
     </property>
     <property name="autoFillBackground">
-     <bool>true</bool>
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold;}</string>
     </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAsNeeded</enum>
@@ -50,8 +53,14 @@
     <property name="sizeAdjustPolicy">
      <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
     </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
     <attribute name="horizontalHeaderDefaultSectionSize">
      <number>100</number>
+    </attribute>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>false</bool>
     </attribute>
     <attribute name="horizontalHeaderMinimumSectionSize">
      <number>50</number>
@@ -284,12 +293,19 @@ font-size: 21px;</string>
       <string>Select</string>
      </property>
     </widget>
+    <zorder>lblTitle</zorder>
+    <zorder>btnHome</zorder>
+    <zorder>lblTitle_2</zorder>
+    <zorder>label</zorder>
+    <zorder>clock</zorder>
+    <zorder>BlackPanther_2</zorder>
+    <zorder>Header_2</zorder>
    </widget>
    <widget class="QPushButton" name="BlackPanther">
     <property name="geometry">
      <rect>
       <x>780</x>
-      <y>180</y>
+      <y>200</y>
       <width>211</width>
       <height>81</height>
      </rect>
@@ -298,6 +314,9 @@ font-size: 21px;</string>
      <string>Select</string>
     </property>
    </widget>
+   <zorder>BlackPanther</zorder>
+   <zorder>Header</zorder>
+   <zorder>tableView</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

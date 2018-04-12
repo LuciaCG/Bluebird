@@ -14,12 +14,15 @@ learn::learn(QWidget *parent, QString _name, int _id) :
 {
     ui->setupUi(this);
 
-    //
     //Initialising the data base connection
-    //
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
     firstDB.setHostName("bluebird");
-    firstDB.setDatabaseName("/home/csunix/sc16rk/Year2/Project/bluebird/app.db");
+        //getting the relative path of the database
+    QDir bluebird = QDir::current();
+    bluebird.cdUp();
+    QString database = bluebird.path();
+    firstDB.setDatabaseName(database + "/app.db");
+        //connecting
     firstDB.open();
     if(!firstDB.open())
         ui->label_3->setText("FAILED");
@@ -40,7 +43,8 @@ learn::learn(QWidget *parent, QString _name, int _id) :
     model->select();
 
     //Aesthetics
-    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Times Available"));
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Screens"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Times Available"));
 
     //Displaying the table in the Tableview
     ui->tableView2->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -79,7 +83,7 @@ void learn::on_pushButton_clicked()
     QModelIndex index = ui->tableView2->currentIndex();
     //check if time has been selected
     if ((ui->tableView2->selectionModel()->isSelected(ui->tableView2->currentIndex()))) {
-        //check what time has been selected
+        //check what screen has been selected
         int row = index.row();
         QString time = ui->tableView2->model()->data(ui->tableView2->model()->index(row,0)).toString();
         //send title to learn

@@ -16,6 +16,9 @@
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #f8f8f8;</string>
+  </property>
   <widget class="QWidget" name="Body" native="true">
    <property name="geometry">
     <rect>
@@ -130,6 +133,12 @@ font-size: 21px;</string>
       <string>TextLabel</string>
      </property>
     </widget>
+    <zorder>lblTitle_5</zorder>
+    <zorder>btnHome_3</zorder>
+    <zorder>lblTitle_6</zorder>
+    <zorder>label_3</zorder>
+    <zorder>clock_3</zorder>
+    <zorder>tableView2_2</zorder>
    </widget>
    <widget class="QTableView" name="tableView2">
     <property name="geometry">
@@ -140,6 +149,15 @@ font-size: 21px;</string>
       <height>341</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold;}</string>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
+    </property>
+    <attribute name="horizontalHeaderHighlightSections">
+     <bool>false</bool>
+    </attribute>
     <attribute name="verticalHeaderVisible">
      <bool>false</bool>
     </attribute>
@@ -148,8 +166,8 @@ font-size: 21px;</string>
     <property name="geometry">
      <rect>
       <x>790</x>
-      <y>150</y>
-      <width>161</width>
+      <y>200</y>
+      <width>211</width>
       <height>81</height>
      </rect>
     </property>
