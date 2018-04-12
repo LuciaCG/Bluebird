@@ -21,7 +21,7 @@ private slots:
 private:
     Ui::learn *ui;
     QString name;
-    int id;
+    int screen;
 };
 
 #endif // LEARN_H

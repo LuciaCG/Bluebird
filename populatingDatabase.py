@@ -12,7 +12,7 @@ import datetime
 #   print(movies.synopsis)
 #   print(movies.ageRating)
 #   print()
-#
+
 # from app import models, db
 # import datetime
 # for screens in models.Screen.query.all():

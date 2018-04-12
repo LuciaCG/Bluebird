@@ -10,7 +10,7 @@ learn::learn(QWidget *parent, QString _name, int _id) :
     QWidget(parent),
     ui(new Ui::learn),
     name(_name),
-    id(_id)
+    screen(_id)
 {
     ui->setupUi(this);
 
@@ -37,18 +37,21 @@ learn::learn(QWidget *parent, QString _name, int _id) :
 
     //Selecting the Table we want from DB
     model->setTable("Screenings");
-    model->removeColumn(0); // don't show the id
-    model->removeColumn(0); // remove movies_id
-    model->setFilter(QString("movies_id = %1").arg(id));
+    model->setFilter(QString("movies_id = %1").arg(screen));
     model->select();
 
     //Aesthetics
-    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Screens"));
-    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Times Available"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Screens"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Times Available"));
 
     //Displaying the table in the Tableview
-    ui->tableView2->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView2->setModel(model);
+
+    ui->tableView2->hideColumn(0);
+    ui->tableView2->hideColumn(1);
+
+    ui->tableView2->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
 
     ui->tableView2->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -85,7 +88,9 @@ void learn::on_pushButton_clicked()
     if ((ui->tableView2->selectionModel()->isSelected(ui->tableView2->currentIndex()))) {
         //check what screen has been selected
         int row = index.row();
-        QString time = ui->tableView2->model()->data(ui->tableView2->model()->index(row,0)).toString();
+        QString time = ui->tableView2->model()->data(ui->tableView2->model()->index(row,2)).toString();
+        int id = ui->tableView2->model()->data(ui->tableView2->model()->index(row,0)).toInt();
+
         //send title to learn
         chairs *instance = new chairs(this, time, id);
         instance->show();
