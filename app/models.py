@@ -59,7 +59,7 @@ class Seat_Reserved(db.Model):
         return '' % (self.screening, self.rowReservedID, self.seatNumberReservedID)
 
 class Employee(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    # id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
     password = db.Column(db.String(50))
     reciept = db.relationship('Receipts', backref='employee', lazy='dynamic')
