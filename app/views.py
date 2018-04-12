@@ -80,7 +80,7 @@ def booktickets():
         movieID = None
         screeningID = None
         seatID = None
-        movies = models.Movies.query.all()
+        # movies = models.Movies.query.all()
         seatsAll = models.Seats.query.all()
         seatNumber = models.Seats.query.with_entities(models.Seats.seatNumber).group_by(models.Seats.seatNumber).all()
         rows = models.Seats.query.with_entities(models.Seats.row).group_by(models.Seats.row).all()
@@ -120,5 +120,5 @@ def booktickets():
                                 seatsAll = seatsAll,
                                 seatNumber = seatNumber,
                                 rows = rows,
-                                movies = movies
+                                # movies = movies
                                 )
