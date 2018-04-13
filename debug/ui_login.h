@@ -24,36 +24,50 @@ QT_BEGIN_NAMESPACE
 class Ui_Login
 {
 public:
-    QLineEdit *Username;
+    QWidget *Body;
+    QLabel *title_pwd;
     QLineEdit *Password;
-    QPushButton *Login_2;
-    QLabel *label_3;
-    QLabel *label_4;
-    QLabel *label_5;
+    QPushButton *login;
+    QLabel *warning;
+    QLineEdit *Username;
+    QLabel *title_user;
 
     void setupUi(QWidget *Login)
     {
         if (Login->objectName().isEmpty())
             Login->setObjectName(QStringLiteral("Login"));
-        Login->resize(1006, 706);
-        Username = new QLineEdit(Login);
-        Username->setObjectName(QStringLiteral("Username"));
-        Username->setGeometry(QRect(240, 140, 451, 41));
-        Password = new QLineEdit(Login);
+        Login->resize(1005, 655);
+        Login->setFocusPolicy(Qt::StrongFocus);
+        Login->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
+        Body = new QWidget(Login);
+        Body->setObjectName(QStringLiteral("Body"));
+        Body->setGeometry(QRect(-20, -10, 1291, 691));
+        Body->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
+        title_pwd = new QLabel(Body);
+        title_pwd->setObjectName(QStringLiteral("title_pwd"));
+        title_pwd->setGeometry(QRect(310, 260, 531, 20));
+        title_pwd->setStyleSheet(QStringLiteral("font-weight: bold;"));
+        Password = new QLineEdit(Body);
         Password->setObjectName(QStringLiteral("Password"));
-        Password->setGeometry(QRect(240, 210, 451, 41));
-        Login_2 = new QPushButton(Login);
-        Login_2->setObjectName(QStringLiteral("Login_2"));
-        Login_2->setGeometry(QRect(420, 280, 91, 28));
-        label_3 = new QLabel(Login);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(270, 380, 531, 20));
-        label_4 = new QLabel(Login);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(240, 110, 531, 20));
-        label_5 = new QLabel(Login);
-        label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setGeometry(QRect(240, 190, 531, 20));
+        Password->setGeometry(QRect(310, 290, 451, 41));
+        login = new QPushButton(Body);
+        login->setObjectName(QStringLiteral("login"));
+        login->setGeometry(QRect(470, 350, 111, 51));
+        warning = new QLabel(Body);
+        warning->setObjectName(QStringLiteral("warning"));
+        warning->setGeometry(QRect(320, 440, 531, 20));
+        QFont font;
+        font.setBold(true);
+        font.setWeight(75);
+        warning->setFont(font);
+        warning->setStyleSheet(QStringLiteral("font-weight: bold;"));
+        Username = new QLineEdit(Body);
+        Username->setObjectName(QStringLiteral("Username"));
+        Username->setGeometry(QRect(310, 210, 451, 41));
+        title_user = new QLabel(Body);
+        title_user->setObjectName(QStringLiteral("title_user"));
+        title_user->setGeometry(QRect(310, 180, 531, 20));
+        title_user->setStyleSheet(QStringLiteral("font-weight: bold;"));
 
         retranslateUi(Login);
 
@@ -62,11 +76,11 @@ public:
 
     void retranslateUi(QWidget *Login)
     {
-        Login->setWindowTitle(QApplication::translate("Login", "Form", 0));
-        Login_2->setText(QApplication::translate("Login", "PushButton", 0));
-        label_3->setText(QApplication::translate("Login", "TextLabel", 0));
-        label_4->setText(QApplication::translate("Login", "TextLabel", 0));
-        label_5->setText(QApplication::translate("Login", "TextLabel", 0));
+        Login->setWindowTitle(QApplication::translate("Login", "Log In - Till", 0));
+        title_pwd->setText(QApplication::translate("Login", "Password", 0));
+        login->setText(QApplication::translate("Login", "Log in", 0));
+        warning->setText(QString());
+        title_user->setText(QApplication::translate("Login", "User", 0));
     } // retranslateUi
 
 };

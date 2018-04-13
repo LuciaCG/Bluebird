@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
     user(_user)
 {
     ui->setupUi(this);
-    ui->lblTitle_3->setText(user);
+    ui->user->setText(user);
 
 
     //Initialising the data base connection
@@ -29,9 +29,9 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
         //connecting
     firstDB.open();
     if(!firstDB.open())
-        ui->label_2->setText("FAILED");
+        ui->connection->setText("FAILED");
      else
-        ui->label_2->setText("Connected");
+        ui->connection->setText("Connected");
 
     //Creating an SQL table model
     QSqlTableModel *model = new QSqlTableModel(this,firstDB);
@@ -64,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
        //Getting current time from the system and turning into string to be displayed
        QString ct = QTime::currentTime().toString();
        //setting the clock label to the current time
-       ui->clock_2->setText(ct);
+       ui->clock->setText(ct);
     } );
     //updates the clock
     timer->start();
@@ -76,7 +76,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_BlackPanther_clicked()
+void MainWindow::on_select_clicked()
 {
     QModelIndex index = ui->tableView->currentIndex();
     //check if title has been selected
@@ -88,6 +88,12 @@ void MainWindow::on_BlackPanther_clicked()
         learn *instance = new learn(this, name, row + 1, user);
         instance->show();
     }
+}
+
+void MainWindow::on_logout_clicked()
+{
+    Login *instance = new Login(this);
+    instance->show();
 }
 
 

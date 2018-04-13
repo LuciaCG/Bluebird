@@ -26,9 +26,8 @@ private slots:
     void on_tableView_activated(const QModelIndex &index);
 
 
-    void on_BlackPanther_clicked();
-
-    void on_Test_clicked();
+    void on_select_clicked();
+    void on_logout_clicked();
 
 private:
     Ui::MainWindow *ui;

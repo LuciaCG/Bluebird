@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_Login_t {
     QByteArrayData data[3];
-    char stringdata0[26];
+    char stringdata0[24];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -30,11 +30,11 @@ struct qt_meta_stringdata_Login_t {
 static const qt_meta_stringdata_Login_t qt_meta_stringdata_Login = {
     {
 QT_MOC_LITERAL(0, 0, 5), // "Login"
-QT_MOC_LITERAL(1, 6, 18), // "on_Login_2_clicked"
-QT_MOC_LITERAL(2, 25, 0) // ""
+QT_MOC_LITERAL(1, 6, 16), // "on_login_clicked"
+QT_MOC_LITERAL(2, 23, 0) // ""
 
     },
-    "Login\0on_Login_2_clicked\0"
+    "Login\0on_login_clicked\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -66,7 +66,7 @@ void Login::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         Login *_t = static_cast<Login *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_Login_2_clicked(); break;
+        case 0: _t->on_login_clicked(); break;
         default: ;
         }
     }

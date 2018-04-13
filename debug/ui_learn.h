@@ -43,7 +43,7 @@ public:
         learn->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
         Body = new QWidget(learn);
         Body->setObjectName(QStringLiteral("Body"));
-        Body->setGeometry(QRect(0, 0, 1051, 691));
+        Body->setGeometry(QRect(0, 0, 1005, 655));
         Body->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
         Header_2 = new QWidget(Body);
         Header_2->setObjectName(QStringLiteral("Header_2"));
@@ -79,11 +79,6 @@ public:
         clock_3->setGeometry(QRect(10, 80, 171, 31));
         clock_3->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
 "font-size: 21px;"));
-        lblTitle_5->raise();
-        btnHome_3->raise();
-        lblTitle_6->raise();
-        label_3->raise();
-        clock_3->raise();
         tableView2 = new QTableView(Body);
         tableView2->setObjectName(QStringLiteral("tableView2"));
         tableView2->setGeometry(QRect(170, 150, 601, 341));

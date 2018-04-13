@@ -29,26 +29,19 @@ public:
     QWidget *centralWidget;
     QTableView *tableView;
     QWidget *Header;
-    QLabel *lblTitle;
-    QPushButton *btnHome;
-    QLabel *lblTitle_2;
-    QLabel *label;
+    QLabel *user;
+    QPushButton *logout;
+    QLabel *title;
+    QLabel *connection;
     QLabel *clock;
-    QWidget *Header_2;
-    QLabel *lblTitle_3;
-    QPushButton *btnHome_2;
-    QLabel *lblTitle_4;
-    QLabel *label_2;
-    QLabel *clock_2;
-    QPushButton *BlackPanther_2;
-    QPushButton *BlackPanther;
+    QPushButton *select;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1019, 719);
+        MainWindow->resize(1005, 655);
         MainWindow->setWindowOpacity(1);
         MainWindow->setAutoFillBackground(false);
         MainWindow->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
@@ -75,84 +68,40 @@ public:
         Header->setGeometry(QRect(0, 0, 1021, 111));
         Header->setStyleSheet(QLatin1String("background-color:#555555;\n"
 "color:#000000;"));
-        lblTitle = new QLabel(Header);
-        lblTitle->setObjectName(QStringLiteral("lblTitle"));
-        lblTitle->setGeometry(QRect(10, 10, 221, 31));
-        lblTitle->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
+        user = new QLabel(Header);
+        user->setObjectName(QStringLiteral("user"));
+        user->setGeometry(QRect(10, 10, 221, 31));
+        user->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
 "font-size:20pt;\n"
 "font-weight:bold;"));
-        btnHome = new QPushButton(Header);
-        btnHome->setObjectName(QStringLiteral("btnHome"));
-        btnHome->setGeometry(QRect(870, 0, 101, 40));
-        btnHome->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
+        logout = new QPushButton(Header);
+        logout->setObjectName(QStringLiteral("logout"));
+        logout->setGeometry(QRect(870, 0, 101, 40));
+        logout->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
 "font-size: 21px;\n"
 "border:0;"));
-        lblTitle_2 = new QLabel(Header);
-        lblTitle_2->setObjectName(QStringLiteral("lblTitle_2"));
-        lblTitle_2->setGeometry(QRect(310, 10, 401, 101));
-        lblTitle_2->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
+        title = new QLabel(Header);
+        title->setObjectName(QStringLiteral("title"));
+        title->setGeometry(QRect(310, 10, 401, 101));
+        title->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
 "text-align: center;\n"
 "font-size:26pt;\n"
 "font-weight:bold;"));
-        label = new QLabel(Header);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(870, 40, 281, 101));
-        label->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
+        connection = new QLabel(Header);
+        connection->setObjectName(QStringLiteral("connection"));
+        connection->setGeometry(QRect(870, 40, 281, 101));
+        connection->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
 "font-size: 21px;"));
         clock = new QLabel(Header);
         clock->setObjectName(QStringLiteral("clock"));
         clock->setGeometry(QRect(10, 80, 171, 31));
         clock->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
 "font-size: 21px;"));
-        Header_2 = new QWidget(Header);
-        Header_2->setObjectName(QStringLiteral("Header_2"));
-        Header_2->setGeometry(QRect(0, 0, 1021, 111));
-        Header_2->setStyleSheet(QLatin1String("background-color:#555555;\n"
-"color:#000000;"));
-        lblTitle_3 = new QLabel(Header_2);
-        lblTitle_3->setObjectName(QStringLiteral("lblTitle_3"));
-        lblTitle_3->setGeometry(QRect(10, 10, 221, 31));
-        lblTitle_3->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
-"font-size:20pt;\n"
-"font-weight:bold;"));
-        btnHome_2 = new QPushButton(Header_2);
-        btnHome_2->setObjectName(QStringLiteral("btnHome_2"));
-        btnHome_2->setGeometry(QRect(870, 0, 101, 40));
-        btnHome_2->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
-"font-size: 21px;\n"
-"border:0;"));
-        lblTitle_4 = new QLabel(Header_2);
-        lblTitle_4->setObjectName(QStringLiteral("lblTitle_4"));
-        lblTitle_4->setGeometry(QRect(310, 10, 401, 101));
-        lblTitle_4->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
-"text-align: center;\n"
-"font-size:26pt;\n"
-"font-weight:bold;"));
-        label_2 = new QLabel(Header_2);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(870, 40, 281, 101));
-        label_2->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
-"font-size: 21px;"));
-        clock_2 = new QLabel(Header_2);
-        clock_2->setObjectName(QStringLiteral("clock_2"));
-        clock_2->setGeometry(QRect(10, 80, 171, 31));
-        clock_2->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
-"font-size: 21px;"));
-        BlackPanther_2 = new QPushButton(Header);
-        BlackPanther_2->setObjectName(QStringLiteral("BlackPanther_2"));
-        BlackPanther_2->setGeometry(QRect(780, 180, 211, 81));
-        lblTitle->raise();
-        btnHome->raise();
-        lblTitle_2->raise();
-        label->raise();
-        clock->raise();
-        BlackPanther_2->raise();
-        Header_2->raise();
-        BlackPanther = new QPushButton(centralWidget);
-        BlackPanther->setObjectName(QStringLiteral("BlackPanther"));
-        BlackPanther->setGeometry(QRect(780, 200, 211, 81));
+        select = new QPushButton(centralWidget);
+        select->setObjectName(QStringLiteral("select"));
+        select->setGeometry(QRect(790, 180, 211, 81));
         MainWindow->setCentralWidget(centralWidget);
-        BlackPanther->raise();
+        select->raise();
         Header->raise();
         tableView->raise();
         statusBar = new QStatusBar(MainWindow);
@@ -166,19 +115,13 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        lblTitle->setText(QApplication::translate("MainWindow", "<User Logged in>", 0));
-        btnHome->setText(QApplication::translate("MainWindow", "Logout", 0));
-        lblTitle_2->setText(QApplication::translate("MainWindow", "<html><head/><body><p align=\"center\">Movies Screening</p></body></html>", 0));
-        label->setText(QApplication::translate("MainWindow", "Connection Status", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Movies", 0));
+        user->setText(QApplication::translate("MainWindow", "<User Logged in>", 0));
+        logout->setText(QApplication::translate("MainWindow", "Logout", 0));
+        title->setText(QApplication::translate("MainWindow", "<html><head/><body><p align=\"center\">Movies Screening</p></body></html>", 0));
+        connection->setText(QApplication::translate("MainWindow", "Connection Status", 0));
         clock->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        lblTitle_3->setText(QApplication::translate("MainWindow", "<User Logged in>", 0));
-        btnHome_2->setText(QApplication::translate("MainWindow", "Logout", 0));
-        lblTitle_4->setText(QApplication::translate("MainWindow", "<html><head/><body><p align=\"center\">Movies Screening</p></body></html>", 0));
-        label_2->setText(QApplication::translate("MainWindow", "Connection Status", 0));
-        clock_2->setText(QApplication::translate("MainWindow", "TextLabel", 0));
-        BlackPanther_2->setText(QApplication::translate("MainWindow", "Select", 0));
-        BlackPanther->setText(QApplication::translate("MainWindow", "Select", 0));
+        select->setText(QApplication::translate("MainWindow", "Select", 0));
     } // retranslateUi
 
 };

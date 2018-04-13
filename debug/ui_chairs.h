@@ -37,7 +37,7 @@ public:
     {
         if (chairs->objectName().isEmpty())
             chairs->setObjectName(QStringLiteral("chairs"));
-        chairs->resize(1046, 686);
+        chairs->resize(1006, 655);
         chairs->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
         Body = new QWidget(chairs);
         Body->setObjectName(QStringLiteral("Body"));

@@ -24,8 +24,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1051</width>
-     <height>691</height>
+     <width>1005</width>
+     <height>655</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -133,12 +133,6 @@ font-size: 21px;</string>
       <string>TextLabel</string>
      </property>
     </widget>
-    <zorder>lblTitle_5</zorder>
-    <zorder>btnHome_3</zorder>
-    <zorder>lblTitle_6</zorder>
-    <zorder>label_3</zorder>
-    <zorder>clock_3</zorder>
-    <zorder>tableView2_2</zorder>
    </widget>
    <widget class="QTableView" name="tableView2">
     <property name="geometry">

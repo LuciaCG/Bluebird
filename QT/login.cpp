@@ -23,12 +23,10 @@ Login::Login(QWidget *parent) :
         //connecting
     firstDB.open();
     if(!firstDB.open())
-        ui->label_3->setText("FAILED");
-     else
-        ui->label_3->setText("Connected");
+        ui->warning->setText("WARNING: Failed Connexion");
 
 }
-void Login::on_Login_2_clicked()
+void Login::on_login_clicked()
 {
     QString user,pass;
     user = ui->Username->text();
@@ -49,7 +47,7 @@ void Login::on_Login_2_clicked()
         }
     }
     if (aux)
-        ui->label_3->setText("Incorrect password or username");
+        ui->warning->setText("WARNING: Incorrect Password Or Username");
     else{
         MainWindow *instance = new MainWindow(this, user);
         instance->show();
