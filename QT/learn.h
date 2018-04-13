@@ -1,5 +1,6 @@
 #ifndef LEARN_H
 #define LEARN_H
+#include <QStyledItemDelegate>
 
 #include <QWidget>
 
@@ -12,7 +13,7 @@ class learn : public QWidget
     Q_OBJECT
 
 public:
-    explicit learn(QWidget *parent = 0, QString _name = "", int _id = 0);
+    explicit learn(QWidget *parent = 0, QString _name = "", int _id = 0, QString _user = "");
     ~learn();
 
 private slots:
@@ -22,6 +23,7 @@ private:
     Ui::learn *ui;
     QString name;
     int screen;
+    QString user;
 };
 
 #endif // LEARN_H

@@ -317,7 +317,6 @@ font-size: 21px;</string>
    <zorder>BlackPanther</zorder>
    <zorder>Header</zorder>
    <zorder>tableView</zorder>
-   <zorder>lblTitle_4</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

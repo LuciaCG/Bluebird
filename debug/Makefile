@@ -51,16 +51,20 @@ OBJECTS_DIR   = ./
 SOURCES       = ../QT/main.cpp \
 		../QT/mainwindow.cpp \
 		../QT/learn.cpp \
-		../QT/chairs.cpp moc_mainwindow.cpp \
+		../QT/chairs.cpp \
+		../QT/login.cpp moc_mainwindow.cpp \
 		moc_learn.cpp \
-		moc_chairs.cpp
+		moc_chairs.cpp \
+		moc_login.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		learn.o \
 		chairs.o \
+		login.o \
 		moc_mainwindow.o \
 		moc_learn.o \
-		moc_chairs.o
+		moc_chairs.o \
+		moc_login.o
 DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/common/unix.conf \
 		/usr/lib64/qt5/mkspecs/common/linux.conf \
@@ -135,10 +139,12 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/features/lex.prf \
 		../QT/UI2.pro ../QT/mainwindow.h \
 		../QT/learn.h \
-		../QT/chairs.h ../QT/main.cpp \
+		../QT/chairs.h \
+		../QT/login.h ../QT/main.cpp \
 		../QT/mainwindow.cpp \
 		../QT/learn.cpp \
-		../QT/chairs.cpp
+		../QT/chairs.cpp \
+		../QT/login.cpp
 QMAKE_TARGET  = UI2
 DESTDIR       = 
 TARGET        = UI2
@@ -147,7 +153,7 @@ TARGET        = UI2
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_learn.h ui_chairs.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_learn.h ui_chairs.h ui_login.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../QT/UI2.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
@@ -320,9 +326,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../QT/mainwindow.h ../QT/learn.h ../QT/chairs.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../QT/main.cpp ../QT/mainwindow.cpp ../QT/learn.cpp ../QT/chairs.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../QT/mainwindow.ui ../QT/learn.ui ../QT/chairs.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../QT/mainwindow.h ../QT/learn.h ../QT/chairs.h ../QT/login.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../QT/main.cpp ../QT/mainwindow.cpp ../QT/learn.cpp ../QT/chairs.cpp ../QT/login.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../QT/mainwindow.ui ../QT/learn.ui ../QT/chairs.ui ../QT/login.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -353,9 +359,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib64/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++0x -Wall -W -dM -E -o moc_predefs.h /usr/lib64/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_learn.cpp moc_chairs.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_learn.cpp moc_chairs.cpp moc_login.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_learn.cpp moc_chairs.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_learn.cpp moc_chairs.cpp moc_login.cpp
 moc_mainwindow.cpp: ../QT/mainwindow.h \
 		moc_predefs.h
 	/usr/lib64/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/cserv1_a/soc_ug/sc16rk/Year2/Project/bluebird/QT -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I. -I/usr/include/c++/4.8.5 -I/usr/include/c++/4.8.5/x86_64-redhat-linux -I/usr/include/c++/4.8.5/backward -I/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include -I/usr/local/include -I/usr/include ../QT/mainwindow.h -o moc_mainwindow.cpp
@@ -368,11 +374,15 @@ moc_chairs.cpp: ../QT/chairs.h \
 		moc_predefs.h
 	/usr/lib64/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/cserv1_a/soc_ug/sc16rk/Year2/Project/bluebird/QT -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I. -I/usr/include/c++/4.8.5 -I/usr/include/c++/4.8.5/x86_64-redhat-linux -I/usr/include/c++/4.8.5/backward -I/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include -I/usr/local/include -I/usr/include ../QT/chairs.h -o moc_chairs.cpp
 
+moc_login.cpp: ../QT/login.h \
+		moc_predefs.h
+	/usr/lib64/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/cserv1_a/soc_ug/sc16rk/Year2/Project/bluebird/QT -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I. -I/usr/include/c++/4.8.5 -I/usr/include/c++/4.8.5/x86_64-redhat-linux -I/usr/include/c++/4.8.5/backward -I/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include -I/usr/local/include -I/usr/include ../QT/login.h -o moc_login.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_learn.h ui_chairs.h
+compiler_uic_make_all: ui_mainwindow.h ui_learn.h ui_chairs.h ui_login.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_learn.h ui_chairs.h
+	-$(DEL_FILE) ui_mainwindow.h ui_learn.h ui_chairs.h ui_login.h
 ui_mainwindow.h: ../QT/mainwindow.ui
 	/usr/lib64/qt5/bin/uic ../QT/mainwindow.ui -o ui_mainwindow.h
 
@@ -381,6 +391,9 @@ ui_learn.h: ../QT/learn.ui
 
 ui_chairs.h: ../QT/chairs.ui
 	/usr/lib64/qt5/bin/uic ../QT/chairs.ui -o ui_chairs.h
+
+ui_login.h: ../QT/login.ui
+	/usr/lib64/qt5/bin/uic ../QT/login.ui -o ui_login.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -409,6 +422,10 @@ chairs.o: ../QT/chairs.cpp ../QT/chairs.h \
 		ui_chairs.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o chairs.o ../QT/chairs.cpp
 
+login.o: ../QT/login.cpp ../QT/login.h \
+		ui_login.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o login.o ../QT/login.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
@@ -417,6 +434,9 @@ moc_learn.o: moc_learn.cpp
 
 moc_chairs.o: moc_chairs.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_chairs.o moc_chairs.cpp
+
+moc_login.o: moc_login.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_login.o moc_login.cpp
 
 ####### Install
 

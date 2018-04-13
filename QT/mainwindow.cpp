@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "learn.h"
+#include "login.h"
 
 #include <QSqlTableModel>
 #include <QTableView>
@@ -8,11 +9,14 @@
 #include <QHeaderView>
 #include <QtWidgets>
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent, QString _user) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    user(_user)
 {
     ui->setupUi(this);
+    ui->lblTitle_3->setText(user);
+
 
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
@@ -81,7 +85,9 @@ void MainWindow::on_BlackPanther_clicked()
         int row = index.row();
         QString name = ui->tableView->model()->data(ui->tableView->model()->index(row,0)).toString();
         //send title to learn
-        learn *instance = new learn(this, name, row + 1);
+        learn *instance = new learn(this, name, row + 1, user);
         instance->show();
     }
 }
+
+

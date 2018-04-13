@@ -15,12 +15,15 @@ CONFIG += c++11
 SOURCES += main.cpp\
         mainwindow.cpp \
     learn.cpp \
-    chairs.cpp
+    chairs.cpp \
+    login.cpp
 
 HEADERS  += mainwindow.h \
     learn.h \
-    chairs.h
+    chairs.h \
+    login.h
 
 FORMS    += mainwindow.ui \
     learn.ui \
-    chairs.ui
+    chairs.ui \
+    login.ui

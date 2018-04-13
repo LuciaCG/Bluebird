@@ -155,7 +155,6 @@ public:
         BlackPanther->raise();
         Header->raise();
         tableView->raise();
-        lblTitle_4->raise();
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);

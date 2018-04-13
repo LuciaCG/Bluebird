@@ -6,13 +6,16 @@
 #include <QSqlTableModel>
 #include <QTableView>
 
-learn::learn(QWidget *parent, QString _name, int _id) :
+learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
     QWidget(parent),
     ui(new Ui::learn),
     name(_name),
-    screen(_id)
+    screen(_id),
+    user(_user)
 {
     ui->setupUi(this);
+    ui->lblTitle_5->setText(user);
+
 
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
@@ -92,7 +95,7 @@ void learn::on_pushButton_clicked()
         int id = ui->tableView2->model()->data(ui->tableView2->model()->index(row,0)).toInt();
 
         //send title to learn
-        chairs *instance = new chairs(this, time, id);
+        chairs *instance = new chairs(this, time, id, user);
         instance->show();
     }
 }

@@ -11,6 +11,7 @@
 
 #include <QStyledItemDelegate>
 
+/*
 class Delegate : public QStyledItemDelegate
 {
     Q_OBJECT
@@ -43,7 +44,7 @@ signals:
 public slots:
 
 };
-
+*/
 
 /////////////////////////
 // END OF DELEGATE CLASS
@@ -52,13 +53,15 @@ public slots:
 
 
 
-chairs::chairs(QWidget *parent, QString _screen, int _id) :
+chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     QWidget(parent),
     ui(new Ui::chairs),
     screen(_screen), // SCREEN NUMBER
-    id(_id)
+    id(_id),
+    user(_user)
 {
     ui->setupUi(this);
+    ui->lblTitle_5->setText(user);
 
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
@@ -149,6 +152,12 @@ chairs::~chairs()
     delete ui;
 }
 
+//void chairs::paintEvent(QPaintEvent *e)
+//{
+ //QPainter painter(this);
+ //setBackgroundRole(QPalette::Blac);
+
+//}
 
 
 
