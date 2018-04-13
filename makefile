@@ -17,8 +17,22 @@ oldAll:
 	python3 db_migrate.py
 	python3 populatingDatabase.py
 
+flask:
+	virtualenv flask; \
+	source flask/bin/activate; \
+	flask/bin/pip install flask; \
+	flask/bin/pip install flask-login; \
+	flask/bin/pip install flask-mail; \
+	flask/bin/pip install flask-sqlalchemy; \
+	flask/bin/pip install sqlalchemy-migrate; \
+	flask/bin/pip install flask-whooshalchemy; \
+	flask/bin/pip install flask-wtf; \
+	flask/bin/pip install flask-babel; \
+	flask/bin/pip install coverage; \
+
 clean:
 	rm -rf app.db
 	rm -rf __pycache__
 	rm -rf db_repository
 	rm -rf app/__pycache__
+
