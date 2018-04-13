@@ -17,6 +17,10 @@ public:
     explicit chairs(QWidget *parent = 0, QString _screen = "", int _id = 0, QString _user = "");
     ~chairs();
 
+private slots:
+    void on_logout_clicked();
+    void on_back_clicked();
+
 private:
     Ui::chairs *ui;
     QString screen;

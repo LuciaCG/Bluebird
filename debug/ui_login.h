@@ -36,7 +36,7 @@ public:
     {
         if (Login->objectName().isEmpty())
             Login->setObjectName(QStringLiteral("Login"));
-        Login->resize(1005, 655);
+        Login->resize(1005, 675);
         Login->setFocusPolicy(Qt::StrongFocus);
         Login->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
         Body = new QWidget(Login);

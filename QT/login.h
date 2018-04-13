@@ -3,13 +3,10 @@
 
 #include <QWidget>
 #include <QMainWindow>
-#include <QWidget>
 #include <QtDebug>
 #include <QFileInfo>
 #include <QLCDNumber>
 #include <QModelIndex>
-#include <QSqlTableModel>
-#include <QtWidgets>
 #include <QSqlQuery>
 
 namespace Ui {

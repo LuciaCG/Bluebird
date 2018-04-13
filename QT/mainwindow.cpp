@@ -92,8 +92,8 @@ void MainWindow::on_select_clicked()
 
 void MainWindow::on_logout_clicked()
 {
-    Login *instance = new Login(this);
-    instance->show();
+    this->parentWidget()->show();
+    this->close();
 }
 
 

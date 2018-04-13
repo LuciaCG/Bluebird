@@ -1,11 +1,11 @@
 #include "login.h"
 #include "mainwindow.h"
-
- #include <QCryptographicHash>
 #include "ui_login.h"
+
+
+#include <QCryptographicHash>
 #include <QSqlTableModel>
 #include <QtWidgets>
-#include <QSqlQuery>
 
 Login::Login(QWidget *parent) :
     QWidget(parent),
@@ -39,6 +39,7 @@ void Login::on_login_clicked()
     qry.exec();
 
     bool aux = true;
+    //qry.next();
     while(qry.next() && aux){
         if(qry.value("name") == user){
             QString password = QString(QCryptographicHash::hash(pass.toLocal8Bit(), QCryptographicHash::Sha256).toHex());

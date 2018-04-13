@@ -1,6 +1,7 @@
 #include "learn.h"
 #include "ui_learn.h"
 #include "chairs.h"
+#include "mainwindow.h"
 
 #include <QtWidgets>
 #include <QSqlTableModel>
@@ -14,8 +15,8 @@ learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
     user(_user)
 {
     ui->setupUi(this);
-    ui->lblTitle_5->setText(user);
-
+    ui->user->setText(user);
+    ui->title->setText(name);
 
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
@@ -28,12 +29,10 @@ learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
         //connecting
     firstDB.open();
     if(!firstDB.open())
-        ui->label_3->setText("FAILED");
+        ui->connetion->setText("FAILED");
      else
-        ui->label_3->setText("Connected");
+        ui->connetion->setText("Connected");
 
-    //set title of page
-    ui->lblTitle_6->setText(name);
 
     //Creating an SQL table model
     QSqlTableModel *model = new QSqlTableModel(this,firstDB);
@@ -48,18 +47,18 @@ learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("Times Available"));
 
     //Displaying the table in the Tableview
-    ui->tableView2->setModel(model);
+    ui->tableView->setModel(model);
 
-    ui->tableView2->hideColumn(0);
-    ui->tableView2->hideColumn(1);
+    ui->tableView->hideColumn(0);
+    ui->tableView->hideColumn(1);
 
-    ui->tableView2->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 
-    ui->tableView2->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableView2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
-    ui->tableView2->show();
+    ui->tableView->show();
 
 
     QTimer *timer = new QTimer(this);
@@ -70,7 +69,7 @@ learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
        //Getting current time from the system and turning into string to be displayed
        QString ct = QTime::currentTime().toString();
        //setting the clock label to the current time
-       ui->clock_3->setText(ct);
+       ui->clock->setText(ct);
     } );
     //updates the clock
     timer->start();
@@ -84,18 +83,30 @@ learn::~learn()
     delete ui;
 }
 
-void learn::on_pushButton_clicked()
+void learn::on_selection_clicked()
 {
-    QModelIndex index = ui->tableView2->currentIndex();
+    QModelIndex index = ui->tableView->currentIndex();
     //check if time has been selected
-    if ((ui->tableView2->selectionModel()->isSelected(ui->tableView2->currentIndex()))) {
+    if ((ui->tableView->selectionModel()->isSelected(ui->tableView->currentIndex()))) {
         //check what screen has been selected
         int row = index.row();
-        QString time = ui->tableView2->model()->data(ui->tableView2->model()->index(row,2)).toString();
-        int id = ui->tableView2->model()->data(ui->tableView2->model()->index(row,0)).toInt();
+        QString time = ui->tableView->model()->data(ui->tableView->model()->index(row,2)).toString();
+        int id = ui->tableView->model()->data(ui->tableView->model()->index(row,0)).toInt();
 
         //send title to learn
         chairs *instance = new chairs(this, time, id, user);
         instance->show();
     }
+}
+
+void learn::on_back_clicked()
+{
+    this->hide();
+    this->parentWidget()->show();
+}
+
+void learn::on_logout_clicked()
+{
+    this->parentWidget()->parentWidget()->show(); //show log in page
+    this->parentWidget()->close();
 }

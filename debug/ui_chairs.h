@@ -25,75 +25,83 @@ class Ui_chairs
 {
 public:
     QWidget *Body;
-    QWidget *Header_2;
-    QLabel *lblTitle_5;
-    QPushButton *btnHome_3;
-    QLabel *lblTitle_6;
-    QLabel *label_3;
-    QLabel *clock_3;
-    QTableView *tableView3;
+    QWidget *Header;
+    QLabel *user;
+    QPushButton *logout;
+    QLabel *title;
+    QLabel *connetion;
+    QLabel *clock;
+    QTableView *tableView;
+    QPushButton *back;
+    QPushButton *selection;
 
     void setupUi(QWidget *chairs)
     {
         if (chairs->objectName().isEmpty())
             chairs->setObjectName(QStringLiteral("chairs"));
-        chairs->resize(1006, 655);
+        chairs->resize(1006, 675);
         chairs->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
         Body = new QWidget(chairs);
         Body->setObjectName(QStringLiteral("Body"));
         Body->setGeometry(QRect(0, 0, 1051, 691));
         Body->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
-        Header_2 = new QWidget(Body);
-        Header_2->setObjectName(QStringLiteral("Header_2"));
-        Header_2->setGeometry(QRect(0, 0, 1051, 111));
-        Header_2->setStyleSheet(QLatin1String("background-color:#555555;\n"
+        Header = new QWidget(Body);
+        Header->setObjectName(QStringLiteral("Header"));
+        Header->setGeometry(QRect(0, 0, 1051, 111));
+        Header->setStyleSheet(QLatin1String("background-color:#555555;\n"
 "color:#000000;"));
-        lblTitle_5 = new QLabel(Header_2);
-        lblTitle_5->setObjectName(QStringLiteral("lblTitle_5"));
-        lblTitle_5->setGeometry(QRect(10, 10, 221, 31));
-        lblTitle_5->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
+        user = new QLabel(Header);
+        user->setObjectName(QStringLiteral("user"));
+        user->setGeometry(QRect(10, 10, 221, 31));
+        user->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
 "font-size:20pt;\n"
 "font-weight:bold;"));
-        btnHome_3 = new QPushButton(Header_2);
-        btnHome_3->setObjectName(QStringLiteral("btnHome_3"));
-        btnHome_3->setGeometry(QRect(870, 0, 101, 40));
-        btnHome_3->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
+        logout = new QPushButton(Header);
+        logout->setObjectName(QStringLiteral("logout"));
+        logout->setGeometry(QRect(870, 0, 101, 40));
+        logout->setStyleSheet(QLatin1String("background-color:#808080; color: #FFFFFF;\n"
 "font-size: 21px;\n"
-"border:0;"));
-        lblTitle_6 = new QLabel(Header_2);
-        lblTitle_6->setObjectName(QStringLiteral("lblTitle_6"));
-        lblTitle_6->setGeometry(QRect(310, 10, 401, 101));
-        lblTitle_6->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
+"border:3;"));
+        title = new QLabel(Header);
+        title->setObjectName(QStringLiteral("title"));
+        title->setGeometry(QRect(310, 10, 401, 101));
+        title->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
 "text-align: center;\n"
 "font-size:26pt;\n"
 "font-weight:bold;"));
-        label_3 = new QLabel(Header_2);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(870, 40, 281, 101));
-        label_3->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
+        connetion = new QLabel(Header);
+        connetion->setObjectName(QStringLiteral("connetion"));
+        connetion->setGeometry(QRect(870, 40, 281, 101));
+        connetion->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
 "font-size: 21px;"));
-        clock_3 = new QLabel(Header_2);
-        clock_3->setObjectName(QStringLiteral("clock_3"));
-        clock_3->setGeometry(QRect(10, 80, 171, 31));
-        clock_3->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
+        clock = new QLabel(Header);
+        clock->setObjectName(QStringLiteral("clock"));
+        clock->setGeometry(QRect(10, 80, 171, 31));
+        clock->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
 "font-size: 21px;"));
-        tableView3 = new QTableView(Body);
-        tableView3->setObjectName(QStringLiteral("tableView3"));
-        tableView3->setGeometry(QRect(220, 160, 611, 501));
-        tableView3->setMinimumSize(QSize(611, 501));
-        tableView3->setAutoFillBackground(false);
-        tableView3->setStyleSheet(QStringLiteral("QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold;}"));
-        tableView3->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        tableView3->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-        tableView3->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
-        tableView3->setSelectionBehavior(QAbstractItemView::SelectItems);
-        tableView3->setShowGrid(true);
-        tableView3->horizontalHeader()->setDefaultSectionSize(100);
-        tableView3->horizontalHeader()->setHighlightSections(true);
-        tableView3->horizontalHeader()->setMinimumSectionSize(50);
-        tableView3->horizontalHeader()->setStretchLastSection(false);
-        tableView3->verticalHeader()->setVisible(false);
-        tableView3->verticalHeader()->setStretchLastSection(false);
+        tableView = new QTableView(Body);
+        tableView->setObjectName(QStringLiteral("tableView"));
+        tableView->setGeometry(QRect(140, 160, 641, 501));
+        tableView->setMinimumSize(QSize(611, 501));
+        tableView->setAutoFillBackground(false);
+        tableView->setStyleSheet(QStringLiteral("QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold;}"));
+        tableView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        tableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        tableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
+        tableView->setSelectionBehavior(QAbstractItemView::SelectItems);
+        tableView->setShowGrid(true);
+        tableView->horizontalHeader()->setDefaultSectionSize(100);
+        tableView->horizontalHeader()->setHighlightSections(true);
+        tableView->horizontalHeader()->setMinimumSectionSize(50);
+        tableView->horizontalHeader()->setStretchLastSection(false);
+        tableView->verticalHeader()->setVisible(false);
+        tableView->verticalHeader()->setStretchLastSection(false);
+        back = new QPushButton(Body);
+        back->setObjectName(QStringLiteral("back"));
+        back->setGeometry(QRect(10, 160, 111, 41));
+        selection = new QPushButton(Body);
+        selection->setObjectName(QStringLiteral("selection"));
+        selection->setGeometry(QRect(790, 190, 211, 81));
 
         retranslateUi(chairs);
 
@@ -102,12 +110,14 @@ public:
 
     void retranslateUi(QWidget *chairs)
     {
-        chairs->setWindowTitle(QApplication::translate("chairs", "Form", 0));
-        lblTitle_5->setText(QApplication::translate("chairs", "<User Logged in>", 0));
-        btnHome_3->setText(QApplication::translate("chairs", "Logout", 0));
-        lblTitle_6->setText(QApplication::translate("chairs", "<html><head/><body><p align=\"center\">Seat Selection</p></body></html>", 0));
-        label_3->setText(QApplication::translate("chairs", "Connection Status", 0));
-        clock_3->setText(QApplication::translate("chairs", "TextLabel", 0));
+        chairs->setWindowTitle(QApplication::translate("chairs", "Seats", 0));
+        user->setText(QApplication::translate("chairs", "<User Logged in>", 0));
+        logout->setText(QApplication::translate("chairs", "Logout", 0));
+        title->setText(QApplication::translate("chairs", "<html><head/><body><p align=\"center\">Seat Selection</p></body></html>", 0));
+        connetion->setText(QApplication::translate("chairs", "Connection Status", 0));
+        clock->setText(QApplication::translate("chairs", "TextLabel", 0));
+        back->setText(QApplication::translate("chairs", "Back", 0));
+        selection->setText(QApplication::translate("chairs", "Select", 0));
     } // retranslateUi
 
 };

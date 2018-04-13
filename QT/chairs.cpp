@@ -61,7 +61,7 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     user(_user)
 {
     ui->setupUi(this);
-    ui->lblTitle_5->setText(user);
+    ui->user->setText(user);
 
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
@@ -74,9 +74,9 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
         //connecting
     firstDB.open();
     if(!firstDB.open())
-        ui->label_3->setText("FAILED");
+        ui->connetion->setText("FAILED");
      else
-        ui->label_3->setText("Connected");
+        ui->connetion->setText("Connected");
 
 
     // SCREENING
@@ -102,7 +102,7 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     //Selecting the Table we want from DB
     model->setTable("Seats");
     model->select();
-    ui->tableView3->setModel(model);
+    ui->tableView->setModel(model);
 
 
    //Delegate *delegate = new Delegate();
@@ -110,16 +110,16 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
 
 
     for (int i = capacity; i < model->rowCount(); i++){
-        ui->tableView3->hideRow(i); // remove seats that dont exist
+        ui->tableView->hideRow(i); // remove seats that dont exist
       //model->setData(index, QColor(Qt::green), Qt::BackgroundColorRole)
       //model->setData(model->index(i, 1), QVariant(QBrush(Qt::red)), Qt::BackgroundRole);
     }
 
     //Displaying the table in the Tableview
-    ui->tableView3->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableView3->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableView3->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableView3->show();
+    ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->show();
 
 
 
@@ -140,7 +140,7 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
        //Getting current time from the system and turning into string to be displayed
        QString ct = QTime::currentTime().toString();
        //setting the clock label to the current time
-       ui->clock_3->setText(ct);
+       ui->clock->setText(ct);
     } );
     //updates the clock
     timer->start();
@@ -158,6 +158,19 @@ chairs::~chairs()
  //setBackgroundRole(QPalette::Blac);
 
 //}
+
+
+void chairs::on_back_clicked()
+{
+    this->hide();
+    this->parentWidget()->show();
+}
+
+void chairs::on_logout_clicked()
+{
+    this->parentWidget()->parentWidget()->parentWidget()->show(); //show log in page
+    this->parentWidget()->parentWidget()->close();
+}
 
 
 

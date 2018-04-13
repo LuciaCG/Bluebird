@@ -17,7 +17,9 @@ public:
     ~learn();
 
 private slots:
-    void on_pushButton_clicked();
+    void on_selection_clicked();
+    void on_back_clicked();
+    void on_logout_clicked();
 
 private:
     Ui::learn *ui;

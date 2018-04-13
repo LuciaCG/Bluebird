@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Screenings</string>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
@@ -25,7 +25,7 @@
      <x>0</x>
      <y>0</y>
      <width>1005</width>
-     <height>655</height>
+     <height>675</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -44,7 +44,7 @@
      <string notr="true">background-color:#555555;
 color:#000000;</string>
     </property>
-    <widget class="QLabel" name="lblTitle_5">
+    <widget class="QLabel" name="user">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -62,7 +62,7 @@ font-weight:bold;</string>
       <string>&lt;User Logged in&gt;</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btnHome_3">
+    <widget class="QPushButton" name="logout">
      <property name="geometry">
       <rect>
        <x>870</x>
@@ -72,19 +72,19 @@ font-weight:bold;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: #FFFFFF;
+      <string notr="true">background-color:#808080; color: #FFFFFF;
 font-size: 21px;
-border:0;</string>
+border:3;</string>
      </property>
      <property name="text">
       <string>Logout</string>
      </property>
     </widget>
-    <widget class="QLabel" name="lblTitle_6">
+    <widget class="QLabel" name="title">
      <property name="geometry">
       <rect>
        <x>310</x>
-       <y>10</y>
+       <y>0</y>
        <width>401</width>
        <height>101</height>
       </rect>
@@ -96,10 +96,10 @@ font-size:26pt;
 font-weight:bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Movies Screening&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Movies&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="connetion">
      <property name="geometry">
       <rect>
        <x>870</x>
@@ -116,7 +116,7 @@ font-size: 21px;</string>
       <string>Connection Status</string>
      </property>
     </widget>
-    <widget class="QLabel" name="clock_3">
+    <widget class="QLabel" name="clock">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -134,7 +134,7 @@ font-size: 21px;</string>
      </property>
     </widget>
    </widget>
-   <widget class="QTableView" name="tableView2">
+   <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -156,7 +156,7 @@ font-size: 21px;</string>
      <bool>false</bool>
     </attribute>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="selection">
     <property name="geometry">
      <rect>
       <x>790</x>
@@ -167,6 +167,19 @@ font-size: 21px;</string>
     </property>
     <property name="text">
      <string>Select</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="back">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>150</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Back</string>
     </property>
    </widget>
   </widget>

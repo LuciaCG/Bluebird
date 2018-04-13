@@ -41,7 +41,8 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1005, 655);
+        MainWindow->resize(1005, 675);
+        MainWindow->setFocusPolicy(Qt::StrongFocus);
         MainWindow->setWindowOpacity(1);
         MainWindow->setAutoFillBackground(false);
         MainWindow->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
@@ -49,7 +50,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tableView = new QTableView(centralWidget);
         tableView->setObjectName(QStringLiteral("tableView"));
-        tableView->setGeometry(QRect(160, 160, 611, 501));
+        tableView->setGeometry(QRect(150, 160, 611, 501));
         tableView->setMinimumSize(QSize(611, 501));
         tableView->setAutoFillBackground(false);
         tableView->setStyleSheet(QStringLiteral("QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold;}"));
@@ -77,9 +78,10 @@ public:
         logout = new QPushButton(Header);
         logout->setObjectName(QStringLiteral("logout"));
         logout->setGeometry(QRect(870, 0, 101, 40));
-        logout->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
+        logout->setFocusPolicy(Qt::ClickFocus);
+        logout->setStyleSheet(QLatin1String("background-color:#808080; color: #FFFFFF;\n"
 "font-size: 21px;\n"
-"border:0;"));
+"border:3;"));
         title = new QLabel(Header);
         title->setObjectName(QStringLiteral("title"));
         title->setGeometry(QRect(310, 10, 401, 101));
@@ -99,7 +101,7 @@ public:
 "font-size: 21px;"));
         select = new QPushButton(centralWidget);
         select->setObjectName(QStringLiteral("select"));
-        select->setGeometry(QRect(790, 180, 211, 81));
+        select->setGeometry(QRect(780, 180, 211, 81));
         MainWindow->setCentralWidget(centralWidget);
         select->raise();
         Header->raise();
@@ -115,10 +117,10 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Movies", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Movies - Till", 0));
         user->setText(QApplication::translate("MainWindow", "<User Logged in>", 0));
         logout->setText(QApplication::translate("MainWindow", "Logout", 0));
-        title->setText(QApplication::translate("MainWindow", "<html><head/><body><p align=\"center\">Movies Screening</p></body></html>", 0));
+        title->setText(QApplication::translate("MainWindow", "<html><head/><body><p align=\"center\">Movies</p></body></html>", 0));
         connection->setText(QApplication::translate("MainWindow", "Connection Status", 0));
         clock->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         select->setText(QApplication::translate("MainWindow", "Select", 0));
