@@ -3,15 +3,15 @@ from flask import render_template, url_for, request, session, redirect
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        p = models.Users(name=form.name.data,
-                        email=form.email.data,
-                        password=form.password.data,
-                        )
-        db.session.add(p)
-        db.session.commit()
-        return redirect(url_for('signup'))
+    # form = RegistrationForm()
+    # if form.validate_on_submit():
+    #     p = models.Users(name=form.name.data,
+    #                     email=form.email.data,
+    #                     password=form.password.data,
+    #                     )
+    #     db.session.add(p)
+    #     db.session.commit()
+        # return redirect(url_for('signup'))
 
 
 
@@ -110,7 +110,7 @@ def booktickets():
                 a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1]+wordlist[2])
             db.session.add(a)
             db.session.commit()
-
+            # print(seatNumber)
             return redirect(url_for('booktickets'))
 
         return render_template('booktickets.html',

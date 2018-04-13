@@ -24,17 +24,29 @@ Unavailable Seats<br>
             <br>
 Seats Available<br>
 
-<table style="width:100%">
+<div id="screenicon">
+  <h2 id="screentext">Screen</h2>
+</div>
+
+
+<table style="width:65%" id="seatstable">
 {% for row in rows %}
-<th>
+<!-- <th>
       {{row.row}}
-</th>
+</th> -->
 <tr>
   {% for seat in seatNumber %}
   <td>
-    <form method="post">
+    <!-- {{seat}}{{row}} -->
+    {% if seat.seatNumber in seatsRes %}
+    <form method="post" >
+      <button class ="button button5" style="background-color: blue;" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
+    </form>
+    {% else %}
+    <form method="post" >
       <button class ="button button5" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
     </form>
+    {% endif %}
   </td>
   {% endfor %}
 </tr>
