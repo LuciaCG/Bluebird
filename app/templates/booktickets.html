@@ -23,7 +23,7 @@ Unavailable Seats<br>
 {% endfor %}<br>
             <br>
 Seats Available<br>
-
+s
 <div id="screenicon">
   <h2 id="screentext">Screen</h2>
 </div>
@@ -38,9 +38,9 @@ Seats Available<br>
   {% for seat in seatNumber %}
   <td>
     <!-- {{seat}}{{row}} -->
-    {% if seat.seatNumber in seatsRes %}
+    {% if models.Seat_Reserved.query.filter_by(screening=1, rowReservedID=row.row, seatNumberReservedID=seat.seatNumber).count() == 1%}
     <form method="post" >
-      <button class ="button button5" style="background-color: blue;" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
+      <button class ="button button5" style="background-color: blue;" disabledname="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
     </form>
     {% else %}
     <form method="post" >

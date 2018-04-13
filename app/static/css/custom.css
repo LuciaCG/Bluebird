@@ -27,8 +27,9 @@
 }
 #screentext {
   margin: 0px;
-  margin-left: 37%;
+  /*margin-left: 37%;*/
   padding-bottom: 5px;
+  text-align: center;
 }
 #seatstable {
   margin-left: 20%;

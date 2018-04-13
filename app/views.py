@@ -96,6 +96,7 @@ def booktickets():
             screening = models.Screenings.query.filter_by(id=screeningID).first()
             seatsRes = models.Seat_Reserved.query.filter_by(screening=screeningID).all()
 
+
         else:
             return redirect(url_for('home'))
 
@@ -120,5 +121,6 @@ def booktickets():
                                 seatsAll = seatsAll,
                                 seatNumber = seatNumber,
                                 rows = rows,
+                                models = models
                                 # movies = movies
                                 )
