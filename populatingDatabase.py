@@ -78,7 +78,7 @@ import datetime
 # models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle
 # a = models.Movies.query.filter_by(movieTitle="...").first()
 
-
+#
 # from app import models, db
 # import datetime
 # seatNumber = models.Seats.query.with_entities(models.Seats.seatNumber).group_by(models.Seats.seatNumber).all()
@@ -92,13 +92,14 @@ import datetime
 #     for b in seatNumber:
 #         if x == 15:
 #             break
-#         print(a.row , b.seatNumber)
+#         c = models.Seats.query.filter_by(row = a.row, seatNumber = b.seatNumber).first()
+#         print(b.seatNumber)
+#         print(c.row , c.seatNumber)
 #         x+=1
+#         print(x)
 
+# models.Seat_Reserved.query.filter_by(screening=1, rowReservedID=row, seatNumberReservedID=number).count()
 
-
-
-        # print(x)
 
 
 
