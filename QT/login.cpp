@@ -12,6 +12,7 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login)
 {
     ui->setupUi(this);
+
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
     firstDB.setHostName("bluebird");
@@ -26,6 +27,12 @@ Login::Login(QWidget *parent) :
         ui->warning->setText("WARNING: Failed Connexion");
 
 }
+
+Login::~Login()
+{
+    delete ui;
+}
+
 void Login::on_login_clicked()
 {
     QString user,pass;
@@ -39,7 +46,7 @@ void Login::on_login_clicked()
     qry.exec();
 
     bool aux = true;
-    //qry.next();
+    qry.next(); // WE CAN'T USE "ONLINE"
     while(qry.next() && aux){
         if(qry.value("name") == user){
             QString password = QString(QCryptographicHash::hash(pass.toLocal8Bit(), QCryptographicHash::Sha256).toHex());
@@ -56,8 +63,9 @@ void Login::on_login_clicked()
     }
 
 }
-Login::~Login()
+
+void Login::keyPressEvent(QKeyEvent* pe)
 {
-    delete ui;
+    if(pe->key() == Qt::Key_Return) on_login_clicked();
 }
 

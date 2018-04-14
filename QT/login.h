@@ -27,6 +27,8 @@ private slots:
 private:
     Ui::Login *ui;
     QSqlDatabase firstDB;
+protected:
+    void keyPressEvent(QKeyEvent* pe);
 };
 
 #endif // LOGIN_H

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1005</width>
-    <height>675</height>
+    <height>680</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -56,6 +56,9 @@
       <height>41</height>
      </rect>
     </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Password</enum>
+    </property>
    </widget>
    <widget class="QPushButton" name="login">
     <property name="geometry">
@@ -68,6 +71,9 @@
     </property>
     <property name="text">
      <string>Log in</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="warning">
