@@ -152,9 +152,7 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
                                   ui->tableWidget->verticalHeader()->length()
                                   + ui->tableWidget->horizontalHeader()->height());
 
-    // change color of cells
-
-
+    // Initial style
     QString background = "background-color: green;";
     ui->tableWidget->setStyleSheet(background);
 
@@ -162,6 +160,9 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     ui->tableWidget->horizontalHeader()->setStyleSheet(header);
     ui->tableWidget->verticalHeader()->setStyleSheet(header);
 
+    
+    
+    
 
     ui->tableWidget->show();
 
