@@ -1,9 +1,10 @@
 #include "chairs.h"
 #include "ui_chairs.h"
 
-#include <QSqlTableModel>
+//#include <QSqlTableModel>
 #include <QtWidgets>
 #include <QSqlQuery>
+#include <QTableWidget>
 
 ////////////////////////////////////////////
 // DELEGATE CLASS TO HELP WITH CELLS STYLES
@@ -92,42 +93,64 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
         }
 
     // get seats reserved
-    QSqlQuery querySeat;
-    querySeat.prepare(QString("SELECT * FROM Seat_Reserved WHERE screening = %1").arg(id));
-    querySeat.exec();
+    //QSqlQuery querySeat;
+    //querySeat.exec("SELECT * FROM Seat_Reserved");
 
-    //Create table with all screen seats
-    QSqlTableModel *model = new QSqlTableModel(this,firstDB);
-
-    //Selecting the Table we want from DB
-    model->setTable("Seats");
-    model->select();
-    ui->tableView->setModel(model);
+    QSqlQuery qry;
+    qry.exec("SELECT * FROM Seats");
 
 
-   //Delegate *delegate = new Delegate();
-    //ui->tableView3->setItemDelegate(delegate);
 
 
-    for (int i = capacity; i < model->rowCount(); i++){
-        ui->tableView->hideRow(i); // remove seats that dont exist
-      //model->setData(index, QColor(Qt::green), Qt::BackgroundColorRole)
-      //model->setData(model->index(i, 1), QVariant(QBrush(Qt::red)), Qt::BackgroundRole);
+
+    int auxRow = 0, auxCol = 0;
+    QString lastRow = "";
+    int lastCol = 0;
+
+    for (int n = 0; n < capacity; n++){ //how many rows and collumns we need?
+        qry.next();
+        if (lastRow < qry.value(0).toString()){ //we ned more rows
+            auxRow++;
+            lastRow = qry.value(0).toString();
+        }
+        if (lastCol < qry.value(1).toInt()){ //we need more collumns
+            auxCol++;
+            lastCol = qry.value(1).toInt();
+        }
     }
 
-    //Displaying the table in the Tableview
-    ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableView->show();
+    ui->user->setText(QString::number(auxCol));
 
+    ui->tableWidget->setRowCount(auxRow);
+    ui->tableWidget->setColumnCount(auxCol);
 
+    // set the heathers
+    char heatherRow = 'a';
+    QStringList listRow;
 
+    for (int i = 0; i < auxRow; i++){
+        listRow.append(QString(QChar::fromLatin1(heatherRow)));
+        heatherRow++;
+    }
+    ui->tableWidget->setVerticalHeaderLabels(listRow);
 
+    int heatherCol = 0;
+    QStringList listCol;
 
+    for (int i = 0; i < auxCol; i++){
+        heatherCol++;
+        listCol.append(QString::number(heatherCol));
+    }
+    ui->tableWidget->setHorizontalHeaderLabels(listCol);
 
+    ui->tableWidget->resizeColumnsToContents();
+    ui->tableWidget->resizeRowsToContents();
+    ui->tableWidget->setFixedSize(ui->tableWidget->horizontalHeader()->length()
+                                  + ui->tableWidget->verticalHeader()->width(),
+                                  ui->tableWidget->verticalHeader()->length()
+                                  + ui->tableWidget->horizontalHeader()->height());
 
-
+    ui->tableWidget->show();
 
 
 
