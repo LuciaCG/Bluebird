@@ -8,6 +8,8 @@ class Movies(db.Model):
     movieTitle = db.Column(db.String(150))
     synopsis = db.Column(db.String(1000))
     ageRating = db.Column(db.String(3))
+    director = db.Column(db.String(100))
+    leadActors = db.Column(db.String(500))
     screening = db.relationship('Screenings', backref='movies', lazy='dynamic')
 
     def __repr__(self):

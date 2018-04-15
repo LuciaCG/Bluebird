@@ -64,6 +64,8 @@
               var myid=document.getElementById('{{movie.movieTitle}}');
               myid.innerHTML=myid.innerHTML.substring(0,100)+'...';
             </script>
+            <p class="card-text">{{movie.director}}</p>
+            <p class="card-text">{{movie.leadActors}}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
                 <form method="post">
@@ -71,7 +73,7 @@
                 <button class ="button button5" name="subject" type="submit" value="{{movie.id}}">Get Times and Tickets</button>
                 </form>
               </div>
-              <small class="text-muted">9 mins</small>
+              <small class="text-muted">{{movie.ageRating}}</small>
             </div>
           </div>
         </div>
