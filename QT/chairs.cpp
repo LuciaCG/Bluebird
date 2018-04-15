@@ -157,7 +157,7 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     queryRes.exec("SELECT * FROM Seat_Reserved;");
 
     queryRes.last();
-    ui->user->setText(queryRes.value(0).toString());
+    ui->user->setText(QString::number(id));
 
 
 

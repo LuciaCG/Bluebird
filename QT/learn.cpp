@@ -17,6 +17,11 @@ learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
     ui->setupUi(this);
     ui->user->setText(user);
     ui->title->setText(name);
+    ui->tableView->setFocus();
+    QWidget::setTabOrder(ui->tableView, ui->selection);
+    QWidget::setTabOrder(ui->selection, ui->logout);
+    QWidget::setTabOrder(ui->logout, ui->back);
+
 
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
@@ -53,11 +58,10 @@ learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
     ui->tableView->hideColumn(1);
 
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-
     ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
+    QModelIndex index = ui->tableView->model()->index(0 , 0);
+    ui->tableView->setCurrentIndex(index);
     ui->tableView->show();
 
 
@@ -109,4 +113,14 @@ void learn::on_logout_clicked()
 {
     this->parentWidget()->parentWidget()->show(); //show log in page
     this->parentWidget()->close();
+}
+
+void learn::keyPressEvent(QKeyEvent* pe)
+{
+    if(pe->key() == Qt::Key_Return) {
+        QWidget * fw = QWidget::focusWidget();
+        if (fw == ui->tableView || fw == ui->selection) on_selection_clicked();
+        else if (fw == ui->logout) on_logout_clicked();
+        else if (fw == ui->back) on_back_clicked();
+    }
 }

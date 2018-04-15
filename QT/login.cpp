@@ -49,7 +49,7 @@ void Login::on_login_clicked()
     qry.exec();
 
     bool aux = true;
-    qry.next(); // WE CAN'T USE "ONLINE"
+    //qry.next(); // WE CAN'T USE "ONLINE"
     while(qry.next() && aux){
         if(qry.value("name") == user){
             QString password = QString(QCryptographicHash::hash(pass.toLocal8Bit(), QCryptographicHash::Sha256).toHex());
@@ -60,6 +60,7 @@ void Login::on_login_clicked()
     if (aux)
         ui->warning->setText("WARNING: Incorrect Password Or Username");
     else{
+        ui->warning->setText("");
         MainWindow *instance = new MainWindow(this, user);
         instance->show();
         this->hide();

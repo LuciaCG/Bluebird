@@ -56,6 +56,12 @@
     <property name="sizeAdjustPolicy">
      <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
     </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="tabKeyNavigation">
+     <bool>false</bool>
+    </property>
     <property name="selectionBehavior">
      <enum>QAbstractItemView::SelectRows</enum>
     </property>
@@ -72,9 +78,6 @@
      <bool>false</bool>
     </attribute>
     <attribute name="verticalHeaderVisible">
-     <bool>false</bool>
-    </attribute>
-    <attribute name="verticalHeaderStretchLastSection">
      <bool>false</bool>
     </attribute>
    </widget>
@@ -119,10 +122,10 @@ font-weight:bold;</string>
       </rect>
      </property>
      <property name="focusPolicy">
-      <enum>Qt::ClickFocus</enum>
+      <enum>Qt::StrongFocus</enum>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:#808080; color: #FFFFFF;
+      <string notr="true">background-color:#c0c0c0; color: #555555;
 font-size: 21px;
 border:3;</string>
      </property>
@@ -200,6 +203,7 @@ font-size: 21px;</string>
    <zorder>select</zorder>
    <zorder>Header</zorder>
    <zorder>tableView</zorder>
+   <zorder>connection</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

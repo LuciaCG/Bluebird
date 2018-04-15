@@ -26,6 +26,8 @@ private:
     QString name;
     int screen;
     QString user;
+protected:
+    void keyPressEvent(QKeyEvent* pe);
 };
 
 #endif // LEARN_H

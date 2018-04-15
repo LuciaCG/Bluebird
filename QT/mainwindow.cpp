@@ -16,7 +16,9 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
 {
     ui->setupUi(this);
     ui->user->setText(user);
-
+    ui->tableView->setFocus();
+    QWidget::setTabOrder(ui->tableView, ui->select);
+    QWidget::setTabOrder(ui->select, ui->logout);
 
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
@@ -53,7 +55,10 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
     ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableView->setStyleSheet("QHeaderView::section { background-color:red }");
+    QModelIndex index = ui->tableView->model()->index(0 , 0);
+    ui->tableView->setCurrentIndex(index);
     ui->tableView->show();
+
 
 
     QTimer *timer = new QTimer(this);
@@ -96,4 +101,12 @@ void MainWindow::on_logout_clicked()
     this->close();
 }
 
+void MainWindow::keyPressEvent(QKeyEvent* pe)
+{
+    if(pe->key() == Qt::Key_Return) {
+        QWidget * fw = QWidget::focusWidget();
+        if (fw == ui->tableView || fw == ui->select) on_select_clicked();
+        else if (fw == ui->logout) on_logout_clicked();
+    }
+}
 

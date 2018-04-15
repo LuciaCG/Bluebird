@@ -29,6 +29,8 @@ private:
     Ui::MainWindow *ui;
     QModelIndex modelindex;
     QString user;
+protected:
+    void keyPressEvent(QKeyEvent* pe);
 };
 
 #endif // MAINWINDOW_H
