@@ -46,6 +46,9 @@
     <property name="text">
      <string>Password</string>
     </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
    </widget>
    <widget class="QLineEdit" name="Password">
     <property name="geometry">
@@ -97,6 +100,9 @@
     <property name="text">
      <string/>
     </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
    </widget>
    <widget class="QLineEdit" name="Username">
     <property name="geometry">
@@ -122,6 +128,9 @@
     </property>
     <property name="text">
      <string>User</string>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
   </widget>

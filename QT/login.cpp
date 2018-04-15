@@ -12,6 +12,9 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login)
 {
     ui->setupUi(this);
+    ui->Username->setFocus();
+    QWidget::setTabOrder(ui->Username, ui->Password);
+    QWidget::setTabOrder(ui->Password, ui->login);
 
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");

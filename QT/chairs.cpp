@@ -92,30 +92,22 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
              }
         }
 
-    // get seats reserved
-    //QSqlQuery querySeat;
-    //querySeat.exec("SELECT * FROM Seat_Reserved");
-
-    QSqlQuery qry;
-    qry.exec("SELECT * FROM Seats");
-
-
-
-
+    QSqlQuery querySeats;
+    querySeats.exec("SELECT * FROM Seats");
 
     int auxRow = 0, auxCol = 0;
     QString lastRow = "";
     int lastCol = 0;
 
     for (int n = 0; n < capacity; n++){ //how many rows and collumns we need?
-        qry.next();
-        if (lastRow < qry.value(0).toString()){ //we ned more rows
+        querySeats.next();
+        if (lastRow < querySeats.value(0).toString()){ //we ned more rows
             auxRow++;
-            lastRow = qry.value(0).toString();
+            lastRow = querySeats.value(0).toString();
         }
-        if (lastCol < qry.value(1).toInt()){ //we need more collumns
+        if (lastCol < querySeats.value(1).toInt()){ //we need more collumns
             auxCol++;
-            lastCol = qry.value(1).toInt();
+            lastCol = querySeats.value(1).toInt();
         }
     }
 
@@ -152,15 +144,21 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
                                   ui->tableWidget->verticalHeader()->length()
                                   + ui->tableWidget->horizontalHeader()->height());
 
-    // change color of cells
-
-
+    // Initial style
     QString background = "background-color: green;";
     ui->tableWidget->setStyleSheet(background);
 
     QString header = "QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold; }";
     ui->tableWidget->horizontalHeader()->setStyleSheet(header);
     ui->tableWidget->verticalHeader()->setStyleSheet(header);
+
+    // compare vs the reserved seats
+    QSqlQuery queryRes;
+    queryRes.exec("SELECT * FROM Seat_Reserved;");
+
+    queryRes.last();
+    ui->user->setText(queryRes.value(0).toString());
+
 
 
     ui->tableWidget->show();
