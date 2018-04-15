@@ -35,4 +35,4 @@ clean:
 	rm -rf __pycache__
 	rm -rf db_repository
 	rm -rf app/__pycache__
-
+	# rm -rf flask/
