@@ -237,11 +237,11 @@ blackPantherScreening4 = models.Screenings(movies_id=blackPatherID, screen_id=sc
 blackPantherScreening5 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime5)
 blackPantherScreening6 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime6)
 
- #assigning times to the greatest showman
-theGreatestShowmanID = models.Movies.query.filter_by(movieTitle="The Greatest Showman").first().id
-theGreatestShowmanScreening1 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen1ID ,time = screeningTime7)
-theGreatestShowmanScreening2 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen2ID ,time = screeningTime8)
-theGreatestShowmanScreening3 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen3ID , time = screeningTime9)
+#  #assigning times to the greatest showman
+# theGreatestShowmanID = models.Movies.query.filter_by(movieTitle="The Greatest Showman").first().id
+# theGreatestShowmanScreening1 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen1ID ,time = screeningTime7)
+# theGreatestShowmanScreening2 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen2ID ,time = screeningTime8)
+# theGreatestShowmanScreening3 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen3ID , time = screeningTime9)
 
 
 
@@ -254,9 +254,9 @@ db.session.add(blackPantherScreening4)
 db.session.add(blackPantherScreening5)
 db.session.add(blackPantherScreening6)
 
-db.session.add(theGreatestShowmanScreening1)
-db.session.add(theGreatestShowmanScreening2)
-db.session.add(theGreatestShowmanScreening3)
+# db.session.add(theGreatestShowmanScreening1)
+# db.session.add(theGreatestShowmanScreening2)
+# db.session.add(theGreatestShowmanScreening3)
 db.session.commit()
 
 ############### adding screenings to Screenings tables ##############

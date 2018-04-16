@@ -31,10 +31,10 @@
   padding-bottom: 5px;
   text-align: center;
 }
-#seatstable {
+/*#seatstable {
   margin-left: 20%;
   margin-right: 20%;
-}
+}*/
 
 #loginbutton {
   margin-top: 12.5px;
@@ -97,6 +97,13 @@
     background-color: #555555;
     border-radius: 8px;
     color: white;
+}
+
+.button4{
+  background-color: #555555;
+  border-radius: 8px;
+  color: white;
+
 }
 
 .modal-pointer

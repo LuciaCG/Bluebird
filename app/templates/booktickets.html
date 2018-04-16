@@ -21,6 +21,31 @@ Unavailable Seats<br>
   {{seats.seatNumberReservedID}} )
 
 {% endfor %}<br>
+
+<div class="container">
+  <div class="row">
+    <h3 style="width:100%" > Choose Type and Number of Tickets </h3><br>
+    <form>
+    <div class="col-lf-12">
+      <h4>Adult - £9.00 </h4> <input style="width:15%" placeholder="0" maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5"> + </button> £9.00 <br>
+      <h4>OAP - £7.00 </h4> <input style="width:15%" placeholder="0" maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5"> + </button> £7.00 <br>
+      <h4>Child - £6.50 </h4> <input style="width:15%" placeholder="0" maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5"> + </button> £6.50 <br>
+      <h4>VIP - £12.00 </h4> <input style="width:15%" placeholder="0" maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5"> + </button> £12.00 <br>
+    </div>
+
+    </form>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
             <br>
 Seats Available<br>
 s
@@ -28,38 +53,39 @@ s
   <h2 id="screentext">Screen</h2>
 </div>
 
+  <div class="row">
+    <div class="col-md-12">
+      <table style="width:65%" id="seatstable">
+        {% for row in rows %}
+      <!-- <th>
+            {{row.row}}
+      </th> -->
+        <tr>
+          {% for seat in seatNumber %}
+          <td>
+            <!-- {{seat}}{{row}} -->
+            {% if models.Seat_Reserved.query.filter_by(screening=screening.id, rowReservedID=row.row, seatNumberReservedID=seat.seatNumber).count() == 1%}
+            <form method="post" >
+              <button class ="button button4" disabled name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
+            </form>
+            {% else %}
+            <form method="post" >
+              <button class ="button button5" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
+            </form>
+            {% endif %}
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}<br>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <button class ="button button5">Book these tickets</button>
+    </div>
+  </div>
 
-<table style="width:65%" id="seatstable">
-{% for row in rows %}
-<!-- <th>
-      {{row.row}}
-</th> -->
-<tr>
-  {% for seat in seatNumber %}
-  <td>
-    <!-- {{seat}}{{row}} -->
-    {% if models.Seat_Reserved.query.filter_by(screening=1, rowReservedID=row.row, seatNumberReservedID=seat.seatNumber).count() == 1%}
-    <form method="post" >
-      <button class ="button button5" style="background-color: blue;" disabledname="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
-    </form>
-    {% else %}
-    <form method="post" >
-      <button class ="button button5" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
-    </form>
-    {% endif %}
-  </td>
-  {% endfor %}
-</tr>
-{% endfor %}<br>
-</table>
-
-
-
-
-
-
-
-
-
+</div>
 
 {% endblock %}
