@@ -238,10 +238,10 @@ blackPantherScreening5 = models.Screenings(movies_id=blackPatherID, screen_id=sc
 blackPantherScreening6 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime6)
 
  #assigning times to the greatest showman
-theGreatestShowmanID = models.Movies.query.filter_by(movieTitle="The Greatest Showman").first().id
-theGreatestShowmanScreening1 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen1ID ,time = screeningTime7)
-theGreatestShowmanScreening2 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen2ID ,time = screeningTime8)
-theGreatestShowmanScreening3 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen3ID , time = screeningTime9)
+# theGreatestShowmanID = models.Movies.query.filter_by(movieTitle="The Greatest Showman").first().id
+# theGreatestShowmanScreening1 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen1ID ,time = screeningTime7)
+# theGreatestShowmanScreening2 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen2ID ,time = screeningTime8)
+# theGreatestShowmanScreening3 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen3ID , time = screeningTime9)
 
 
 
@@ -253,10 +253,10 @@ db.session.add(blackPantherScreening3)
 db.session.add(blackPantherScreening4)
 db.session.add(blackPantherScreening5)
 db.session.add(blackPantherScreening6)
-
-db.session.add(theGreatestShowmanScreening1)
-db.session.add(theGreatestShowmanScreening2)
-db.session.add(theGreatestShowmanScreening3)
+#
+# db.session.add(theGreatestShowmanScreening1)
+# db.session.add(theGreatestShowmanScreening2)
+# db.session.add(theGreatestShowmanScreening3)
 db.session.commit()
 
 ############### adding screenings to Screenings tables ##############
@@ -447,14 +447,84 @@ a = models.Receipts(userName="guest", employeeName="online", screening=1, price=
 db.session.add(a)
 db.session.commit()
 
-
+###################### encryption queries ###########################
 # from app import models, db
 # import datetime
 # import hashlib
-# a = models.CardDetails(userID=1, cardNumber="1212121212121212", exMonth="11", exYear="1111", securityNumber="111")
-# db.session.add(a)
-# db.session.commit()
+
+###### practice card details #####
+a = models.CardDetails(userID=1, cardNumber="4556939797103693", exMonth="11", exYear="2018", securityNumber="592")
+
+b = models.CardDetails(userID=1, cardNumber="0123456789123456", exMonth="11", exYear="2018", securityNumber="592")
+db.session.add(a)
+db.session.add(b)
+db.session.commit()
 #
 #
 # for a in models.CardDetails.query.all():
-    #  print(a.userID , a.cardNumber)
+#      print(a.userID , a.cardNumber)
+
+##########################################################
+
+# cardNumber = "4556939797103693"
+# newCardNumber = ""
+#
+# for character in range(0,16):
+#   if (character % 3) == 0:
+#     changedLetter = ord(cardNumber[character]) - 3
+#   elif (character % 2) == 0:
+#     changedLetter = ord(cardNumber[character]) - 2
+#   else:
+#     changedLetter = ord(cardNumber[character]) - 1
+#   newCardNumber += chr(changedLetter)
+#
+#
+# cardNumber = newCardNumber
+# cardNumber
+
+##########################################################
+
+# newCardNumber = ""
+#
+# for character in range(12,16):
+#   if (character % 3) == 0:
+#     changedLetter = ord(cardNumber[character]) + 3
+#   elif (character % 2) == 0:
+#     changedLetter = ord(cardNumber[character]) + 2
+#   else:
+#     changedLetter = ord(cardNumber[character]) + 1
+#   newCardNumber += chr(changedLetter)
+#
+#
+# cardNumber = newCardNumber
+# cardNumber
+
+##########################################################
+
+# newCardNumber = ""
+#
+# for character in range(12,16):
+#   if (character % 3) == 0:
+#     changedLetter = ord(a.cardNumber[character]) + 3
+#   elif (character % 2) == 0:
+#     changedLetter = ord(a.cardNumber[character]) + 2
+#   else:
+#     changedLetter = ord(a.cardNumber[character]) + 1
+#   newCardNumber += chr(changedLetter)
+#
+#
+# newCardNumber
+
+##########################################################
+
+# for character in range(0,16):
+#   index=
+#   print(index)
+#   if (index%3) == 0:
+#     print("mod3")
+#   elif (index%2) == 0:
+#     print("mod2")
+#   else:
+#     print("odd")
+
+###################### encryption queries ###########################
