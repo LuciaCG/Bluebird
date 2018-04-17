@@ -42,10 +42,27 @@ class Delegate : public QItemDelegate
         queryRes.exec();
 
         while (queryRes.next()){
-            int row = queryRes.value(1).toInt();
+            QString row = queryRes.value(1).toString();
             int col = queryRes.value(2).toInt();
+            int row2 = 0;
+            if (row == "A"){
+                row2 = 0;
+                }
+            else if (row == "B"){
+                row2 = 1;
+                }
+            else if (row == "C")
+                row2 = 2;
+            else if (row == "D")
+                row2 = 3;
+            else if (row == "E")
+                row2 = 4;
+            else if (row == "F")
+                row2 = 5;
+            else if (row == "G")
+                row2 = 6;
 
-            if (index.row() == row && index.column() == col)
+            if (index.row() == row2 && index.column() == col -1)
                 painter->fillRect(option.rect, QBrush(Qt::red));
         }
      };
