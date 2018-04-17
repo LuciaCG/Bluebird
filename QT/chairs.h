@@ -21,6 +21,8 @@ private slots:
     void on_logout_clicked();
     void on_back_clicked();
 
+    void on_selection_clicked();
+
 private:
     Ui::chairs *ui;
     QString screen;

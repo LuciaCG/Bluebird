@@ -52,19 +52,23 @@ SOURCES       = ../QT/main.cpp \
 		../QT/mainwindow.cpp \
 		../QT/learn.cpp \
 		../QT/chairs.cpp \
-		../QT/login.cpp moc_mainwindow.cpp \
+		../QT/login.cpp \
+		../QT/payment.cpp moc_mainwindow.cpp \
 		moc_learn.cpp \
 		moc_chairs.cpp \
-		moc_login.cpp
+		moc_login.cpp \
+		moc_payment.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		learn.o \
 		chairs.o \
 		login.o \
+		payment.o \
 		moc_mainwindow.o \
 		moc_learn.o \
 		moc_chairs.o \
-		moc_login.o
+		moc_login.o \
+		moc_payment.o
 DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/common/unix.conf \
 		/usr/lib64/qt5/mkspecs/common/linux.conf \
@@ -93,24 +97,10 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_platformsupport_private.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_qml.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_qml_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_qmldevtools_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_qmltest.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_qmltest_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_quick.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_quick_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_quickparticles_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_quickwidgets.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_quickwidgets_private.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_sql_private.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_testlib_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_webkit.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_webkit_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_webkitwidgets_private.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_widgets_private.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri \
@@ -140,11 +130,13 @@ DIST          = /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
 		../QT/UI2.pro ../QT/mainwindow.h \
 		../QT/learn.h \
 		../QT/chairs.h \
-		../QT/login.h ../QT/main.cpp \
+		../QT/login.h \
+		../QT/payment.h ../QT/main.cpp \
 		../QT/mainwindow.cpp \
 		../QT/learn.cpp \
 		../QT/chairs.cpp \
-		../QT/login.cpp
+		../QT/login.cpp \
+		../QT/payment.cpp
 QMAKE_TARGET  = UI2
 DESTDIR       = 
 TARGET        = UI2
@@ -153,7 +145,7 @@ TARGET        = UI2
 first: all
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_learn.h ui_chairs.h ui_login.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_learn.h ui_chairs.h ui_login.h ui_payment.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../QT/UI2.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /usr/lib64/qt5/mkspecs/features/spec_pre.prf \
@@ -184,24 +176,10 @@ Makefile: ../QT/UI2.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /usr/lib64/q
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_platformsupport_private.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_qml.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_qml_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_qmldevtools_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_qmltest.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_qmltest_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_quick.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_quick_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_quickparticles_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_quickwidgets.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_quickwidgets_private.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_sql_private.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_testlib_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_webkit.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_webkit_private.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri \
-		/usr/lib64/qt5/mkspecs/modules/qt_lib_webkitwidgets_private.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_widgets_private.pri \
 		/usr/lib64/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri \
@@ -262,24 +240,10 @@ Makefile: ../QT/UI2.pro /usr/lib64/qt5/mkspecs/linux-g++/qmake.conf /usr/lib64/q
 /usr/lib64/qt5/mkspecs/modules/qt_lib_platformsupport_private.pri:
 /usr/lib64/qt5/mkspecs/modules/qt_lib_printsupport.pri:
 /usr/lib64/qt5/mkspecs/modules/qt_lib_printsupport_private.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_qml.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_qml_private.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_qmldevtools_private.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_qmltest.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_qmltest_private.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_quick.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_quick_private.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_quickparticles_private.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_quickwidgets.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_quickwidgets_private.pri:
 /usr/lib64/qt5/mkspecs/modules/qt_lib_sql.pri:
 /usr/lib64/qt5/mkspecs/modules/qt_lib_sql_private.pri:
 /usr/lib64/qt5/mkspecs/modules/qt_lib_testlib.pri:
 /usr/lib64/qt5/mkspecs/modules/qt_lib_testlib_private.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_webkit.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_webkit_private.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_webkitwidgets.pri:
-/usr/lib64/qt5/mkspecs/modules/qt_lib_webkitwidgets_private.pri:
 /usr/lib64/qt5/mkspecs/modules/qt_lib_widgets.pri:
 /usr/lib64/qt5/mkspecs/modules/qt_lib_widgets_private.pri:
 /usr/lib64/qt5/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri:
@@ -326,9 +290,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib64/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../QT/mainwindow.h ../QT/learn.h ../QT/chairs.h ../QT/login.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../QT/main.cpp ../QT/mainwindow.cpp ../QT/learn.cpp ../QT/chairs.cpp ../QT/login.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../QT/mainwindow.ui ../QT/learn.ui ../QT/chairs.ui ../QT/login.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../QT/mainwindow.h ../QT/learn.h ../QT/chairs.h ../QT/login.h ../QT/payment.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../QT/main.cpp ../QT/mainwindow.cpp ../QT/learn.cpp ../QT/chairs.cpp ../QT/login.cpp ../QT/payment.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../QT/mainwindow.ui ../QT/learn.ui ../QT/chairs.ui ../QT/login.ui ../QT/payment.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -359,9 +323,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib64/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++0x -Wall -W -dM -E -o moc_predefs.h /usr/lib64/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_learn.cpp moc_chairs.cpp moc_login.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_learn.cpp moc_chairs.cpp moc_login.cpp moc_payment.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_learn.cpp moc_chairs.cpp moc_login.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_learn.cpp moc_chairs.cpp moc_login.cpp moc_payment.cpp
 moc_mainwindow.cpp: ../QT/mainwindow.h \
 		moc_predefs.h
 	/usr/lib64/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/cserv1_a/soc_ug/sc16rk/Year2/Project/bluebird/QT -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I. -I/usr/include/c++/4.8.5 -I/usr/include/c++/4.8.5/x86_64-redhat-linux -I/usr/include/c++/4.8.5/backward -I/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include -I/usr/local/include -I/usr/include ../QT/mainwindow.h -o moc_mainwindow.cpp
@@ -378,11 +342,15 @@ moc_login.cpp: ../QT/login.h \
 		moc_predefs.h
 	/usr/lib64/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/cserv1_a/soc_ug/sc16rk/Year2/Project/bluebird/QT -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I. -I/usr/include/c++/4.8.5 -I/usr/include/c++/4.8.5/x86_64-redhat-linux -I/usr/include/c++/4.8.5/backward -I/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include -I/usr/local/include -I/usr/include ../QT/login.h -o moc_login.cpp
 
+moc_payment.cpp: ../QT/payment.h \
+		moc_predefs.h
+	/usr/lib64/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib64/qt5/mkspecs/linux-g++ -I/home/cserv1_a/soc_ug/sc16rk/Year2/Project/bluebird/QT -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtSql -I/usr/include/qt5/QtCore -I. -I/usr/include/c++/4.8.5 -I/usr/include/c++/4.8.5/x86_64-redhat-linux -I/usr/include/c++/4.8.5/backward -I/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include -I/usr/local/include -I/usr/include ../QT/payment.h -o moc_payment.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_learn.h ui_chairs.h ui_login.h
+compiler_uic_make_all: ui_mainwindow.h ui_learn.h ui_chairs.h ui_login.h ui_payment.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_learn.h ui_chairs.h ui_login.h
+	-$(DEL_FILE) ui_mainwindow.h ui_learn.h ui_chairs.h ui_login.h ui_payment.h
 ui_mainwindow.h: ../QT/mainwindow.ui
 	/usr/lib64/qt5/bin/uic ../QT/mainwindow.ui -o ui_mainwindow.h
 
@@ -395,6 +363,9 @@ ui_chairs.h: ../QT/chairs.ui
 ui_login.h: ../QT/login.ui
 	/usr/lib64/qt5/bin/uic ../QT/login.ui -o ui_login.h
 
+ui_payment.h: ../QT/payment.ui
+	/usr/lib64/qt5/bin/uic ../QT/payment.ui -o ui_payment.h
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
@@ -405,17 +376,19 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: ../QT/main.cpp ../QT/mainwindow.h
+main.o: ../QT/main.cpp ../QT/login.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../QT/main.cpp
 
 mainwindow.o: ../QT/mainwindow.cpp ../QT/mainwindow.h \
 		ui_mainwindow.h \
-		../QT/learn.h
+		../QT/learn.h \
+		../QT/login.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../QT/mainwindow.cpp
 
 learn.o: ../QT/learn.cpp ../QT/learn.h \
 		ui_learn.h \
-		../QT/chairs.h
+		../QT/chairs.h \
+		../QT/mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o learn.o ../QT/learn.cpp
 
 chairs.o: ../QT/chairs.cpp ../QT/chairs.h \
@@ -423,8 +396,13 @@ chairs.o: ../QT/chairs.cpp ../QT/chairs.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o chairs.o ../QT/chairs.cpp
 
 login.o: ../QT/login.cpp ../QT/login.h \
+		../QT/mainwindow.h \
 		ui_login.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o login.o ../QT/login.cpp
+
+payment.o: ../QT/payment.cpp ../QT/payment.h \
+		ui_payment.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o payment.o ../QT/payment.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
@@ -437,6 +415,9 @@ moc_chairs.o: moc_chairs.cpp
 
 moc_login.o: moc_login.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_login.o moc_login.cpp
+
+moc_payment.o: moc_payment.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_payment.o moc_payment.cpp
 
 ####### Install
 

@@ -1,59 +1,12 @@
 #include "chairs.h"
 #include "ui_chairs.h"
-
+#include "payment.h"
 //#include <QSqlTableModel>
 #include <QtWidgets>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QTableWidget>
-
-////////////////////////////////////////////
-// DELEGATE CLASS TO HELP WITH CELLS STYLES
-////////////////////////////////////////////
-
-#include <QStyledItemDelegate>
-
-/*
-class Delegate : public QStyledItemDelegate
-{
-    Q_OBJECT
-public:
-    explicit Delegate(QObject *parent = 0);
-    Delegate(const QString &txt, QObject *parent = 0);
-
-protected:
-    void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
-    {
-        QStyleOptionViewItem op(option);
-
-        if (index.row()==2) {
-            op.font.setBold(true);
-            op.palette.setColor(QPalette::Normal, QPalette::Background, Qt::green);
-            op.palette.setColor(QPalette::Normal, QPalette::Foreground, Qt::white);
-        }
-        QStyledItemDelegate::paint(painter, op, index);
-    }
-
-    //QSize sizeHint( const QStyleOptionViewItem &option,
-                  //  const QModelIndex &index ) const;
-    //QWidget* createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-   // void setEditorData(QWidget * editor, const QModelIndex & index) const;
-    //void setModelData(QWidget * editor, QAbstractItemModel * model, const QModelIndex & index) const;
-    //void updateEditorGeometry(QWidget * editor, const QStyleOptionViewItem & option, const QModelIndex & index) const;
-
-signals:
-
-public slots:
-
-};
-*/
-
-/////////////////////////
-// END OF DELEGATE CLASS
-/////////////////////////
-
-
-
-
+#include <QSpinBox>
 chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     QWidget(parent),
     ui(new Ui::chairs),
@@ -111,8 +64,6 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
         }
     }
 
-    ui->user->setText(QString::number(auxCol));
-
     ui->tableWidget->setRowCount(auxRow);
     ui->tableWidget->setColumnCount(auxCol);
 
@@ -153,17 +104,18 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     ui->tableWidget->verticalHeader()->setStyleSheet(header);
 
     // compare vs the reserved seats
-    QSqlQuery queryRes;
-    queryRes.exec("SELECT * FROM Seat_Reserved;");
+   // QSqlQuery queryRes;
+  //  queryRes.exec("SELECT * FROM Seat_Reserved;");
 
-    queryRes.last();
-    ui->user->setText(QString::number(id));
-
-
+ //   queryRes.last();
+                //queryRes.value(1).toString());
+ //   ui->user->setText(queryRes.value(1).toString());
 
     ui->tableWidget->show();
 
 
+    //QString s = QString::number(a);
+    //ui->user->setText(s);
 
     // CLOCK
     QTimer *timer = new QTimer(this);
@@ -186,14 +138,6 @@ chairs::~chairs()
     delete ui;
 }
 
-//void chairs::paintEvent(QPaintEvent *e)
-//{
- //QPainter painter(this);
- //setBackgroundRole(QPalette::Blac);
-
-//}
-
-
 void chairs::on_back_clicked()
 {
     this->hide();
@@ -208,3 +152,19 @@ void chairs::on_logout_clicked()
 
 
 
+
+void chairs::on_selection_clicked()
+{
+    int ticketAdult = ui->Adult->value() * 9;
+    int ticketChild = ui->Child->value() * 6.5;
+    int ticketOAP = ui->OAP->value() * 7;
+    int ticketVIP = ui->VIP->value() * 12;
+    int ticketTotal = ticketAdult + ticketChild + ticketOAP + ticketVIP;
+
+    QString s = QString::number(ticketTotal);
+    //ui->user->setText(s);
+
+    //send title to learn
+    payment *instance = new payment(this, screen, id, user , ticketTotal);
+    instance->show();
+}

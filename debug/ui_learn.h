@@ -31,15 +31,15 @@ public:
     QLabel *title;
     QLabel *connetion;
     QLabel *clock;
-    QTableView *tableView;
     QPushButton *selection;
     QPushButton *back;
+    QTableView *tableView;
 
     void setupUi(QWidget *learn)
     {
         if (learn->objectName().isEmpty())
             learn->setObjectName(QStringLiteral("learn"));
-        learn->resize(1050, 680);
+        learn->resize(1050, 690);
         learn->setLayoutDirection(Qt::LeftToRight);
         learn->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
         Body = new QWidget(learn);
@@ -80,19 +80,29 @@ public:
         clock->setGeometry(QRect(10, 80, 171, 31));
         clock->setStyleSheet(QLatin1String("color: #FFFFFF;\n"
 "font-size: 21px;"));
-        tableView = new QTableView(Body);
-        tableView->setObjectName(QStringLiteral("tableView"));
-        tableView->setGeometry(QRect(170, 150, 601, 341));
-        tableView->setStyleSheet(QStringLiteral("QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold;}"));
-        tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-        tableView->horizontalHeader()->setHighlightSections(false);
-        tableView->verticalHeader()->setVisible(false);
         selection = new QPushButton(Body);
         selection->setObjectName(QStringLiteral("selection"));
-        selection->setGeometry(QRect(790, 200, 211, 81));
+        selection->setGeometry(QRect(780, 180, 211, 81));
         back = new QPushButton(Body);
         back->setObjectName(QStringLiteral("back"));
         back->setGeometry(QRect(20, 150, 131, 41));
+        tableView = new QTableView(Body);
+        tableView->setObjectName(QStringLiteral("tableView"));
+        tableView->setGeometry(QRect(160, 140, 611, 501));
+        tableView->setMinimumSize(QSize(611, 501));
+        tableView->setAutoFillBackground(false);
+        tableView->setStyleSheet(QStringLiteral("QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold;}"));
+        tableView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        tableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        tableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
+        tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        tableView->setTabKeyNavigation(false);
+        tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+        tableView->horizontalHeader()->setDefaultSectionSize(100);
+        tableView->horizontalHeader()->setHighlightSections(false);
+        tableView->horizontalHeader()->setMinimumSectionSize(50);
+        tableView->horizontalHeader()->setStretchLastSection(false);
+        tableView->verticalHeader()->setVisible(false);
 
         retranslateUi(learn);
 

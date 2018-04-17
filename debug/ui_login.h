@@ -36,7 +36,7 @@ public:
     {
         if (Login->objectName().isEmpty())
             Login->setObjectName(QStringLiteral("Login"));
-        Login->resize(1005, 675);
+        Login->resize(1005, 680);
         Login->setFocusPolicy(Qt::StrongFocus);
         Login->setStyleSheet(QStringLiteral("background-color: #f8f8f8;"));
         Body = new QWidget(Login);
@@ -47,9 +47,11 @@ public:
         title_pwd->setObjectName(QStringLiteral("title_pwd"));
         title_pwd->setGeometry(QRect(310, 260, 531, 20));
         title_pwd->setStyleSheet(QStringLiteral("font-weight: bold;"));
+        title_pwd->setTextInteractionFlags(Qt::NoTextInteraction);
         Password = new QLineEdit(Body);
         Password->setObjectName(QStringLiteral("Password"));
         Password->setGeometry(QRect(310, 290, 451, 41));
+        Password->setEchoMode(QLineEdit::Password);
         login = new QPushButton(Body);
         login->setObjectName(QStringLiteral("login"));
         login->setGeometry(QRect(470, 350, 111, 51));
@@ -61,6 +63,7 @@ public:
         font.setWeight(75);
         warning->setFont(font);
         warning->setStyleSheet(QStringLiteral("font-weight: bold;"));
+        warning->setTextInteractionFlags(Qt::NoTextInteraction);
         Username = new QLineEdit(Body);
         Username->setObjectName(QStringLiteral("Username"));
         Username->setGeometry(QRect(310, 210, 451, 41));
@@ -68,8 +71,12 @@ public:
         title_user->setObjectName(QStringLiteral("title_user"));
         title_user->setGeometry(QRect(310, 180, 531, 20));
         title_user->setStyleSheet(QStringLiteral("font-weight: bold;"));
+        title_user->setTextInteractionFlags(Qt::NoTextInteraction);
 
         retranslateUi(Login);
+
+        login->setDefault(true);
+
 
         QMetaObject::connectSlotsByName(Login);
     } // setupUi

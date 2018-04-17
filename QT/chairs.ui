@@ -44,10 +44,10 @@ color:#000000;</string>
     <widget class="QLabel" name="user">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>0</x>
        <y>10</y>
-       <width>221</width>
-       <height>31</height>
+       <width>851</width>
+       <height>91</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -96,23 +96,6 @@ font-weight:bold;</string>
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Seat Selection&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QLabel" name="connetion">
-     <property name="geometry">
-      <rect>
-       <x>870</x>
-       <y>40</y>
-       <width>281</width>
-       <height>101</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: #FFFFFF;
-font-size: 21px;</string>
-     </property>
-     <property name="text">
-      <string>Connection Status</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="clock">
      <property name="geometry">
       <rect>
@@ -130,6 +113,28 @@ font-size: 21px;</string>
       <string>TextLabel</string>
      </property>
     </widget>
+    <widget class="QLabel" name="connetion">
+     <property name="geometry">
+      <rect>
+       <x>840</x>
+       <y>30</y>
+       <width>281</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #FFFFFF;
+font-size: 21px;</string>
+     </property>
+     <property name="text">
+      <string>Connection Status</string>
+     </property>
+    </widget>
+    <zorder>logout</zorder>
+    <zorder>clock</zorder>
+    <zorder>title</zorder>
+    <zorder>user</zorder>
+    <zorder>connetion</zorder>
    </widget>
    <widget class="QPushButton" name="back">
     <property name="geometry">
@@ -161,17 +166,16 @@ font-size: 21px;</string>
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>140</y>
+      <y>300</y>
       <width>621</width>
-      <height>451</height>
+      <height>361</height>
      </rect>
     </property>
     <property name="autoFillBackground">
      <bool>true</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-</string>
+     <string notr="true"/>
     </property>
     <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -216,6 +220,124 @@ font-size: 21px;</string>
      <bool>false</bool>
     </attribute>
    </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>119</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ADULT</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>650</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>159</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CHILD</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>199</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>OAP</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>239</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>VIP</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="Adult">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>120</y>
+      <width>50</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="Child">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>160</y>
+      <width>50</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="OAP">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>200</y>
+      <width>50</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="VIP">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>240</y>
+      <width>50</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <zorder>back</zorder>
+   <zorder>selection</zorder>
+   <zorder>tableWidget</zorder>
+   <zorder>Header</zorder>
+   <zorder>label</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_5</zorder>
+   <zorder>Adult</zorder>
+   <zorder>Child</zorder>
+   <zorder>OAP</zorder>
+   <zorder>VIP</zorder>
   </widget>
  </widget>
  <resources/>

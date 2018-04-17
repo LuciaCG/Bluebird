@@ -41,7 +41,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1005, 675);
+        MainWindow->resize(1005, 697);
         MainWindow->setFocusPolicy(Qt::StrongFocus);
         MainWindow->setWindowOpacity(1);
         MainWindow->setAutoFillBackground(false);
@@ -57,13 +57,14 @@ public:
         tableView->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         tableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         tableView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContentsOnFirstShow);
+        tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        tableView->setTabKeyNavigation(false);
         tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
         tableView->horizontalHeader()->setDefaultSectionSize(100);
         tableView->horizontalHeader()->setHighlightSections(false);
         tableView->horizontalHeader()->setMinimumSectionSize(50);
         tableView->horizontalHeader()->setStretchLastSection(false);
         tableView->verticalHeader()->setVisible(false);
-        tableView->verticalHeader()->setStretchLastSection(false);
         Header = new QWidget(centralWidget);
         Header->setObjectName(QStringLiteral("Header"));
         Header->setGeometry(QRect(0, 0, 1021, 111));
@@ -78,8 +79,8 @@ public:
         logout = new QPushButton(Header);
         logout->setObjectName(QStringLiteral("logout"));
         logout->setGeometry(QRect(870, 0, 101, 40));
-        logout->setFocusPolicy(Qt::ClickFocus);
-        logout->setStyleSheet(QLatin1String("background-color:#808080; color: #FFFFFF;\n"
+        logout->setFocusPolicy(Qt::StrongFocus);
+        logout->setStyleSheet(QLatin1String("background-color:#c0c0c0; color: #555555;\n"
 "font-size: 21px;\n"
 "border:3;"));
         title = new QLabel(Header);
@@ -106,6 +107,7 @@ public:
         select->raise();
         Header->raise();
         tableView->raise();
+        connection->raise();
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);

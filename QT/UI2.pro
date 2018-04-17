@@ -16,14 +16,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     learn.cpp \
     chairs.cpp \
-    login.cpp
+    login.cpp \
+    payment.cpp
 
 HEADERS  += mainwindow.h \
     learn.h \
     chairs.h \
-    login.h
+    login.h \
+    payment.h
 
 FORMS    += mainwindow.ui \
     learn.ui \
     chairs.ui \
-    login.ui
+    login.ui \
+    payment.ui

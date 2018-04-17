@@ -35,6 +35,7 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
      else
         ui->connection->setText("Connected");
 
+
     //Creating an SQL table model
     QSqlTableModel *model = new QSqlTableModel(this,firstDB);
     //Selecting the Table we want from DB
