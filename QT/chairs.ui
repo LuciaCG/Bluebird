@@ -166,9 +166,9 @@ font-size: 21px;</string>
     <property name="geometry">
      <rect>
       <x>140</x>
-      <y>300</y>
+      <y>200</y>
       <width>621</width>
-      <height>361</height>
+      <height>441</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -233,24 +233,11 @@ font-size: 21px;</string>
      <string>ADULT</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>650</y>
-      <width>101</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>159</y>
+      <x>360</x>
+      <y>120</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -263,7 +250,7 @@ font-size: 21px;</string>
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>199</y>
+      <y>160</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -275,8 +262,8 @@ font-size: 21px;</string>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>239</y>
+      <x>360</x>
+      <y>160</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -298,8 +285,8 @@ font-size: 21px;</string>
    <widget class="QSpinBox" name="Child">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>160</y>
+      <x>440</x>
+      <y>120</y>
       <width>50</width>
       <height>30</height>
      </rect>
@@ -309,7 +296,7 @@ font-size: 21px;</string>
     <property name="geometry">
      <rect>
       <x>260</x>
-      <y>200</y>
+      <y>160</y>
       <width>50</width>
       <height>30</height>
      </rect>
@@ -318,8 +305,8 @@ font-size: 21px;</string>
    <widget class="QSpinBox" name="VIP">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>240</y>
+      <x>440</x>
+      <y>160</y>
       <width>50</width>
       <height>30</height>
      </rect>
@@ -330,7 +317,6 @@ font-size: 21px;</string>
    <zorder>tableWidget</zorder>
    <zorder>Header</zorder>
    <zorder>label</zorder>
-   <zorder>label_2</zorder>
    <zorder>label_3</zorder>
    <zorder>label_4</zorder>
    <zorder>label_5</zorder>

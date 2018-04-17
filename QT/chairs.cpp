@@ -1,12 +1,14 @@
 #include "chairs.h"
 #include "ui_chairs.h"
 #include "payment.h"
+
 //#include <QSqlTableModel>
-#include <QtWidgets>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QTableWidget>
-#include <QSpinBox>
+
+
+
+
+
+
 chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     QWidget(parent),
     ui(new Ui::chairs),
@@ -16,6 +18,9 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
 {
     ui->setupUi(this);
     ui->user->setText(user);
+
+    ui->user->setText(QString::number(id));
+
 
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
@@ -104,18 +109,21 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     ui->tableWidget->verticalHeader()->setStyleSheet(header);
 
     // compare vs the reserved seats
-   // QSqlQuery queryRes;
-  //  queryRes.exec("SELECT * FROM Seat_Reserved;");
+    QSqlQuery queryRes;
+    queryRes.prepare("SELECT * FROM seat__reserved WHERE screening = ?;");
+    queryRes.addBindValue(id);
+    queryRes.exec();
 
- //   queryRes.last();
-                //queryRes.value(1).toString());
- //   ui->user->setText(queryRes.value(1).toString());
+    //queryRes.last();
+
+    //ui->user->setText(queryRes.value(2).toString());
+
+    Delegate * dg = new Delegate(this, id);
+    ui->tableWidget->setItemDelegate(dg);
 
     ui->tableWidget->show();
 
 
-    //QString s = QString::number(a);
-    //ui->user->setText(s);
 
     // CLOCK
     QTimer *timer = new QTimer(this);
