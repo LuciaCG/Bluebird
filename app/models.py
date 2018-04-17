@@ -124,6 +124,28 @@ class CardDetails(db.Model):
     exYear = db.Column(db.String(4))
     securityNumber = db.Column(db.String(3))
 
+    def __init__(self, userID, cardNumber, exMonth, exYear, securityNumber):
+
+        self.userID = userID
+
+        tempCardNumber = cardNumber
+        newCardNumber = ""
+
+        for character in range(0,16):
+          if (character % 3) == 0:
+            changedLetter = ord(cardNumber[character]) - 3
+          elif (character % 2) == 0:
+            changedLetter = ord(cardNumber[character]) - 2
+          else:
+            changedLetter = ord(cardNumber[character]) - 1
+          newCardNumber += chr(changedLetter)
+
+        self.cardNumber = newCardNumber
+        self.exMonth = exMonth
+        self.exYear = exYear
+        self.securityNumber = securityNumber
+
+
     def __repr__(self):
         return '' % (self.userID, self.cardNumber, self.exMonth, self.exYear, self.securityNumber)
 
