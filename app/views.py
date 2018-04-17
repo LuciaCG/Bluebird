@@ -63,6 +63,7 @@ def showtimes():
             screeningID = request.form.get('bookSeat')
 
         session['scrnVar'] = screeningID
+        session['adult'] = 0
 
         if screeningID != None:
             return redirect(url_for('booktickets'))
@@ -80,6 +81,8 @@ def booktickets():
         movieID = None
         screeningID = None
         seatID = None
+        adultTotal = 0
+        adultPlus = 1
         # movies = models.Movies.query.all()
         seatsAll = models.Seats.query.all()
         seatNumber = models.Seats.query.with_entities(models.Seats.seatNumber).group_by(models.Seats.seatNumber).all()
@@ -100,19 +103,28 @@ def booktickets():
         else:
             return redirect(url_for('home'))
 
+        if 'adult' in session:
+            adultTotal = session['adult']
+
         if request.method == 'POST':
-            seatID = request.form.get('bookThisSeat')
-            # print(wordlist)
-            wordlist = list(seatID)
-            print(len(wordlist))
-            if len(wordlist) == 2:
-                a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1])
-            elif len(wordlist) == 3:
-                a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1]+wordlist[2])
-            db.session.add(a)
-            db.session.commit()
-            # print(seatNumber)
-            return redirect(url_for('booktickets'))
+            adultPlus = int(request.form.get('adultPlus'))
+            adultTotal += adultPlus
+            session['adult'] = adultTotal
+            # return redirect(url_for('booktickets'))
+        #
+        # if request.method == 'POST':
+        #     adultPlus = int(request.form.get('adultPlus'))
+        #     adultTotal += adultPlus
+            # seatID = request.form.get('bookThisSeat')
+            # # print(wordlist)
+            # wordlist = list(seatID)
+            # if len(wordlist) == 2:
+            #     a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1])
+            # elif len(wordlist) == 3:
+            #     a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1]+wordlist[2])
+            # db.session.add(a)
+            # db.session.commit()
+            # return redirect(url_for('booktickets'))
 
         return render_template('booktickets.html',
                                 movieName = movieName,
@@ -121,6 +133,7 @@ def booktickets():
                                 seatsAll = seatsAll,
                                 seatNumber = seatNumber,
                                 rows = rows,
-                                models = models
-                                # movies = movies
+                                models = models,
+                                adultTotal = adultTotal,
+                                adultPlus = adultPlus,
                                 )

@@ -25,37 +25,29 @@ Unavailable Seats<br>
 <div class="container">
   <div class="row">
     <h3 style="width:100%" > Choose Type and Number of Tickets </h3><br>
-    <form>
+    <form method="post">
     <div class="col-lf-12">
-      <h4>Adult - £9.00 </h4> <input style="width:15%" placeholder="0" maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5"> + </button> £9.00 <br>
-      <h4>OAP - £7.00 </h4> <input style="width:15%" placeholder="0" maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5"> + </button> £7.00 <br>
-      <h4>Child - £6.50 </h4> <input style="width:15%" placeholder="0" maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5"> + </button> £6.50 <br>
-      <h4>VIP - £12.00 </h4> <input style="width:15%" placeholder="0" maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5"> + </button> £12.00 <br>
+      <h4>Adult - £9.00 </h4> <input name="adultInput" style="width:15%" placeholder={{(adultTotal/9)}} maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5" name="adultPlus" type="submit" value="9"> + </button> £{{adultTotal}}.00 <br>
+      <h4>Child - £6.50 </h4> <input name="childInput" style="width:15%" placeholder="0" maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5"> + </button> £6.50 <br>
+      <h4>Senior - £7.00 </h4> <input name="seniorInput" style="width:15%" placeholder="0" maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5"> + </button> £7.00 <br>
+      <h4>VIP - £12.00 </h4> <input name="vipInput" style="width:15%" placeholder="0" maxlength="2"> </input> <button class ="button button5"> - </button> <button class ="button button5"> + </button> £12.00 <br>
     </div>
 
     </form>
 
   </div>
+</div>
 
 
+<br>
 
-
-
-
-
-
-
-
-            <br>
-Seats Available<br>
-s
-<div id="screenicon">
+<div align="center" id="screenicon">
   <h2 id="screentext">Screen</h2>
 </div>
 
   <div class="row">
     <div class="col-md-12">
-      <table style="width:65%" id="seatstable">
+      <table style="width:65%" align="center" id="seatstable">
         {% for row in rows %}
       <!-- <th>
             {{row.row}}
@@ -86,6 +78,5 @@ s
     </div>
   </div>
 
-</div>
 
 {% endblock %}
