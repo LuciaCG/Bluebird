@@ -62,6 +62,9 @@
     <property name="tabKeyNavigation">
      <bool>false</bool>
     </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::SingleSelection</enum>
+    </property>
     <property name="selectionBehavior">
      <enum>QAbstractItemView::SelectRows</enum>
     </property>
@@ -115,8 +118,8 @@ font-weight:bold;</string>
     <widget class="QPushButton" name="logout">
      <property name="geometry">
       <rect>
-       <x>870</x>
-       <y>0</y>
+       <x>890</x>
+       <y>10</y>
        <width>101</width>
        <height>40</height>
       </rect>
@@ -155,10 +158,10 @@ font-weight:bold;</string>
     <widget class="QLabel" name="connection">
      <property name="geometry">
       <rect>
-       <x>870</x>
-       <y>40</y>
-       <width>281</width>
-       <height>101</height>
+       <x>830</x>
+       <y>50</y>
+       <width>341</width>
+       <height>71</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -203,7 +206,6 @@ font-size: 21px;</string>
    <zorder>select</zorder>
    <zorder>Header</zorder>
    <zorder>tableView</zorder>
-   <zorder>connection</zorder>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>

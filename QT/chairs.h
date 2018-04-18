@@ -8,10 +8,10 @@
 #include <QtWidgets>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <QTableWidget>
 #include <QSpinBox>
 
 #include <QItemDelegate>
+
 
 
 class Delegate : public QItemDelegate
@@ -41,7 +41,8 @@ class Delegate : public QItemDelegate
         queryRes.addBindValue(id);
         queryRes.exec();
 
-        while (queryRes.next()){
+        bool found = false;
+        while (queryRes.next() && !found){
             QString row = queryRes.value(1).toString();
             int col = queryRes.value(2).toInt();
             int row2 = 0;
@@ -62,8 +63,10 @@ class Delegate : public QItemDelegate
             else if (row == "G")
                 row2 = 6;
 
-            if (index.row() == row2 && index.column() == col -1)
+            if (index.row() == row2 && index.column() == col -1){
                 painter->fillRect(option.rect, QBrush(Qt::red));
+                found = true;
+            }
         }
      };
 
@@ -86,7 +89,6 @@ public:
 private slots:
     void on_logout_clicked();
     void on_back_clicked();
-
     void on_selection_clicked();
 
 private:
@@ -94,6 +96,7 @@ private:
     QString screen;
     int id;
     QString user;
+
 };
 
 #endif // CHAIRS_H

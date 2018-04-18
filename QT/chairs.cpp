@@ -2,11 +2,7 @@
 #include "ui_chairs.h"
 #include "payment.h"
 
-//#include <QSqlTableModel>
-
-
-
-
+#include <QTableWidget>
 
 
 chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
@@ -19,7 +15,6 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     ui->setupUi(this);
     ui->user->setText(user);
 
-    ui->user->setText(QString::number(id));
 
 
     //Initialising the data base connection
@@ -139,6 +134,7 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     //updates the clock
     timer->start();
 
+
 }
 
 chairs::~chairs()
@@ -158,21 +154,58 @@ void chairs::on_logout_clicked()
     this->parentWidget()->parentWidget()->close();
 }
 
-
-
-
 void chairs::on_selection_clicked()
 {
-    int ticketAdult = ui->Adult->value() * 9;
-    int ticketChild = ui->Child->value() * 6.5;
-    int ticketOAP = ui->OAP->value() * 7;
-    int ticketVIP = ui->VIP->value() * 12;
-    int ticketTotal = ticketAdult + ticketChild + ticketOAP + ticketVIP;
 
-    QString s = QString::number(ticketTotal);
-    //ui->user->setText(s);
+    int totalNumber = ui->Adult->value() + ui->Child->value() +
+            ui->OAP->value() + ui->VIP->value();
 
-    //send title to learn
-    payment *instance = new payment(this, screen, id, user , ticketTotal);
-    instance->show();
+    int n = ui->tableWidget->selectionModel()->selectedIndexes().size();
+
+    if(totalNumber < n ){
+        ui->user->setText("Too many selected");
+    }
+    else if(totalNumber > n ){
+        ui->user->setText("Too few selected");
+    }
+    else {
+
+        if (n == 0){
+            ui->user->setText("Please, select some seats");
+        }
+        else{
+            ui->user->setText("");
+
+            int ticketAdult = ui->Adult->value() * 9;
+            double ticketChild = ui->Child->value() * 6.5;
+            int ticketOAP = ui->OAP->value() * 7;
+            int ticketVIP = ui->VIP->value() * 12;
+            double ticketTotal = ticketAdult + ticketChild + ticketOAP + ticketVIP;
+
+            QString s = QString::number(ticketTotal);
+
+            //send title to learn
+            payment *instance = new payment(this, screen, id, user, ticketTotal);
+            instance->show();
+        }
+    }
 }
+
+/*bool tableWidget::event(QEvent *event){
+    if(event->type() == QEvent::MouseButtonPress){
+        ui->user->setText("user");
+    }
+}
+*/
+/*
+bool FilterObject::eventFilter(QObject *tableWidget, QEvent *event){
+
+}
+
+
+void mouseEvent::mousePressEvent(QMouseEvent *event)
+{
+ ui->user->setText("FUCK");
+
+}
+*/

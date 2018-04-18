@@ -29,6 +29,7 @@ Login::Login(QWidget *parent) :
     if(!firstDB.open())
         ui->warning->setText("WARNING: Failed Connexion");
 
+
 }
 
 Login::~Login()

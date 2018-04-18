@@ -44,10 +44,10 @@ color:#000000;</string>
     <widget class="QLabel" name="user">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>10</y>
-       <width>851</width>
-       <height>91</height>
+       <x>10</x>
+       <y>0</y>
+       <width>281</width>
+       <height>61</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -62,14 +62,14 @@ font-weight:bold;</string>
     <widget class="QPushButton" name="logout">
      <property name="geometry">
       <rect>
-       <x>870</x>
-       <y>0</y>
+       <x>890</x>
+       <y>10</y>
        <width>101</width>
-       <height>40</height>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color:#808080; color: #FFFFFF;
+      <string notr="true">background-color:#c0c0c0; color: #555555;
 font-size: 21px;
 border:3;</string>
      </property>
@@ -130,11 +130,11 @@ font-size: 21px;</string>
       <string>Connection Status</string>
      </property>
     </widget>
-    <zorder>logout</zorder>
     <zorder>clock</zorder>
     <zorder>title</zorder>
     <zorder>user</zorder>
     <zorder>connetion</zorder>
+    <zorder>logout</zorder>
    </widget>
    <widget class="QPushButton" name="back">
     <property name="geometry">
@@ -188,6 +188,9 @@ font-size: 21px;</string>
     </property>
     <property name="editTriggers">
      <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="selectionMode">
+     <enum>QAbstractItemView::MultiSelection</enum>
     </property>
     <property name="rowCount">
      <number>0</number>

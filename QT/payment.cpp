@@ -10,7 +10,7 @@
 #include <QHeaderView>
 #include <QtWidgets>
 
-payment::payment(QWidget *parent, QString _screen, int _id , QString _user, int _ticketTotal) :
+payment::payment(QWidget *parent, QString _screen, int _id , QString _user, double _ticketTotal) :
     QWidget(parent),
     ui(new Ui::payment),
   screen(_screen), // SCREEN NUMBER
