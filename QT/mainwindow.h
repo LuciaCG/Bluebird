@@ -2,10 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QWidget>
-#include <QtDebug>
-#include <QFileInfo>
-#include <QLCDNumber>
 #include <QModelIndex>
 
 namespace Ui {

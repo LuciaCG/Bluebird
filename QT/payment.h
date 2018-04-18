@@ -1,12 +1,7 @@
 #ifndef PAYMENT_H
 #define PAYMENT_H
 
-#include <QMainWindow>
-#include <QWidget>
-#include <QtDebug>
-#include <QFileInfo>
 #include <QLCDNumber>
-#include <QModelIndex>
 
 namespace Ui {
 class payment;
@@ -21,7 +16,8 @@ public:
     ~payment();
 
 private slots:
-
+    void on_back_clicked();
+    void on_logout_clicked();
 private:
     Ui::payment *ui;
     QString screen;

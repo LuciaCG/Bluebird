@@ -2,9 +2,6 @@
 #include "ui_chairs.h"
 #include "payment.h"
 
-#include <QTableWidget>
-
-
 chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     QWidget(parent),
     ui(new Ui::chairs),
@@ -14,8 +11,6 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
 {
     ui->setupUi(this);
     ui->user->setText(user);
-
-
 
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
@@ -163,18 +158,18 @@ void chairs::on_selection_clicked()
     int n = ui->tableWidget->selectionModel()->selectedIndexes().size();
 
     if(totalNumber < n ){
-        ui->user->setText("Too many selected");
+        ui->warning->setText("• Too many selected");
     }
     else if(totalNumber > n ){
-        ui->user->setText("Too few selected");
+        ui->warning->setText("• Too few selected");
     }
     else {
 
         if (n == 0){
-            ui->user->setText("Please, select some seats");
+            ui->warning->setText("• Please, select some seats");
         }
         else{
-            ui->user->setText("");
+            ui->warning->setText("");
 
             int ticketAdult = ui->Adult->value() * 9;
             double ticketChild = ui->Child->value() * 6.5;

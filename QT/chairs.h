@@ -1,18 +1,8 @@
 #ifndef CHAIRS_H
 #define CHAIRS_H
 
-#include <QWidget>
-#include <QtGui>
-#include <QtCore>
-#include <QStyledItemDelegate>
 #include <QtWidgets>
 #include <QSqlQuery>
-#include <QSqlError>
-#include <QSpinBox>
-
-#include <QItemDelegate>
-
-
 
 class Delegate : public QItemDelegate
  {
@@ -46,6 +36,7 @@ class Delegate : public QItemDelegate
             QString row = queryRes.value(1).toString();
             int col = queryRes.value(2).toInt();
             int row2 = 0;
+
             if (row == "A"){
                 row2 = 0;
                 }
@@ -68,8 +59,7 @@ class Delegate : public QItemDelegate
                 found = true;
             }
         }
-     };
-
+     }
  };
 
 

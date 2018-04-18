@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1006</width>
-    <height>680</height>
+    <width>1005</width>
+    <height>690</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1051</width>
+     <width>1005</width>
      <height>691</height>
     </rect>
    </property>
@@ -140,7 +140,7 @@ font-size: 21px;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>160</y>
+      <y>180</y>
       <width>111</width>
       <height>41</height>
      </rect>
@@ -152,8 +152,8 @@ font-size: 21px;</string>
    <widget class="QPushButton" name="selection">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>190</y>
+      <x>780</x>
+      <y>180</y>
       <width>211</width>
       <height>81</height>
      </rect>
@@ -223,11 +223,11 @@ font-size: 21px;</string>
      <bool>false</bool>
     </attribute>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_adult">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>119</y>
+      <x>310</x>
+      <y>120</y>
       <width>141</width>
       <height>31</height>
      </rect>
@@ -236,10 +236,10 @@ font-size: 21px;</string>
      <string>ADULT</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="label_child">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>480</x>
       <y>120</y>
       <width>141</width>
       <height>31</height>
@@ -249,10 +249,10 @@ font-size: 21px;</string>
      <string>CHILD</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="label_oap">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>310</x>
       <y>160</y>
       <width>141</width>
       <height>31</height>
@@ -262,10 +262,10 @@ font-size: 21px;</string>
      <string>OAP</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
+   <widget class="QLabel" name="label_vip">
     <property name="geometry">
      <rect>
-      <x>360</x>
+      <x>480</x>
       <y>160</y>
       <width>141</width>
       <height>31</height>
@@ -278,7 +278,7 @@ font-size: 21px;</string>
    <widget class="QSpinBox" name="Adult">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>370</x>
       <y>120</y>
       <width>50</width>
       <height>30</height>
@@ -288,7 +288,7 @@ font-size: 21px;</string>
    <widget class="QSpinBox" name="Child">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>540</x>
       <y>120</y>
       <width>50</width>
       <height>30</height>
@@ -298,7 +298,7 @@ font-size: 21px;</string>
    <widget class="QSpinBox" name="OAP">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>370</x>
       <y>160</y>
       <width>50</width>
       <height>30</height>
@@ -308,25 +308,70 @@ font-size: 21px;</string>
    <widget class="QSpinBox" name="VIP">
     <property name="geometry">
      <rect>
-      <x>440</x>
+      <x>540</x>
       <y>160</y>
       <width>50</width>
       <height>30</height>
      </rect>
     </property>
    </widget>
+   <widget class="QLabel" name="instruction1">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>350</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>• Choose number of tickets</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="instruction2">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>380</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>• Choose your seats</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="warning">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>410</y>
+      <width>191</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: red;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>back</zorder>
    <zorder>selection</zorder>
    <zorder>tableWidget</zorder>
    <zorder>Header</zorder>
-   <zorder>label</zorder>
-   <zorder>label_3</zorder>
-   <zorder>label_4</zorder>
-   <zorder>label_5</zorder>
+   <zorder>label_adult</zorder>
+   <zorder>label_child</zorder>
+   <zorder>label_oap</zorder>
+   <zorder>label_vip</zorder>
    <zorder>Adult</zorder>
    <zorder>Child</zorder>
    <zorder>OAP</zorder>
    <zorder>VIP</zorder>
+   <zorder>instruction1</zorder>
+   <zorder>instruction2</zorder>
+   <zorder>warning</zorder>
   </widget>
  </widget>
  <resources/>

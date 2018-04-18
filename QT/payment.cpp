@@ -1,14 +1,8 @@
 #include "payment.h"
 #include "ui_payment.h"
-#include "chairs.h"
 
-
-
-#include <QSqlTableModel>
-#include <QTableView>
-#include <QtSql>
-#include <QHeaderView>
 #include <QtWidgets>
+#include <QSqlQuery>
 
 payment::payment(QWidget *parent, QString _screen, int _id , QString _user, double _ticketTotal) :
     QWidget(parent),
@@ -36,9 +30,21 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
      else
         ui->connetion->setText("Connected");
 
-     ui->Test->setText(QString::number(ticketTotal));
+     ui->due->setText(QString::number(ticketTotal));
 }
 payment::~payment()
 {
     delete ui;
+}
+
+void payment::on_logout_clicked()
+{
+    this->parentWidget()->parentWidget()->parentWidget()->parentWidget()->show(); //show log in page
+    this->parentWidget()->parentWidget()->parentWidget()->close();
+}
+
+void payment::on_back_clicked()
+{
+    this->hide();
+    this->parentWidget()->show();
 }

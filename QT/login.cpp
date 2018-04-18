@@ -1,10 +1,7 @@
 #include "login.h"
-#include "mainwindow.h"
 #include "ui_login.h"
+#include "mainwindow.h"
 
-
-#include <QCryptographicHash>
-#include <QSqlTableModel>
 #include <QtWidgets>
 
 Login::Login(QWidget *parent) :

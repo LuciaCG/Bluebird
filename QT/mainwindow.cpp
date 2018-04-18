@@ -1,12 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "learn.h"
-#include "login.h"
 
-#include <QSqlTableModel>
-#include <QTableView>
 #include <QtSql>
-#include <QHeaderView>
 #include <QtWidgets>
 
 MainWindow::MainWindow(QWidget *parent, QString _user) :
@@ -17,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
     ui->setupUi(this);
     ui->user->setText(user);
     ui->tableView->setFocus();
+
     QWidget::setTabOrder(ui->tableView, ui->select);
     QWidget::setTabOrder(ui->select, ui->logout);
 

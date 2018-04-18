@@ -1,11 +1,8 @@
 #include "learn.h"
 #include "ui_learn.h"
 #include "chairs.h"
-#include "mainwindow.h"
 
-#include <QtWidgets>
 #include <QSqlTableModel>
-#include <QTableView>
 
 learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
     QWidget(parent),
@@ -18,6 +15,7 @@ learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
     ui->user->setText(user);
     ui->title->setText(name);
     ui->tableView->setFocus();
+
     QWidget::setTabOrder(ui->tableView, ui->selection);
     QWidget::setTabOrder(ui->selection, ui->logout);
     QWidget::setTabOrder(ui->logout, ui->back);

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1050</width>
+    <width>1005</width>
     <height>690</height>
    </rect>
   </property>
@@ -25,7 +25,7 @@
      <x>0</x>
      <y>0</y>
      <width>1005</width>
-     <height>675</height>
+     <height>690</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -150,8 +150,8 @@ font-size: 21px;</string>
    <widget class="QPushButton" name="back">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>150</y>
+      <x>10</x>
+      <y>180</y>
       <width>131</width>
       <height>41</height>
      </rect>

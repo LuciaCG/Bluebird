@@ -1,12 +1,7 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 
-#include <QWidget>
-#include <QMainWindow>
-#include <QtDebug>
-#include <QFileInfo>
 #include <QLCDNumber>
-#include <QModelIndex>
 #include <QSqlQuery>
 
 namespace Ui {
