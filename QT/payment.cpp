@@ -3,18 +3,22 @@
 
 #include <QtWidgets>
 #include <QSqlQuery>
-
-payment::payment(QWidget *parent, QString _screen, int _id , QString _user, double _ticketTotal) :
+#include <QPrinter>
+#include <QtSql>
+payment::payment(QWidget *parent, QString _screen, int _id , QString _user, double _ticketTotal, double _paid, double _change) :
     QWidget(parent),
     ui(new Ui::payment),
   screen(_screen), // SCREEN NUMBER
   id(_id),
   user(_user),
-  ticketTotal(_ticketTotal)
+  ticketTotal(_ticketTotal),
+  paid(_paid),
+  change(_change)
 {
   ui->setupUi(this);
   ui->user->setText(user);
-
+  QString ct = QTime::currentTime().toString();
+  QDateTime current = QDateTime::currentDateTime();
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
     firstDB.setHostName("bluebird");
@@ -30,7 +34,62 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
      else
         ui->connetion->setText("Connected");
 
+
+    //Creating an SQL table model
+    QSqlTableModel *model = new QSqlTableModel(this,firstDB);
+    //Selecting the Table we want from DB
+    model->setTable("receipts");
+    model->select();
+
+
+
+    //Displaying the table in the Tableview
+    ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView->setModel(model);
+
+    ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->show();
+
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO receipts (userName, employeeName,screening,price,pricePaid,change,transactionTime) "
+                  "VALUES (?, ?, ?,?,?,?,?)");
+    query.addBindValue("TILL");
+    query.addBindValue(user);
+    query.addBindValue(id);
+    query.addBindValue(ticketTotal);
+    query.addBindValue(paid);
+    query.addBindValue(change);
+    query.addBindValue(current);
+
+    query.exec();
+
+
      ui->due->setText(QString::number(ticketTotal));
+     QString fileName = "pdfTest1"; // Change name to movie ID + Seats being used
+     if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+
+     QPrinter printer(QPrinter::PrinterResolution);
+     printer.setOutputFormat(QPrinter::PdfFormat);
+     printer.setPaperSize(QPrinter::A4);
+     printer.setOutputFileName(fileName);
+
+     QTextDocument doc;
+
+     doc.setHtml("<h1> RECEIPT FOR: "+ fileName +"</h1>"
+                 "\n"
+                 "<p>Till Employee: "+ user + " </p>"
+                 "\n"
+                 "<p>Screening ID : "+ QString::number(id) +"</p>"
+                 "<h2>MOVIE SCREEN : "+screen +"</h2>"
+                 "<p>amount paid: £"+ QString::number(paid) +"</p>"
+                 "<p>Price: £"+ QString::number(ticketTotal) +"</p>"
+                 "<p>Change: £"+ QString::number(change) +"</p>"
+                 "<p>Time of transaction: "+ ct + "</p>"
+                 );
+     doc.setPageSize(printer.pageRect().size());
+     doc.print(&printer);
 }
 payment::~payment()
 {

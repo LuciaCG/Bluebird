@@ -226,7 +226,7 @@ font-size: 21px;</string>
    <widget class="QLabel" name="label_adult">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>140</x>
       <y>120</y>
       <width>141</width>
       <height>31</height>
@@ -239,7 +239,7 @@ font-size: 21px;</string>
    <widget class="QLabel" name="label_child">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>310</x>
       <y>120</y>
       <width>141</width>
       <height>31</height>
@@ -252,7 +252,7 @@ font-size: 21px;</string>
    <widget class="QLabel" name="label_oap">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>140</x>
       <y>160</y>
       <width>141</width>
       <height>31</height>
@@ -265,7 +265,7 @@ font-size: 21px;</string>
    <widget class="QLabel" name="label_vip">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>310</x>
       <y>160</y>
       <width>141</width>
       <height>31</height>
@@ -278,7 +278,7 @@ font-size: 21px;</string>
    <widget class="QSpinBox" name="Adult">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>200</x>
       <y>120</y>
       <width>50</width>
       <height>30</height>
@@ -288,7 +288,7 @@ font-size: 21px;</string>
    <widget class="QSpinBox" name="Child">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>370</x>
       <y>120</y>
       <width>50</width>
       <height>30</height>
@@ -298,7 +298,7 @@ font-size: 21px;</string>
    <widget class="QSpinBox" name="OAP">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>200</x>
       <y>160</y>
       <width>50</width>
       <height>30</height>
@@ -308,7 +308,7 @@ font-size: 21px;</string>
    <widget class="QSpinBox" name="VIP">
     <property name="geometry">
      <rect>
-      <x>540</x>
+      <x>370</x>
       <y>160</y>
       <width>50</width>
       <height>30</height>
@@ -357,6 +357,30 @@ font-size: 21px;</string>
      <string/>
     </property>
    </widget>
+   <widget class="QDoubleSpinBox" name="doubleSpinBox">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>140</y>
+      <width>72</width>
+      <height>30</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>140</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Amout paid</string>
+    </property>
+   </widget>
+   <zorder>label</zorder>
    <zorder>back</zorder>
    <zorder>selection</zorder>
    <zorder>tableWidget</zorder>
@@ -372,6 +396,7 @@ font-size: 21px;</string>
    <zorder>instruction1</zorder>
    <zorder>instruction2</zorder>
    <zorder>warning</zorder>
+   <zorder>doubleSpinBox</zorder>
   </widget>
  </widget>
  <resources/>

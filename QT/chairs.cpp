@@ -171,16 +171,21 @@ void chairs::on_selection_clicked()
         else{
             ui->warning->setText("");
 
+            double paid = ui->doubleSpinBox->value();
+
             int ticketAdult = ui->Adult->value() * 9;
             double ticketChild = ui->Child->value() * 6.5;
             int ticketOAP = ui->OAP->value() * 7;
             int ticketVIP = ui->VIP->value() * 12;
             double ticketTotal = ticketAdult + ticketChild + ticketOAP + ticketVIP;
 
+            double change = paid - ticketTotal;
+
+
             QString s = QString::number(ticketTotal);
 
             //send title to learn
-            payment *instance = new payment(this, screen, id, user, ticketTotal);
+            payment *instance = new payment(this, screen, id, user, ticketTotal, paid, change);
             instance->show();
         }
     }

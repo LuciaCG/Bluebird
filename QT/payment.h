@@ -12,7 +12,7 @@ class payment : public QWidget
     Q_OBJECT
 
 public:
-    explicit payment(QWidget *parent = 0, QString _screen = "", int _id = 0, QString _user = "", double _ticketTotal = 0);
+    explicit payment(QWidget *parent = 0, QString _screen = "", int _id = 0, QString _user = "", double _ticketTotal = 0,double _paid = 0,double _change = 0);
     ~payment();
 
 private slots:
@@ -24,6 +24,9 @@ private:
     int id;
     QString user;
     double ticketTotal;
+    double paid;
+    double change;
+
 };
 
 #endif // PAYMENT_H
