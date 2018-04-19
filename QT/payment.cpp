@@ -5,6 +5,7 @@
 #include <QSqlQuery>
 #include <QPrinter>
 #include <QtSql>
+
 payment::payment(QWidget *parent, QString _screen, int _id , QString _user, double _ticketTotal, double _paid, double _change) :
     QWidget(parent),
     ui(new Ui::payment),

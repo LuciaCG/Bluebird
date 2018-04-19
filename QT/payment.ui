@@ -159,9 +159,18 @@ font-size: 21px;</string>
      <rect>
       <x>130</x>
       <y>110</y>
-      <width>861</width>
+      <width>811</width>
       <height>571</height>
      </rect>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustToContents</enum>
     </property>
    </widget>
   </widget>

@@ -98,22 +98,73 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     ui->tableWidget->horizontalHeader()->setStyleSheet(header);
     ui->tableWidget->verticalHeader()->setStyleSheet(header);
 
-    // compare vs the reserved seats
+
     QSqlQuery queryRes;
+
     queryRes.prepare("SELECT * FROM seat__reserved WHERE screening = ?;");
     queryRes.addBindValue(id);
     queryRes.exec();
 
-    //queryRes.last();
+    while(queryRes.next()){
 
-    //ui->user->setText(queryRes.value(2).toString());
+        QString row = queryRes.value(1).toString();
+        int col = queryRes.value(2).toInt() - 1;
+        int row2 = 0;
 
+        if (row == "A"){
+            row2 = 0;
+            }
+        else if (row == "B"){
+            row2 = 1;
+            }
+        else if (row == "C")
+            row2 = 2;
+        else if (row == "D")
+            row2 = 3;
+        else if (row == "E")
+            row2 = 4;
+        else if (row == "F")
+            row2 = 5;
+        else if (row == "G")
+            row2 = 6;
+
+        QTableWidgetItem *item = new QTableWidgetItem();
+        item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+
+        ui->tableWidget->setItem(row2, col, item);
+
+
+    }
+
+
+    // paint reserved seats
     Delegate * dg = new Delegate(this, id);
     ui->tableWidget->setItemDelegate(dg);
 
+
+
+
+    // show seats
     ui->tableWidget->show();
 
 
+
+
+
+
+
+    QSqlQuery queryPrice;
+    queryPrice.exec("SELECT * FROM  type_of_tickets");
+    while(queryPrice.next()){
+        if (queryPrice.value(0).toString() == "Child")
+            priceC = queryPrice.value(1).toDouble();
+        else if (queryPrice.value(0).toString() == "Adult")
+            priceA = queryPrice.value(1).toDouble();
+        else if (queryPrice.value(0).toString() == "Senior")
+            priceO = queryPrice.value(1).toDouble();
+        else if (queryPrice.value(0).toString() == "VIP")
+            priceV = queryPrice.value(1).toDouble();
+    }
 
     // CLOCK
     QTimer *timer = new QTimer(this);
@@ -128,8 +179,6 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     } );
     //updates the clock
     timer->start();
-
-
 }
 
 chairs::~chairs()
@@ -173,16 +222,13 @@ void chairs::on_selection_clicked()
 
             double paid = ui->doubleSpinBox->value();
 
-            int ticketAdult = ui->Adult->value() * 9;
-            double ticketChild = ui->Child->value() * 6.5;
-            int ticketOAP = ui->OAP->value() * 7;
-            int ticketVIP = ui->VIP->value() * 12;
+            double ticketAdult = ui->Adult->value() * priceA;
+            double ticketChild = ui->Child->value() * priceC;
+            double ticketOAP = ui->OAP->value() * priceO;
+            double ticketVIP = ui->VIP->value() * priceV;
             double ticketTotal = ticketAdult + ticketChild + ticketOAP + ticketVIP;
 
             double change = paid - ticketTotal;
-
-
-            QString s = QString::number(ticketTotal);
 
             //send title to learn
             payment *instance = new payment(this, screen, id, user, ticketTotal, paid, change);
@@ -191,21 +237,3 @@ void chairs::on_selection_clicked()
     }
 }
 
-/*bool tableWidget::event(QEvent *event){
-    if(event->type() == QEvent::MouseButtonPress){
-        ui->user->setText("user");
-    }
-}
-*/
-/*
-bool FilterObject::eventFilter(QObject *tableWidget, QEvent *event){
-
-}
-
-
-void mouseEvent::mousePressEvent(QMouseEvent *event)
-{
- ui->user->setText("FUCK");
-
-}
-*/

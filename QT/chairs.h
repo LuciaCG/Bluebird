@@ -10,6 +10,9 @@ class Delegate : public QItemDelegate
  public:
     int id;
 
+
+
+
     Delegate(QWidget *parent = 0, int _id = 0) : QItemDelegate(parent) {
         id = _id;
     }
@@ -27,6 +30,7 @@ class Delegate : public QItemDelegate
         firstDB.open();
 
         QSqlQuery queryRes;
+
         queryRes.prepare("SELECT * FROM seat__reserved WHERE screening = ?;");
         queryRes.addBindValue(id);
         queryRes.exec();
@@ -86,6 +90,8 @@ private:
     QString screen;
     int id;
     QString user;
+
+    double priceC, priceA, priceV, priceO;
 
 };
 
