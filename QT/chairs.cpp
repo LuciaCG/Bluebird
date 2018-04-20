@@ -232,37 +232,49 @@ void chairs::on_selection_clicked()
             //    ui->connetion->setText(QString::number(ui->tableWidget->Sel));
                 //ui->user->setText(list.at(i));//QString::number(index));
            //     }
+            QItemSelectionModel *selections = ui->tableWidget->selectionModel();
+            QModelIndexList selected = selections->selectedIndexes();
+            QString seatsSelected = "";
 
+            for( int i = 0 ; i < selected.size(); i++ )
+            {
+             int rowid = selected[i].row();
+             int colid = selected[i].column();
+
+         // ui->tableWidget->selectedItems()
             QString rowLetter = "";
-            if(ui->tableWidget->currentRow() == 0)
+            if(rowid == 0)
             {
             rowLetter = "A";
             }
-            if(ui->tableWidget->currentRow() == 1)
+            if(rowid == 1)
             {
             rowLetter = "B";
             }
-            if(ui->tableWidget->currentRow() == 2)
+            if(rowid == 2)
             {
             rowLetter = "C";
             }
-            if(ui->tableWidget->currentRow() == 3)
+            if(rowid == 3)
             {
             rowLetter = "D";
             }
-            if(ui->tableWidget->currentRow() == 4)
+            if(rowid == 4)
             {
             rowLetter = "E";
             }
-            if(ui->tableWidget->currentRow() == 5)
+            if(rowid == 5)
             {
             rowLetter = "F";
             }
-            if(ui->tableWidget->currentRow() == 6)
+            if(rowid == 6)
             {
             rowLetter = "G";
             }
-            int columnNum = ui->tableWidget->currentColumn()+1;
+            int columnNum = colid+1;
+            QString columnNumString = QString::number(columnNum);
+            seatsSelected = seatsSelected + rowLetter + columnNumString + "_";
+
             QSqlQuery query;
             query.prepare("INSERT INTO Seat__Reserved (screening,rowReservedID,seatNumberReservedID) "
                           "VALUES (?, ?, ?)");
@@ -270,9 +282,9 @@ void chairs::on_selection_clicked()
             query.addBindValue(rowLetter);
             query.addBindValue(columnNum);
 
-
             query.exec();
 
+            }
             double paid = ui->doubleSpinBox->value();
 
             double ticketAdult = ui->Adult->value() * priceA;
@@ -284,7 +296,7 @@ void chairs::on_selection_clicked()
             double change = paid - ticketTotal;
 
             //send title to learn
-            payment *instance = new payment(this, screen, id, user, ticketTotal, paid, change, rowLetter, columnNum);
+            payment *instance = new payment(this, screen, id, user, ticketTotal, paid, change, seatsSelected);
             instance->show();
         }
     }
