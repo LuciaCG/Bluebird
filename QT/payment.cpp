@@ -6,7 +6,7 @@
 #include <QPrinter>
 #include <QtSql>
 
-payment::payment(QWidget *parent, QString _screen, int _id , QString _user, double _ticketTotal, double _paid, double _change) :
+payment::payment(QWidget *parent, QString _screen, int _id , QString _user, double _ticketTotal, double _paid, double _change, QString _rowLetter, int _columnNum) :
     QWidget(parent),
     ui(new Ui::payment),
   screen(_screen), // SCREEN NUMBER
@@ -14,7 +14,9 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
   user(_user),
   ticketTotal(_ticketTotal),
   paid(_paid),
-  change(_change)
+  change(_change),
+  rowLetter(_rowLetter),
+  columnNum(_columnNum)
 {
   ui->setupUi(this);
   ui->user->setText(user);
@@ -39,10 +41,10 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
     //Creating an SQL table model
     QSqlTableModel *model = new QSqlTableModel(this,firstDB);
     //Selecting the Table we want from DB
-    model->setTable("receipts");
+    model->setTable("Seat__Reserved");
     model->select();
 
-
+//receipts
 
     //Displaying the table in the Tableview
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -66,9 +68,9 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 
     query.exec();
 
-
+     QString columnNumS = QString::number(columnNum);
      ui->due->setText(QString::number(ticketTotal));
-     QString fileName = "pdfTest1"; // Change name to movie ID + Seats being used
+     QString fileName = rowLetter + "" + columnNumS + "" + QString::number(id); // Change name to movie ID + Seats being used
      if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
 
      QPrinter printer(QPrinter::PrinterResolution);
@@ -78,7 +80,7 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 
      QTextDocument doc;
 
-     doc.setHtml("<h1> RECEIPT FOR: "+ fileName +"</h1>"
+     doc.setHtml("<h1> RECEIPT FOR: "+ rowLetter + "" + columnNumS + "" + QString::number(id) +"</h1>"
                  "\n"
                  "<p>Till Employee: "+ user + " </p>"
                  "\n"

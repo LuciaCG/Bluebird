@@ -220,6 +220,59 @@ void chairs::on_selection_clicked()
         else{
             ui->warning->setText("");
 
+            //QItemSelectionModel *selectionModel = ui->tableWidget->selectionModel();
+            //QModelIndexList *selectedRows = selectionModel->selectedIndexes();
+           // if (selectedRows.size() > 0) {
+           // ui->connetion->setText(QString::number(selectedRows->size()));
+            //}
+            // const QModelIndexList list = ui->tableWidget->selectionModel()->selection().indexes();
+           // for (int i = 0; i < list.count(); i++)
+             //   {
+             //   QModelIndex index = list.at(i);
+            //    ui->connetion->setText(QString::number(ui->tableWidget->Sel));
+                //ui->user->setText(list.at(i));//QString::number(index));
+           //     }
+
+            QString rowLetter = "";
+            if(ui->tableWidget->currentRow() == 0)
+            {
+            rowLetter = "A";
+            }
+            if(ui->tableWidget->currentRow() == 1)
+            {
+            rowLetter = "B";
+            }
+            if(ui->tableWidget->currentRow() == 2)
+            {
+            rowLetter = "C";
+            }
+            if(ui->tableWidget->currentRow() == 3)
+            {
+            rowLetter = "D";
+            }
+            if(ui->tableWidget->currentRow() == 4)
+            {
+            rowLetter = "E";
+            }
+            if(ui->tableWidget->currentRow() == 5)
+            {
+            rowLetter = "F";
+            }
+            if(ui->tableWidget->currentRow() == 6)
+            {
+            rowLetter = "G";
+            }
+            int columnNum = ui->tableWidget->currentColumn()+1;
+            QSqlQuery query;
+            query.prepare("INSERT INTO Seat__Reserved (screening,rowReservedID,seatNumberReservedID) "
+                          "VALUES (?, ?, ?)");
+            query.addBindValue(id);
+            query.addBindValue(rowLetter);
+            query.addBindValue(columnNum);
+
+
+            query.exec();
+
             double paid = ui->doubleSpinBox->value();
 
             double ticketAdult = ui->Adult->value() * priceA;
@@ -231,7 +284,7 @@ void chairs::on_selection_clicked()
             double change = paid - ticketTotal;
 
             //send title to learn
-            payment *instance = new payment(this, screen, id, user, ticketTotal, paid, change);
+            payment *instance = new payment(this, screen, id, user, ticketTotal, paid, change, rowLetter, columnNum);
             instance->show();
         }
     }
