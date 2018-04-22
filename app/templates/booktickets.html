@@ -28,13 +28,32 @@ Unavailable Seats<br>
     <h3 style="width:100%" > Choose Type and Number of Tickets </h3><br>
     <form name= "Tickets" method="post">
     <div class="col-lf-12">
-      <h4>Adult - £9.00 </h4> <h5> Total Number of Adult Tickets: {{(adultTotal/9)}} </h5> <button class ="button button5" name="adultMinus" type="submit" value="9" > - </button> <button class ="button button5" name="adultPlus" type="submit" value="9"> + </button> £{{adultTotal}}.00 <br>
-      <h4>Child - £6.50 </h4> <h5> Total Number of Child Tickets: {{(childTotal/6.5)}} </h5>  <button class ="button button5" name="childMinus" type="submit" value="6.5" > - </button> <button class ="button button5" name="childPlus" type="submit" value="6.5"> + </button> £{{childTotal}}0<br>
-      <h4>Senior - £7.00 </h4> <h5> Total Number of Senior Tickets: {{(seniorTotal/7)}} </h5> <button class ="button button5" name="seniorMinus" type="submit" value="7" > - </button> <button class ="button button5" name="seniorPlus" type="submit" value="7"> + </button> £{{seniorTotal}}.00 <br>
-      <h4>VIP - £12.00 </h4> <h5> Total Number of VIP Tickets: {{(vipTotal/12)}} </h5>  <button class ="button button5" name="vipMinus" type="submit" value="12" > - </button> <button class ="button button5" name="vipPlus" type="submit" value="12"> + </button> £{{vipTotal}}.00<br>
+      {% if adultTotal/9 <= 0 %}
+      <h4>Adult - £9.00 </h4> <h5> Total Number of Adult Tickets: {{(adultTotal/9)}} </h5> <button class ="button button4" name="adultMinus" disabled type="submit" value="9.00" > - </button> <button class ="button button5" name="adultPlus" type="submit" value="9"> + </button> £{{adultTotal}}0 <br>
+      {% else %}
+      <h4>Adult - £9.00 </h4> <h5> Total Number of Adult Tickets: {{(adultTotal/9)}} </h5> <button class ="button button5" name="adultMinus" type="submit" value="9.00" > - </button> <button class ="button button5" name="adultPlus" type="submit" value="9"> + </button> £{{adultTotal}}0 <br>
+      {% endif %}
+      {% if childTotal/6.5 <= 0 %}
+      <h4>Child - £6.50 </h4> <h5> Total Number of Child Tickets: {{(childTotal/6.5)}} </h5>  <button class ="button button4" name="childMinus" disabled type="submit" value="6.50" > - </button> <button class ="button button5" name="childPlus" type="submit" value="6.5"> + </button> £{{childTotal}}0<br>
+      {% else %}
+      <h4>Child - £6.50 </h4> <h5> Total Number of Child Tickets: {{(childTotal/6.5)}} </h5>  <button class ="button button5" name="childMinus" type="submit" value="6.50" > - </button> <button class ="button button5" name="childPlus" type="submit" value="6.5"> + </button> £{{childTotal}}0<br>
+      {% endif %}
+      {% if seniorTotal/7 <= 0 %}
+      <h4>Senior - £7.00 </h4> <h5> Total Number of Senior Tickets: {{(seniorTotal/7)}} </h5> <button class ="button button4" name="seniorMinus" disabled type="submit" value="7.00" > - </button> <button class ="button button5" name="seniorPlus" type="submit" value="7"> + </button> £{{seniorTotal}}0 <br>
+      {% else %}
+      <h4>Senior - £7.00 </h4> <h5> Total Number of Senior Tickets: {{(seniorTotal/7)}} </h5> <button class ="button button5" name="seniorMinus" type="submit" value="7.00" > - </button> <button class ="button button5" name="seniorPlus" type="submit" value="7"> + </button> £{{seniorTotal}}0 <br>
+      {% endif %}
+      {% if vipTotal/12 <= 0 %}
+      <h4>VIP - £12.00 </h4> <h5> Total Number of VIP Tickets: {{(vipTotal/12)}} </h5>  <button class ="button button4" name="vipMinus" disabled type="submit" value="12.00" > - </button> <button class ="button button5" name="vipPlus" type="submit" value="12"> + </button> £{{vipTotal}}0<br>
+      {% else %}
+      <h4>VIP - £12.00 </h4> <h5> Total Number of VIP Tickets: {{(vipTotal/12)}} </h5>  <button class ="button button5" name="vipMinus" type="submit" value="12.00" > - </button> <button class ="button button5" name="vipPlus" type="submit" value="12"> + </button> £{{vipTotal}}0<br>
+      {% endif %}
+
+
     </div>
 
     </form>
+
 
   </div>
 </div>
@@ -61,7 +80,7 @@ Unavailable Seats<br>
             <form method="post" >
               <button class ="button button4" disabled name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
             </form>
-            {% elif seatList in session %}
+            {% elif row.row + seat.seatNumber|string in seatList and seatList %}
             <form name="seats" method="post" >
               <button class ="button button3" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
             </form>

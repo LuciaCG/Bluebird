@@ -113,26 +113,26 @@ def booktickets():
         else:
             return redirect(url_for('home'))
 
-        # if 'adult' in session:
-        #     adultTotal = session['adult']
-        #
-        # if 'child' in session:
-        #     childTotal = session['child']
-        #
-        # if 'senior' in session:
-        #     seniorTotal = session['senior']
-        #
-        # if 'vip' in session:
-        #     vipTotal = session['vip']
+        if 'adult' in session:
+            adultTotal = session['adult']
+
+        if 'child' in session:
+            childTotal = session['child']
+
+        if 'senior' in session:
+            seniorTotal = session['senior']
+
+        if 'vip' in session:
+            vipTotal = session['vip']
 
         if request.method == 'POST':
             if 'adultPlus' in request.form:
-                adultPlus = int(request.form.get('adultPlus'))
+                adultPlus = float(request.form.get('adultPlus'))
                 adultTotal += adultPlus
                 session['adult'] = adultTotal
 
             elif 'adultMinus' in request.form:
-                adultMinus = int(request.form.get('adultMinus'))
+                adultMinus = float(request.form.get('adultMinus'))
                 adultTotal -= adultMinus
                 session['adult'] = adultTotal
 
@@ -147,22 +147,22 @@ def booktickets():
                 session['child'] = childTotal
 
             elif 'seniorPlus' in request.form:
-                seniorPlus = int(request.form.get('seniorPlus'))
+                seniorPlus = float(request.form.get('seniorPlus'))
                 seniorTotal += seniorPlus
                 session['senior'] = seniorTotal
 
             elif 'seniorMinus' in request.form:
-                seniorMinus = int(request.form.get('seniorMinus'))
+                seniorMinus = float(request.form.get('seniorMinus'))
                 seniorTotal -= seniorMinus
                 session['senior'] = seniorTotal
 
             elif 'vipPlus' in request.form:
-                vipPlus = int(request.form.get('vipPlus'))
+                vipPlus = float(request.form.get('vipPlus'))
                 vipTotal += vipPlus
                 session['vip'] = vipTotal
 
             elif 'vipMinus' in request.form:
-                vipMinus = int(request.form.get('vipMinus'))
+                vipMinus = float(request.form.get('vipMinus'))
                 vipTotal -= vipMinus
                 session['vip'] = vipTotal
 
@@ -207,7 +207,7 @@ def booktickets():
                                 vipTotal = vipTotal,
                                 vipPlus = vipPlus,
                                 priceTotal = priceTotal,
-                                seatList = seatList,
+                                seatList = session['seatList'],
                                 seatID = seatID,
                                 )
 

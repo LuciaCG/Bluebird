@@ -107,8 +107,11 @@
 }
 
 .button3{
-  background-color: black;
-
+  background-color: #690300;
+  color: black;
+  border: 2px solid #555555;
+  border-radius: 8px;
+  color: white;
 }
 
 .modal-pointer
