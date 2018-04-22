@@ -267,7 +267,7 @@ for i in models.Movies.query.all():
 # blackPantherScreening5 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime5)
 # blackPantherScreening6 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime6)
 
- #assigning times to the greatest showman
+#  #assigning times to the greatest showman
 # theGreatestShowmanID = models.Movies.query.filter_by(movieTitle="The Greatest Showman").first().id
 # theGreatestShowmanScreening1 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen1ID ,time = screeningTime7)
 # theGreatestShowmanScreening2 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen2ID ,time = screeningTime8)
@@ -288,6 +288,7 @@ for i in models.Movies.query.all():
 # db.session.add(theGreatestShowmanScreening2)
 # db.session.add(theGreatestShowmanScreening3)
 # db.session.commit()
+
 
 ############### adding screenings to Screenings tables ##############
 

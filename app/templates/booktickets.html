@@ -21,45 +21,74 @@ Unavailable Seats<br>
   {{seats.seatNumberReservedID}} )
 
 {% endfor %}<br>
-            <br>
-Seats Available<br>
-s
-<div id="screenicon">
-  <h2 id="screentext">Screen</h2>
+
+
+<div class="container">
+  <div class="row">
+    <h3 style="width:100%" > Choose Type and Number of Tickets </h3><br>
+    <form name= "Tickets" method="post">
+    <div class="col-lf-12">
+      <h4>Adult - £9.00 </h4> <h5> Total Number of Adult Tickets: {{(adultTotal/9)}} </h5> <button class ="button button5" name="adultMinus" type="submit" value="9" > - </button> <button class ="button button5" name="adultPlus" type="submit" value="9"> + </button> £{{adultTotal}}.00 <br>
+      <h4>Child - £6.50 </h4> <h5> Total Number of Child Tickets: {{(childTotal/6.5)}} </h5>  <button class ="button button5" name="childMinus" type="submit" value="6.5" > - </button> <button class ="button button5" name="childPlus" type="submit" value="6.5"> + </button> £{{childTotal}}0<br>
+      <h4>Senior - £7.00 </h4> <h5> Total Number of Senior Tickets: {{(seniorTotal/7)}} </h5> <button class ="button button5" name="seniorMinus" type="submit" value="7" > - </button> <button class ="button button5" name="seniorPlus" type="submit" value="7"> + </button> £{{seniorTotal}}.00 <br>
+      <h4>VIP - £12.00 </h4> <h5> Total Number of VIP Tickets: {{(vipTotal/12)}} </h5>  <button class ="button button5" name="vipMinus" type="submit" value="12" > - </button> <button class ="button button5" name="vipPlus" type="submit" value="12"> + </button> £{{vipTotal}}.00<br>
+    </div>
+
+    </form>
+
+  </div>
 </div>
 
 
-<table style="width:65%" id="seatstable">
-{% for row in rows %}
-<!-- <th>
-      {{row.row}}
-</th> -->
-<tr>
-  {% for seat in seatNumber %}
-  <td>
-    <!-- {{seat}}{{row}} -->
-    {% if models.Seat_Reserved.query.filter_by(screening=1, rowReservedID=row.row, seatNumberReservedID=seat.seatNumber).count() == 1%}
-    <form method="post" >
-      <button class ="button button5" style="background-color: blue;" disabledname="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
-    </form>
-    {% else %}
-    <form method="post" >
-      <button class ="button button5" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
-    </form>
-    {% endif %}
-  </td>
-  {% endfor %}
-</tr>
-{% endfor %}<br>
-</table>
+<br>
+
+<div align="center" id="screenicon">
+  <h2 id="screentext">Screen</h2>
+</div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table style="width:65%" align="center" id="seatstable">
+        {% for row in rows %}
+      <!-- <th>
+            {{row.row}}
+      </th> -->
+        <tr>
+          {% for seat in seatNumber %}
+          <td>
+            <!-- {{seat}}{{row}} -->
+            {% if models.Seat_Reserved.query.filter_by(screening=screening.id, rowReservedID=row.row, seatNumberReservedID=seat.seatNumber).count() == 1%}
+            <form method="post" >
+              <button class ="button button4" disabled name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
+            </form>
+            {% elif seatList in session %}
+            <form name="seats" method="post" >
+              <button class ="button button3" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
+            </form>
+            {% else %}
+            <form name="seats" method="post" >
+              <button class ="button button5" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
+            </form>
+            {% endif %}
+          </td>
+          {% endfor %}
+        </tr>
+        {% endfor %}<br>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+
+
+      (  {{seatList}} )
 
 
 
 
-
-
-
-
+    <div class="col-md-12">
+      <h5> Total price to pay: £{{priceTotal}}0</h5><button class ="button button5">Book these tickets</button>
+    </div>
+  </div>
 
 
 {% endblock %}
