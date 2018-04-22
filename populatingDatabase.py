@@ -20,7 +20,6 @@ import datetime
 #   print(screens.Capacity)
 #   print()
 #
-/
 # from app import models, db
 # import datetime
 # for seats in models.Seats.query.all():
