@@ -20,14 +20,7 @@ import datetime
 #   print(screens.Capacity)
 #   print()
 #
-# from app import models, db
-# import datetime
-# for screenings in models.Screenings.query.filter_by(movies_id = 1).all():
-#    print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
-#    print(screenings.screen_id)
-#    print(screenings.time)
-#    print()
-#
+/
 # from app import models, db
 # import datetime
 # for seats in models.Seats.query.all():
@@ -208,34 +201,72 @@ db.session.add(screen2)
 db.session.add(screen3)
 db.session.commit()
 
-screen1ID = models.Screen.query.filter_by(screenName="Screen 1").first().screenName
-screen2ID = models.Screen.query.filter_by(screenName="Screen 2").first().screenName
-screen3ID = models.Screen.query.filter_by(screenName="Screen 3").first().screenName
+# screen1ID = models.Screen.query.filter_by(screenName="Screen 1").first().screenName
+# screen2ID = models.Screen.query.filter_by(screenName="Screen 2").first().screenName
+# screen3ID = models.Screen.query.filter_by(screenName="Screen 3").first().screenName
 
 ############### adding screens to Screen tables ##############
+
+currentDay = datetime.datetime.now().date()
+dates = []
+for i in range(1,9):
+  newCurrentDays= currentDay + datetime.timedelta(days=i)
+  dates.append(newCurrentDays)
+
+for i in dates:
+  print(i.year , i.month , i.day)
+
+dayCount = 0
+screenCount = 1
+for i in models.Movies.query.all():
+  screeningTime1 = datetime.datetime(dates[dayCount].year,dates[dayCount].month, dates[dayCount].day, 12 , tzinfo=datetime.timezone.utc)
+  screeningTime2 = datetime.datetime(dates[dayCount].year,dates[dayCount].month, dates[dayCount].day, 15 , tzinfo=datetime.timezone.utc)
+  screeningTime3 = datetime.datetime(dates[dayCount].year,dates[dayCount].month, dates[dayCount].day, 18 , tzinfo=datetime.timezone.utc)
+  if(screenCount == 1):
+      screening1 = models.Screenings(movies_id=i.id, screen_id="Screen 1" ,time = screeningTime1)
+      screening2 = models.Screenings(movies_id=i.id, screen_id="Screen 1" ,time = screeningTime2)
+      screening3 = models.Screenings(movies_id=i.id, screen_id="Screen 1" ,time = screeningTime3)
+      screenCount += 1
+  elif(screenCount == 2):
+      screening1 = models.Screenings(movies_id=i.id, screen_id="Screen 2" ,time = screeningTime1)
+      screening2 = models.Screenings(movies_id=i.id, screen_id="Screen 2" ,time = screeningTime2)
+      screening3 = models.Screenings(movies_id=i.id, screen_id="Screen 2" ,time = screeningTime3)
+      screenCount += 1
+  elif(screenCount == 3):
+      screening1 = models.Screenings(movies_id=i.id, screen_id="Screen 3" ,time = screeningTime1)
+      screening2 = models.Screenings(movies_id=i.id, screen_id="Screen 3" ,time = screeningTime2)
+      screening3 = models.Screenings(movies_id=i.id, screen_id="Screen 3" ,time = screeningTime3)
+      screenCount = 1
+      dayCount += 1
+  else:
+      print("something went wrong")
+  db.session.add(screening1)
+  db.session.add(screening2)
+  db.session.add(screening3)
+  db.session.commit()
 
 
 ############### adding screenings to Screenings tables ##############
 #setting times for screenings
 ## 02/03/2018 at 6pm
-screeningTime1 = datetime.datetime(2018, 2, 18, 12, tzinfo=datetime.timezone.utc)
-screeningTime2 = datetime.datetime(2018, 2, 18, 18, tzinfo=datetime.timezone.utc)
-screeningTime3 = datetime.datetime(2018, 2, 18, 20, tzinfo=datetime.timezone.utc)
-screeningTime4 = datetime.datetime(2018, 2, 19, 12, tzinfo=datetime.timezone.utc)
-screeningTime5 = datetime.datetime(2018, 2, 19, 18, tzinfo=datetime.timezone.utc)
-screeningTime6 = datetime.datetime(2018, 2, 19, 20, tzinfo=datetime.timezone.utc)
-screeningTime7 = datetime.datetime(2018, 3, 2, 9, tzinfo=datetime.timezone.utc)
-screeningTime8 = datetime.datetime(2018, 3, 2, 14, tzinfo=datetime.timezone.utc)
-screeningTime9 = datetime.datetime(2018, 3, 2, 21, tzinfo=datetime.timezone.utc)
-
- #assigning times to black panther
-blackPatherID = models.Movies.query.filter_by(movieTitle="Black Panther").first().id
-blackPantherScreening1 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime1)
-blackPantherScreening2 = models.Screenings(movies_id=blackPatherID, screen_id=screen2ID ,time = screeningTime2)
-blackPantherScreening3 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime3)
-blackPantherScreening4 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime4)
-blackPantherScreening5 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime5)
-blackPantherScreening6 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime6)
+# screeningTime1 = datetime.datetime(2018, 2, 18, 12, tzinfo=datetime.timezone.utc)
+# screeningTime2 = datetime.datetime(2018, 2, 18, 18, tzinfo=datetime.timezone.utc)
+# screeningTime3 = datetime.datetime(2018, 2, 18, 20, tzinfo=datetime.timezone.utc)
+# screeningTime4 = datetime.datetime(2018, 2, 19, 12, tzinfo=datetime.timezone.utc)
+# screeningTime5 = datetime.datetime(2018, 2, 19, 18, tzinfo=datetime.timezone.utc)
+# screeningTime6 = datetime.datetime(2018, 2, 19, 20, tzinfo=datetime.timezone.utc)
+# screeningTime7 = datetime.datetime(2018, 3, 2, 9, tzinfo=datetime.timezone.utc)
+# screeningTime8 = datetime.datetime(2018, 3, 2, 14, tzinfo=datetime.timezone.utc)
+# screeningTime9 = datetime.datetime(2018, 3, 2, 21, tzinfo=datetime.timezone.utc)
+#
+#  #assigning times to black panther
+# blackPatherID = models.Movies.query.filter_by(movieTitle="Black Panther").first().id
+# blackPantherScreening1 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime1)
+# blackPantherScreening2 = models.Screenings(movies_id=blackPatherID, screen_id=screen2ID ,time = screeningTime2)
+# blackPantherScreening3 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime3)
+# blackPantherScreening4 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime4)
+# blackPantherScreening5 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime5)
+# blackPantherScreening6 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime6)
 
  #assigning times to the greatest showman
 # theGreatestShowmanID = models.Movies.query.filter_by(movieTitle="The Greatest Showman").first().id
@@ -247,17 +278,17 @@ blackPantherScreening6 = models.Screenings(movies_id=blackPatherID, screen_id=sc
 
 
 #adding and commit the screenings to the database
-db.session.add(blackPantherScreening1)
-db.session.add(blackPantherScreening2)
-db.session.add(blackPantherScreening3)
-db.session.add(blackPantherScreening4)
-db.session.add(blackPantherScreening5)
-db.session.add(blackPantherScreening6)
-#
+# db.session.add(blackPantherScreening1)
+# db.session.add(blackPantherScreening2)
+# db.session.add(blackPantherScreening3)
+# db.session.add(blackPantherScreening4)
+# db.session.add(blackPantherScreening5)
+# db.session.add(blackPantherScreening6)
+# #
 # db.session.add(theGreatestShowmanScreening1)
 # db.session.add(theGreatestShowmanScreening2)
 # db.session.add(theGreatestShowmanScreening3)
-db.session.commit()
+# db.session.commit()
 
 ############### adding screenings to Screenings tables ##############
 
@@ -384,23 +415,23 @@ db.session.commit()
 # from app import models, db
 # import datetime
 
-a = models.Seat_Reserved(screening=1, rowReservedID="A", seatNumberReservedID=4)
-b = models.Seat_Reserved(screening=1, rowReservedID="A", seatNumberReservedID=1)
-c = models.Seat_Reserved(screening=1, rowReservedID="B", seatNumberReservedID=4)
-d = models.Seat_Reserved(screening=2, rowReservedID="A", seatNumberReservedID=4)
-e = models.Seat_Reserved(screening=1, rowReservedID="B", seatNumberReservedID=2)
-f = models.Seat_Reserved(screening=1, rowReservedID="E", seatNumberReservedID=4)
-g = models.Seat_Reserved(screening=4, rowReservedID="A", seatNumberReservedID=4)
-
-db.session.add(a)
-db.session.add(b)
-db.session.add(c)
-db.session.add(d)
-db.session.add(e)
-db.session.add(f)
-db.session.add(g)
-
-db.session.commit()
+# a = models.Seat_Reserved(screening=1, rowReservedID="A", seatNumberReservedID=4)
+# b = models.Seat_Reserved(screening=1, rowReservedID="A", seatNumberReservedID=1)
+# c = models.Seat_Reserved(screening=1, rowReservedID="B", seatNumberReservedID=4)
+# d = models.Seat_Reserved(screening=2, rowReservedID="A", seatNumberReservedID=4)
+# e = models.Seat_Reserved(screening=1, rowReservedID="B", seatNumberReservedID=2)
+# f = models.Seat_Reserved(screening=1, rowReservedID="E", seatNumberReservedID=4)
+# g = models.Seat_Reserved(screening=4, rowReservedID="A", seatNumberReservedID=4)
+#
+# db.session.add(a)
+# db.session.add(b)
+# db.session.add(c)
+# db.session.add(d)
+# db.session.add(e)
+# db.session.add(f)
+# db.session.add(g)
+#
+# db.session.commit()
 
 ############### Seat Reserved table tests ##################
 
