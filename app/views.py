@@ -113,17 +113,17 @@ def booktickets():
         else:
             return redirect(url_for('home'))
 
-        if 'adult' in session:
-            adultTotal = session['adult']
-
-        if 'child' in session:
-            childTotal = session['child']
-
-        if 'senior' in session:
-            seniorTotal = session['senior']
-
-        if 'vip' in session:
-            vipTotal = session['vip']
+        # if 'adult' in session:
+        #     adultTotal = session['adult']
+        #
+        # if 'child' in session:
+        #     childTotal = session['child']
+        #
+        # if 'senior' in session:
+        #     seniorTotal = session['senior']
+        #
+        # if 'vip' in session:
+        #     vipTotal = session['vip']
 
         if request.method == 'POST':
             if 'adultPlus' in request.form:
@@ -175,7 +175,7 @@ def booktickets():
                 seatList.append(seatID)
                 session['seatList'] = seatList
                 print(seatList)
-                
+
                 wordlist = list(seatID)
                 if wordlist == None:
                     print(wordlist)
@@ -242,3 +242,9 @@ def payments():
                                 movieName = movieName,
                                 screenings = screenings
                                 )
+
+@app.route('/logout')
+def logout():
+   # remove the username from the session if it is there
+   session.clear()
+   return redirect(url_for('home'))

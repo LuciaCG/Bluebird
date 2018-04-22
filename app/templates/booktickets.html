@@ -61,6 +61,10 @@ Unavailable Seats<br>
             <form method="post" >
               <button class ="button button4" disabled name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
             </form>
+            {% elif seatList in session %}
+            <form name="seats" method="post" >
+              <button class ="button button3" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
+            </form>
             {% else %}
             <form name="seats" method="post" >
               <button class ="button button5" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
