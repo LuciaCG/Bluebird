@@ -46,10 +46,13 @@
           <a class="nav-link" href="/nowshowing">Now Showing</a>
         </li>
         <li class="nav-item" id="loginbutton">
-          <button name="subject" type="submit" value="login" class = "modal-pointer" data-toggle="modal" data-target="#login">Login</button>
+          <button name="subject" type="submit" value="login"><a href="/login">Login</a></button>
         </li>
         <li class="nav-item" id="regbutton">
-          <button name="subject" type="submit" value="registration" class = "modal-pointer" data-toggle="modal" data-target="#registration">Registration</button>
+          <button name="subject" type="submit" value="registration"><a href="/register">Registration</a></button>
+        </li>
+        <li class="nav-item" id="username">
+          {{userEmailname}}
         </li>
         <li class="nav-item" id="logoutbutton">
           <button name="subject" type="submit" ><a href="/logout">Logout</a></button>
@@ -67,124 +70,11 @@
   <!-- </main> -->
 
 
-
-  <!-- <footer class="footer">
-    <div class="container">
-      <span class="text-muted">Place sticky footer content here.</span>
-    </div>
-  </footer> -->
-
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="../static/js/jquery-slim.min.js"><\/script>')</script>
   <script src="../static/js/popper.min.js"></script>
   <script src="../static/js/bootstrap.min.js"></script>
   <script src="../static/js/holder.min.js"></script>
 
-
-  <!-- Modal for login -->
-  <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="container text-center" id="login">
-        		<div class="row">
-        				<div class="panel panel-default" id="modal-login-back">
-        					<div class="panel-body nopadding">
-        						<div class="row">
-        							<div class="col-lg-12">
-        								<form id="login_form">
-        									<div class="login_logo">Login</div>
-        										<div class="form-group">
-        											<div class="input-group">
-        												<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-        												<input type="email" class="form-control input input-lg" placeholder="Your Email"  required>
-        											</div>
-        										</div>
-        										<div class="form-group">
-        											<div class="input-group">
-        												<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        												<input type="password" class="form-control input input-lg" placeholder="Your Password"  required>
-        											</div>
-        										</div>
-        										<div class="butn">
-        											<button class="btn btn-primary btn-block btn-lg">Login</button>
-        										</div>
-        								</form>
-        							</div>
-        						</div>
-        					</div>
-        				</div>
-    		    </div>
-        	</div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal for registration -->
-  <div class="modal fade" id="registration" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="container text-center" id="register">
-      		<div class="row">
-    				<div class="panel panel-default">
-    					<div class="panel-body nopadding">
-    						<div class="row">
-    							<div class="col-lg-12">
-                    <form id="registration_form" method="post" name="registration">
-                      {{ regForm.hidden_tag() }}
-                      <div class="registration_logo">Sign Up</div>
-                      <div class="form-group">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-user registration_form_icons"></i></span>
-                          <p>{{ regForm.name }}</p>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-envelope registration_form_icons"></i></span>
-                          <p>{{ regForm.email }}</p>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-lock registration_form_icons"></i></span>
-                          <p>{{ regForm.password }}</p>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="input-group">
-                          <span class="input-group-addon"><i class="glyphicon glyphicon-lock registration_form_icons"></i></span>
-                          <p>{{ regForm.confirm }}</p>
-                        </div>
-                      </div>
-                      <div class="butn">
-                        <button class="btn btn-primary btn-block btn-lg"><span class="glyphicon glyphicon-share-alt"></span> Register</button>
-                      </div>
-                      {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                          <ul>
-                            {% for message in messages %}
-                              <li><style> li {display:inline}</style>{{ message }} </li>
-                            {% endfor %}
-                          </ul>
-                        {% endif %}
-                      {% endwith %}
-                    </form>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-      		</div>
-      	</div>
-      </div>
-    </div>
-  </div>
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul>
-        {% for message in messages %}
-          <li><style> li {display:inline}</style>{{ message }} </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
 </body>
 </html>

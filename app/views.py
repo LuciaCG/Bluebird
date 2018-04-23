@@ -1,8 +1,9 @@
 from app import app, models, db
 from datetime import timedelta
-from flask import render_template, url_for, request, session, redirect
+from flask import render_template, url_for, request, session, redirect, flash
 from .forms import LoginForm, RegistrationForm, SessionForm
 from datetime import datetime
+import hashlib
 
 # @app.before_request
 # def make_session_permanent():
@@ -13,72 +14,59 @@ from datetime import datetime
 
 
 @app.route('/home', methods=['GET', 'POST'])
+def home():
+    userEmailname = None
+    if 'userEmail' in session:
+        userEmailname = session['userEmail']
+    else:
+        session['userEmail'] = 'Guest User'
+
+
+    return render_template('home.html',
+                            userEmailname=session['userEmail'])
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     now = datetime.now()
-    loginForm = LoginForm()
-    regForm = RegistrationForm()
+    form = LoginForm()
+    form2 = SessionForm()
 
-    if loginForm.validate_on_submit():
-        auth = models.Teams.authenticate(form.teamname.data,
-                                         form.password.data)
-        if auth == True:
-            session['variable'] = form.teamname.data
+    if form.validate_on_submit():
+        user = models.Users.query.filter_by(email=form.name.data).first()
+        password = form.password.data
+        a = hashlib.sha256()
+        a.update(password.encode('utf-8'))
+        # auth = models.Teams.authenticate(form.name.data,
+        #                                  form.password.data)
+        if a.hexdigest() == user.password:
+            session['userEmail'] = form.name.data
             return redirect(url_for('home'))
         else:
-            flash('Name or Password incorrect')
-            return render_template('home.html',
-                                # title='Sign In',
-                                # form=form,
-                                )
-    elif regForm.validate_on_submit():
-        p = models.Users(name=regForm.name.data,
-                        email=regForm.email.data,
-                        password=regForm.password.data,
+            flash('Email or Password incorrect')
+            return render_template('login.html',
+                                title='Sign In',
+                                form=form)
+    else:
+        return render_template('login.html',
+                            title='Login',
+                            form=form,
+                            form2=form2)
+
+@app.route('/register', methods=['GET', 'POST'])
+def signup():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        p = models.Users(name=form.name.data,
+                        email=form.email.data,
+                        password=form.password.data,
                         )
         db.session.add(p)
         db.session.commit()
-        return redirect(url_for('home'),
-                                loginForm=loginForm,
-                                regForm=regForm
-                                )
+        return redirect(url_for('home'))
     else:
-        return render_template('home.html',
-                            title='Sign In',
-                            loginForm=loginForm,
-                            regForm=regForm
-                            )
-
-# def signup():
-#
-#     if request.method == 'POST':
-#         if 'registration' in request.form:
-#             p = models.Users(name=form.name.data,
-#                             email=form.email.data,
-#                             password=form.password.data,
-#                             )
-#             db.session.add(p)
-#             db.session.commit()
-#             return redirect(url_for('home'),
-#                             regForm=regForm,)
-#     if form.validate_on_submit():
-#         p = models.Users(name=form.name.data,
-#                         email=form.email.data,
-#                         password=form.password.data,
-#                         )
-#         db.session.add(p)
-#         db.session.commit()
-#         return redirect(url_for('home'))
-#     else:
-#         flash('Passwords do not match')
-#         return render_template('home.html',
-#                             title='Sign Up',
-#                             regForm=regForm
-#                             )
-#
-#
-#
-#     return render_template('home.html')
-
+        return render_template('registration.html',
+                            title='Register',
+                            form=form)
 
 @app.route('/nowshowing', methods=['GET', 'POST'])
 def viewmovies():
@@ -88,6 +76,12 @@ def viewmovies():
         movieThree = models.Movies.query.get(3)
 
         movieID = None
+
+        userEmailname = None
+        if 'userEmail' in session:
+            userEmailname = session['userEmail']
+        else:
+            session['userEmail'] = 'Guest User'
 
         if request.method == 'POST':
             movieID = request.form.get('subject')
@@ -104,6 +98,7 @@ def viewmovies():
                                 movieOne = movieOne,
                                 movieTwo = movieTwo,
                                 movieThree = movieThree,
+                                userEmailname=session['userEmail']
                                 )
 
 
@@ -121,6 +116,12 @@ def showtimes():
             return redirect(url_for('home'))
 
 
+        userEmailname = None
+        if 'userEmail' in session:
+            userEmailname = session['userEmail']
+        else:
+            session['userEmail'] = 'Guest User'
+
         if request.method == 'POST':
             screeningID = request.form.get('bookSeat')
 
@@ -135,7 +136,8 @@ def showtimes():
 
         return render_template('showtimes.html',
                                 movieName = movieName,
-                                screenings = screenings
+                                screenings = screenings,
+                                userEmailname=session['userEmail']
                                 )
 
 
@@ -176,6 +178,12 @@ def booktickets():
 
         else:
             return redirect(url_for('home'))
+
+        userEmailname = None
+        if 'userEmail' in session:
+            userEmailname = session['userEmail']
+        else:
+            session['userEmail'] = 'Guest User'
 
         if 'adult' in session:
             adultTotal = session['adult']
@@ -276,6 +284,7 @@ def booktickets():
                                 priceTotal = priceTotal,
                                 seatList = session['seatList'],
                                 seatID = seatID,
+                                userEmailname=session['userEmail']
                                 )
 
 
@@ -292,6 +301,11 @@ def payments():
         else:
             return redirect(url_for('home'))
 
+        userEmailname = None
+        if 'userEmail' in session:
+            userEmailname = session['userEmail']
+        else:
+            session['userEmail'] = 'Guest User'
 
         if request.method == 'POST':
             screeningID = request.form.get('bookSeat')
@@ -307,7 +321,8 @@ def payments():
 
         return render_template('showtimes.html',
                                 movieName = movieName,
-                                screenings = screenings
+                                screenings = screenings,
+                                userEmailname=session['userEmail']
                                 )
 
 @app.route('/logout')

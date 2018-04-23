@@ -4,7 +4,7 @@ from wtforms import (BooleanField, StringField, PasswordField, IntegerField,
 from wtforms.validators import DataRequired, Length, InputRequired, Email
 
 class LoginForm(Form):
-    teamname = StringField('teamname', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired()])
     password = PasswordField('password', validators=[DataRequired()])
     remember_me = BooleanField('remember_me', default=False)
 
