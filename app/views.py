@@ -15,10 +15,10 @@ from datetime import datetime
 @app.route('/home', methods=['GET', 'POST'])
 def login():
     now = datetime.now()
-    form = LoginForm()
-    form2 = SessionForm()
+    loginForm = LoginForm()
+    regForm = RegistrationForm()
 
-    if form.validate_on_submit():
+    if loginForm.validate_on_submit():
         auth = models.Teams.authenticate(form.teamname.data,
                                          form.password.data)
         if auth == True:
@@ -27,43 +27,57 @@ def login():
         else:
             flash('Name or Password incorrect')
             return render_template('home.html',
-                                title='Sign In',
-                                form=form)
+                                # title='Sign In',
+                                # form=form,
+                                )
+    elif regForm.validate_on_submit():
+        p = models.Users(name=regForm.name.data,
+                        email=regForm.email.data,
+                        password=regForm.password.data,
+                        )
+        db.session.add(p)
+        db.session.commit()
+        return redirect(url_for('home'),
+                                loginForm=loginForm,
+                                regForm=regForm
+                                )
     else:
         return render_template('home.html',
                             title='Sign In',
-                            form=form,
-                            form2=form2)
-
-def signup():
-    # form = SignupForm()
-    if request.method == 'POST':
-        if 'registration' in request.form:
-            p = models.Users(name=form.name.data,
-                            email=form.email.data,
-                            password=form.password.data,
-                            )
-            db.session.add(p)
-            db.session.commit()
-            return redirect(url_for('home'))
-    # if form.validate_on_submit():
-    #     p = models.Users(name=form.name.data,
-    #                     email=form.email.data,
-    #                     password=form.password.data,
-    #                     )
-    #     db.session.add(p)
-    #     db.session.commit()
-    #     return redirect(url_for('home'))
-    else:
-        flash('Passwords do not match')
-        return render_template('home.html',
-                            title='Sign Up',
-                            # form=form
+                            loginForm=loginForm,
+                            regForm=regForm
                             )
 
-
-
-    return render_template('home.html')
+# def signup():
+#
+#     if request.method == 'POST':
+#         if 'registration' in request.form:
+#             p = models.Users(name=form.name.data,
+#                             email=form.email.data,
+#                             password=form.password.data,
+#                             )
+#             db.session.add(p)
+#             db.session.commit()
+#             return redirect(url_for('home'),
+#                             regForm=regForm,)
+#     if form.validate_on_submit():
+#         p = models.Users(name=form.name.data,
+#                         email=form.email.data,
+#                         password=form.password.data,
+#                         )
+#         db.session.add(p)
+#         db.session.commit()
+#         return redirect(url_for('home'))
+#     else:
+#         flash('Passwords do not match')
+#         return render_template('home.html',
+#                             title='Sign Up',
+#                             regForm=regForm
+#                             )
+#
+#
+#
+#     return render_template('home.html')
 
 
 @app.route('/nowshowing', methods=['GET', 'POST'])
