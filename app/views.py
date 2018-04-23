@@ -1,9 +1,51 @@
 from app import app, models, db
+from datetime import timedelta
 from flask import render_template, url_for, request, session, redirect
+from .forms import LoginForm, RegistrationForm, SessionForm
+from datetime import datetime
+
+# @app.before_request
+# def make_session_permanent():
+#     session.permanent = True
+#     app.permanent_session_lifetime = timedelta(seconds=20)
+
+
+
 
 @app.route('/home', methods=['GET', 'POST'])
-def home():
-    # form = RegistrationForm()
+def login():
+    now = datetime.now()
+    form = LoginForm()
+    form2 = SessionForm()
+
+    if form.validate_on_submit():
+        auth = models.Teams.authenticate(form.teamname.data,
+                                         form.password.data)
+        if auth == True:
+            session['variable'] = form.teamname.data
+            return redirect(url_for('home'))
+        else:
+            flash('Name or Password incorrect')
+            return render_template('home.html',
+                                title='Sign In',
+                                form=form)
+    else:
+        return render_template('home.html',
+                            title='Sign In',
+                            form=form,
+                            form2=form2)
+
+def signup():
+    # form = SignupForm()
+    if request.method == 'POST':
+        if 'registration' in request.form:
+            p = models.Users(name=form.name.data,
+                            email=form.email.data,
+                            password=form.password.data,
+                            )
+            db.session.add(p)
+            db.session.commit()
+            return redirect(url_for('home'))
     # if form.validate_on_submit():
     #     p = models.Users(name=form.name.data,
     #                     email=form.email.data,
@@ -11,7 +53,13 @@ def home():
     #                     )
     #     db.session.add(p)
     #     db.session.commit()
-        # return redirect(url_for('signup'))
+    #     return redirect(url_for('home'))
+    else:
+        flash('Passwords do not match')
+        return render_template('home.html',
+                            title='Sign Up',
+                            # form=form
+                            )
 
 
 
@@ -93,6 +141,8 @@ def booktickets():
         seniorPlus = 1
         vipPlus = 1
 
+        if 'seatList' not in session:
+            session['seatList'] = ['No seats currently selected']
         # movies = models.Movies.query.all()
         seatsAll = models.Seats.query.all()
         seatNumber = models.Seats.query.with_entities(models.Seats.seatNumber).group_by(models.Seats.seatNumber).all()
@@ -124,6 +174,9 @@ def booktickets():
 
         if 'vip' in session:
             vipTotal = session['vip']
+
+        if 'priceTotal' in session:
+            priceTotal = session['priceTotal']
 
         if request.method == 'POST':
             if 'adultPlus' in request.form:
@@ -247,4 +300,4 @@ def payments():
 def logout():
    # remove the username from the session if it is there
    session.clear()
-   return redirect(url_for('home'))
+   return render_template('home.html')

@@ -17,3 +17,6 @@ class RegistrationForm(Form):
         validators.Length(min=1, max=16)])
     confirm = PasswordField('Repeat Password', [validators.Required(),
         validators.EqualTo('password', message='Passwords must match')])
+
+class SessionForm(Form):
+    value = StringField('value', validators=[DataRequired()])
