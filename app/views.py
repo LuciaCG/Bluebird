@@ -1,7 +1,7 @@
 from app import app, models, db
 from datetime import timedelta
 from flask import render_template, url_for, request, session, redirect, flash
-from .forms import LoginForm, RegistrationForm, SessionForm
+from .forms import LoginForm, RegistrationForm, SessionForm, AddCardForm
 from datetime import datetime
 import hashlib
 
@@ -67,6 +67,32 @@ def signup():
         return render_template('registration.html',
                             title='Register',
                             form=form)
+
+@app.route('/userPage', methods=['GET', 'POST'])
+def userPage():
+    form = AddCardForm()
+    userEmailname = None
+    if 'userEmail' in session:
+        userEmailname = session['userEmail']
+        user = models.Users.query.filter_by(email=userEmailname).first()
+        idno = user.id
+        userDetails = models.Users.query.get(idno)
+        if form.validate_on_submit():
+            p = models.Users(cardNumber=form.cardNumber.data,
+                            exMonth=form.exMonth.data,
+                            exYear=form.exYear.data,
+                            securityNumber=form.securityNumber.data,
+                            )
+            db.session.add(p)
+            db.session.commit()
+            return redirect(url_for('userPage'))
+    else:
+        session['userEmail'] = 'Guest User'
+    return render_template('userpage.html',
+                            userEmailname=session['userEmail'],
+                            userDetails=userDetails,
+                            form=form
+                            )
 
 @app.route('/nowshowing', methods=['GET', 'POST'])
 def viewmovies():
