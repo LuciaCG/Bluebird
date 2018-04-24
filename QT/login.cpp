@@ -1,8 +1,10 @@
 #include "login.h"
 #include "ui_login.h"
-#include "mainwindow.h"
+//#include "mainwindow.h"
 
 #include <QtWidgets>
+#include <QtNetwork>
+
 
 Login::Login(QWidget *parent) :
     QWidget(parent),
@@ -13,6 +15,7 @@ Login::Login(QWidget *parent) :
     QWidget::setTabOrder(ui->Username, ui->Password);
     QWidget::setTabOrder(ui->Password, ui->login);
 
+    /*
     //Initialising the data base connection
     QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
     firstDB.setHostName("bluebird");
@@ -25,6 +28,27 @@ Login::Login(QWidget *parent) :
     firstDB.open();
     if(!firstDB.open())
         ui->warning->setText("WARNING: Failed Connexion");
+
+*/
+
+    QNetworkAccessManager manager;
+    QEventLoop eventLoop;
+    QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+
+    QUrl url("http://localhost:5000/app.json");
+
+    QNetworkRequest request(url);
+    QNetworkReply * reply = manager.get(request);
+
+    eventLoop.exec();
+
+    if (reply->error() == QNetworkReply::NoError)
+        ui->warning->setText("Connected");
+    else
+        ui->warning->setText("WARNING: Failed Connexion");
+
+
+
 
 
 }
@@ -59,9 +83,9 @@ void Login::on_login_clicked()
         ui->warning->setText("WARNING: Incorrect Password Or Username");
     else{
         ui->warning->setText("");
-        MainWindow *instance = new MainWindow(this, user);
-        instance->show();
-        this->hide();
+        //MainWindow *instance = new MainWindow(this, user);
+       // instance->show();
+        //this->hide();
     }
 
 }

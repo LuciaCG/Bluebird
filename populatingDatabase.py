@@ -370,7 +370,7 @@ db.session.commit()
 ############### adding employees to empoyees tables ##############
 
 employeeOnline = models.Employee(name="online", password="online")
-tempEmployee = models.Employee(name="temp empoyee 1", password="password123")
+tempEmployee = models.Employee(name="tempemployee1", password="password123")
 
 db.session.add(employeeOnline)
 db.session.add(tempEmployee)

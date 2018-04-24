@@ -1,6 +1,21 @@
+import json
 from app import app, models, db
-from flask import render_template, url_for, request, session, redirect
+from flask import Flask, render_template, url_for, request, session, redirect
 
+#QT
+#QT
+application = Flask(__name__)
+@app.route("/app.json")
+def Employee_data():
+    data = [ models.Employee.__repr__(models.Employee) for i in models.Employee.query.all() ]
+    response = application.make_response(json.dumps(data))
+    response.mimetype = "application/json"
+    return response
+
+
+
+
+#Web
 @app.route('/home', methods=['GET', 'POST'])
 def home():
       return render_template('home.html')
