@@ -77,6 +77,7 @@ def userPage():
         user = models.Users.query.filter_by(email=userEmailname).first()
         if form.validate_on_submit():
             p = models.CardDetails(userID=user.id,
+                            cardNickname=form.cardNickname.data,
                             cardNumber=form.cardNumber.data,
                             exMonth=form.exMonth.data,
                             exYear=form.exYear.data
@@ -361,6 +362,7 @@ def payments():
         if 'userEmail' in session:
             userEmailname = session['userEmail']
             user = models.Users.query.filter_by(email=userEmailname).first()
+            cardDetails = models.CardDetails.query.filter_by(userID=user.id).all()
 
         if 'movieVar' in session:
             movieID = session['movieVar']
@@ -387,9 +389,6 @@ def payments():
         if 'priceTotal' in session:
             priceTotal = session['priceTotal']
 
-
-
-
         if 'userEmail' in session:
             userEmailname = session['userEmail']
         else:
@@ -399,11 +398,6 @@ def payments():
             screeningID = request.form.get('bookSeat')
 
         session['scrnVar'] = screeningID
-
-
-
-
-
 
         return render_template('payments.html',
                                 user=user,
@@ -416,11 +410,22 @@ def payments():
                                 priceTotal=priceTotal,
                                 seatList = session['seatList'],
                                 userEmailname=session['userEmail'],
-                                cardDetails=cardDetails
+                                cardDetails=cardDetails,
+                                models=models
                                 )
+
+@app.route('/confirm')
+def confirm():
+   # removes all session data
+
+   
+
+
+   return redirect(url_for('home'))
+
 
 @app.route('/logout')
 def logout():
    # removes all session data
    session.clear()
-   return render_template('home.html')
+   return redirect(url_for('home'))

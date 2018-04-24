@@ -80,7 +80,7 @@ class Employee(db.Model):
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(20), unique=True)
+    email = db.Column(db.String(20))
     name = db.Column(db.String(20))
     password = db.Column(db.String(50))
     reciept = db.relationship('Receipts', backref='users', lazy='dynamic')
@@ -121,12 +121,13 @@ class Receipts(db.Model):
 
 class CardDetails(db.Model):
     userID = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    cardNickname = db.Column(db.String(30))
     cardNumber = db.Column(db.String(16), primary_key=True)
     exMonth = db.Column(db.String(2))
     exYear = db.Column(db.String(4))
 
 
-    def __init__(self, userID, cardNumber, exMonth, exYear):
+    def __init__(self, userID, cardNickname, cardNumber, exMonth, exYear):
 
         self.userID = userID
 
@@ -142,6 +143,7 @@ class CardDetails(db.Model):
             changedLetter = ord(cardNumber[character]) - 1
           newCardNumber += chr(changedLetter)
 
+        self.cardNickname = cardNickname
         self.cardNumber = newCardNumber
         self.exMonth = exMonth
         self.exYear = exYear
@@ -149,7 +151,7 @@ class CardDetails(db.Model):
 
 
     def __repr__(self):
-        return '' % (self.userID, self.cardNumber, self.exMonth, self.exYear)
+        return '' % (self.userID, self.cardNickname, self.cardNumber, self.exMonth, self.exYear)
 
     # def __init__(self, userID, cardNumber, exMonth, exYear, securityNumber):
     #     self.userID = userID
