@@ -18,14 +18,17 @@ Total Price:  {{priceTotal}}<br>
 Seats selected: {{seatList}}<br>
 
 Cards:<br>
+<form method="post">
 <select>
-  <option value="{{cardDetails.nickname}}">{{cardDetails.nickname}}</option>
-  <option value="{{cardDetails.nickname}}">{{cardDetails.nickname}}</option>
-  <option value="{{cardDetails.nickname}}">{{cardDetails.nickname}}</option>
-</select><br>
+  {% for details in cardDetails %}
+    <option value="{{details.nickName}}">{{details.cardNickname}}</option>
+  {% endfor %}
+  <option value="nocard">Use Different Card</option>
+</select>
+</form><br>
 <br>
 
-<input type="submit" id="submit" onclick="document.getElementById('hidden').style.display = 'block';" /> 
+<input type="submit" id="submit" onclick="document.getElementById('hidden').style.display = 'block';" />
 
 <img id="hidden" class="hidden" src="foo.png" />
 

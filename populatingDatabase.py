@@ -458,16 +458,20 @@ db.session.commit()
 ############### adding unsers to empoyees tables ##############
 
 guestUser = models.Users(name="guest", password="password123", email="guest@cinema.com")
-PeteUser = models.Users(name="Pete", password="peteUser", email="pete@cinema.com")
-DomUser = models.Users(name="Dom", password="DominicUser", email="dom@cinema.com")
-FreddieUser = models.Users(name="Freddie", password="FreddieUser", email="freddie@cinema.com")
-StefanUser = models.Users(name="Stefan", password="StefanUser", email="stefan@cinema.com")
+PeteUser = models.Users(name="Pete", password="peter1234", email="sc16ph@leeds.ac.uk")
+DomUser = models.Users(name="Dom", password="dominic1234", email="sc16dah@leeds.ac.uk")
+FreddieUser = models.Users(name="Freddie", password="freddie1234", email="sc15fr@leeds.ac.uk")
+StefanUser = models.Users(name="Stefan", password="stefan1234", email="sc16sr@leeds.ac.uk")
+RoryUser = models.Users(name="Rory", password="rory1234", email="sc16rk@leeds.ac.uk")
+LuciaUser = models.Users(name="Lucia", password="lucia1234", email="sc17lc@leeds.ac.uk")
 
 db.session.add(guestUser)
 db.session.add(PeteUser)
 db.session.add(DomUser)
 db.session.add(FreddieUser)
 db.session.add(StefanUser)
+db.session.add(RoryUser)
+db.session.add(LuciaUser)
 
 db.session.commit()
 
@@ -499,9 +503,8 @@ db.session.commit()
 # import hashlib
 
 ###### practice card details #####
-a = models.CardDetails(userID=1, cardNumber="4556939797103693", exMonth="11", exYear="2018")
-
-b = models.CardDetails(userID=1, cardNumber="0123456789123456", exMonth="11", exYear="2018")
+a = models.CardDetails(userID=1, cardNickname="Card1", cardNumber="4556939797103693", exMonth="11", exYear="2018")
+b = models.CardDetails(userID=1, cardNickname="Card2", cardNumber="0123456789123456", exMonth="11", exYear="2018")
 db.session.add(a)
 db.session.add(b)
 db.session.commit()
