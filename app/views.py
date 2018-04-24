@@ -130,6 +130,7 @@ def showtimes():
         session['child'] = 0
 
         if screeningID != None:
+            session['seatList'] = ['No seats currently selected']
             return redirect(url_for('booktickets'))
 
 
@@ -156,9 +157,11 @@ def booktickets():
         childPlus = 1
         seniorPlus = 1
         vipPlus = 1
+        seatList = session['seatList']
+        if len(seatList) == 0:
+            seatList.append("No seats currently selected")
 
-        if 'seatList' not in session:
-            session['seatList'] = ['No seats currently selected']
+
         # movies = models.Movies.query.all()
         seatsAll = models.Seats.query.all()
         seatNumber = models.Seats.query.with_entities(models.Seats.seatNumber).group_by(models.Seats.seatNumber).all()
@@ -243,13 +246,20 @@ def booktickets():
 
             elif 'bookThisSeat' in request.form:
                 seatID = request.form.get('bookThisSeat')
-                print(seatID)
-                if 'seatList' not in session:
-                    session['seatList'] = []
-                seatList = session['seatList']
-                seatList.append(seatID)
-                session['seatList'] = seatList
-                print(seatList)
+
+                if seatList[0] == 'No seats currently selected':
+                    seatList[0] = seatID
+                    session['seatList'] = seatList
+                    print(seatList)
+                else:
+                    if seatID in seatList:
+                        seatList.remove(seatID)
+                        session['seatList'] = seatList
+                        print(seatList)
+                    else:
+                        seatList.append(seatID)
+                        session['seatList'] = seatList
+                        print(seatList)
 
                 wordlist = list(seatID)
                 if wordlist == None:
