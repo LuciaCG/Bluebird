@@ -10,6 +10,8 @@ class Movies(db.Model):
     ageRating = db.Column(db.String(3))
     director = db.Column(db.String(100))
     leadActors = db.Column(db.String(500))
+    moviePoster = db.Column(db.String(500))
+    carasellPoster = db.Column(db.String(500))
     screening = db.relationship('Screenings', backref='movies', lazy='dynamic')
 
     def __repr__(self):
@@ -78,7 +80,7 @@ class Employee(db.Model):
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(20))
+    email = db.Column(db.String(20), unique=True)
     name = db.Column(db.String(20))
     password = db.Column(db.String(50))
     reciept = db.relationship('Receipts', backref='users', lazy='dynamic')
@@ -122,9 +124,9 @@ class CardDetails(db.Model):
     cardNumber = db.Column(db.String(16), primary_key=True)
     exMonth = db.Column(db.String(2))
     exYear = db.Column(db.String(4))
-    securityNumber = db.Column(db.String(3))
 
-    def __init__(self, userID, cardNumber, exMonth, exYear, securityNumber):
+
+    def __init__(self, userID, cardNumber, exMonth, exYear):
 
         self.userID = userID
 
@@ -143,11 +145,11 @@ class CardDetails(db.Model):
         self.cardNumber = newCardNumber
         self.exMonth = exMonth
         self.exYear = exYear
-        self.securityNumber = securityNumber
+
 
 
     def __repr__(self):
-        return '' % (self.userID, self.cardNumber, self.exMonth, self.exYear, self.securityNumber)
+        return '' % (self.userID, self.cardNumber, self.exMonth, self.exYear)
 
     # def __init__(self, userID, cardNumber, exMonth, exYear, securityNumber):
     #     self.userID = userID
