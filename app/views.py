@@ -152,6 +152,10 @@ def showtimes():
         session['scrnVar'] = screeningID
         session['adult'] = 0
         session['child'] = 0
+        session['senior'] = 0
+        session['vip'] = 0
+        session['totalSeats'] = 0
+        session['priceTotal'] = 0
 
         if screeningID != None:
             session['seatList'] = ['No seats currently selected']
@@ -172,11 +176,12 @@ def booktickets():
         screeningID = None
         seatID = None
         seatList = None
-        adultTotal = 0
-        childTotal = 0
-        seniorTotal = 0
-        vipTotal = 0
-        priceTotal = 0
+        adultTotal = session['adult']
+        childTotal = session['child']
+        seniorTotal = session['senior']
+        vipTotal = session['vip']
+        totalSeats = session['totalSeats']
+        priceTotal = session['priceTotal']
         adultPlus = 1
         childPlus = 1
         seniorPlus = 1
@@ -210,93 +215,106 @@ def booktickets():
         else:
             session['userEmail'] = 'Guest User'
 
-        if 'adult' in session:
-            adultTotal = session['adult']
-
-        if 'child' in session:
-            childTotal = session['child']
-
-        if 'senior' in session:
-            seniorTotal = session['senior']
-
-        if 'vip' in session:
-            vipTotal = session['vip']
-
-        if 'priceTotal' in session:
-            priceTotal = session['priceTotal']
-
         if request.method == 'POST':
             if 'adultPlus' in request.form:
-                adultPlus = float(request.form.get('adultPlus'))
-                adultTotal += adultPlus
-                priceTotal += adultTotal
+                adultTotal += 1
+                priceTotal += 9
+                totalSeats += 1
+                # session['totalSeats'] =
                 session['adult'] = adultTotal
                 session['priceTotal'] = priceTotal
+                session['totalSeats'] = totalSeats
 
             elif 'adultMinus' in request.form:
-                adultMinus = float(request.form.get('adultMinus'))
-                adultTotal -= adultMinus
-                priceTotal -= adultTotal
+                adultTotal -= 1
+                priceTotal -= 9
+                totalSeats -= 1
                 session['adult'] = adultTotal
                 session['priceTotal'] = priceTotal
+                session['totalSeats'] = totalSeats
+
 
             elif 'childPlus' in request.form:
-                childPlus = float(request.form.get('childPlus'))
-                childTotal += childPlus
-                priceTotal += childTotal
+                childTotal += 1
+                priceTotal += 6.5
+                totalSeats += 1
                 session['child'] = childTotal
                 session['priceTotal'] = priceTotal
+                session['totalSeats'] = totalSeats
+
 
             elif 'childMinus' in request.form:
-                childMinus = float(request.form.get('childMinus'))
-                childTotal -= childMinus
-                priceTotal -= childTotal
+                childTotal -= 1
+                priceTotal -= 6.5
+                totalSeats -= 1
                 session['child'] = childTotal
                 session['priceTotal'] = priceTotal
+                session['totalSeats'] = totalSeats
+
 
             elif 'seniorPlus' in request.form:
-                seniorPlus = float(request.form.get('seniorPlus'))
-                seniorTotal += seniorPlus
-                priceTotal += seniorTotal
+                seniorTotal += 1
+                priceTotal += 7
+                totalSeats += 1
                 session['senior'] = seniorTotal
                 session['priceTotal'] = priceTotal
+                session['totalSeats'] = totalSeats
+
 
             elif 'seniorMinus' in request.form:
-                seniorMinus = float(request.form.get('seniorMinus'))
-                seniorTotal -= seniorMinus
-                priceTotal -= seniorTotal
+                seniorTotal -= 1
+                priceTotal -= 7
+                totalSeats -= 1
                 session['senior'] = seniorTotal
                 session['priceTotal'] = priceTotal
+                session['totalSeats'] = totalSeats
+
 
             elif 'vipPlus' in request.form:
-                vipPlus = float(request.form.get('vipPlus'))
-                vipTotal += vipPlus
-                priceTotal += vipTotal
+                vipTotal += 1
+                priceTotal += 12
+                totalSeats += 1
                 session['vip'] = vipTotal
                 session['priceTotal'] = priceTotal
+                session['totalSeats'] = totalSeats
+
 
             elif 'vipMinus' in request.form:
-                vipMinus = float(request.form.get('vipMinus'))
-                vipTotal -= vipMinus
-                priceTotal -= vipTotal
+                vipTotal -= 1
+                priceTotal -= 12
+                totalSeats -= 1
                 session['vip'] = vipTotal
                 session['priceTotal'] = priceTotal
+                session['totalSeats'] = totalSeats
+
 
             elif 'bookThisSeat' in request.form:
                 seatID = request.form.get('bookThisSeat')
                 if seatList[0] == 'No seats currently selected':
-                    seatList[0] = seatID
-                    session['seatList'] = seatList
-                    print(seatList)
+                    if totalSeats > 0:
+                        seatList[0] = seatID
+                        totalSeats -= 1
+                        session['seatList'] = seatList
+                        session['totalSeats'] = totalSeats
+                        print(totalSeats)
+                        print(seatList)
                 else:
                     if seatID in seatList:
                         seatList.remove(seatID)
+                        totalSeats += 1
                         session['seatList'] = seatList
+                        session['totalSeats'] = totalSeats
+                        print(totalSeats)
                         print(seatList)
+
                     else:
-                        seatList.append(seatID)
-                        session['seatList'] = seatList
-                        print(seatList)
+                        if totalSeats > 0:
+                            seatList.append(seatID)
+                            totalSeats -= 1
+                            session['seatList'] = seatList
+                            session['totalSeats'] = totalSeats
+                            print(totalSeats)
+                            print(seatList)
 
                 wordlist = list(seatID)
                 if wordlist == None:
