@@ -6,4 +6,3 @@ build-UI2-Desktop-Debug/
 *.pyc
 *.db
 *.pro.user
-*.debug
