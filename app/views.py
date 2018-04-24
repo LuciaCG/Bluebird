@@ -19,11 +19,14 @@ def home():
     if 'userEmail' in session:
         userEmailname = session['userEmail']
     else:
-        session['userEmail'] = 'Guest User'
+        session['userEmail'] = 'guest@cinema.com'
+        userEmailname = session['userEmail']
+    print(session['userEmail'])
+    print(userEmailname)
 
 
     return render_template('home.html',
-                            userEmailname=session['userEmail'])
+                            userEmailname=userEmailname)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -86,7 +89,8 @@ def userPage():
             db.session.commit()
             return redirect(url_for('userPage'))
     else:
-        session['userEmail'] = 'Guest User'
+        session['userEmail'] = 'guest@cinema.com'
+        userEmailname = session['userEmail']
     return render_template('userpage.html',
                             userEmailname=session['userEmail'],
                             user=user,
@@ -108,7 +112,8 @@ def viewmovies():
         if 'userEmail' in session:
             userEmailname = session['userEmail']
         else:
-            session['userEmail'] = 'Guest User'
+            session['userEmail'] = 'guest@cinema.com'
+            userEmailname = session['userEmail']
 
         if request.method == 'POST':
             movieID = request.form.get('subject')
@@ -154,7 +159,8 @@ def showtimes():
         if 'userEmail' in session:
             userEmailname = session['userEmail']
         else:
-            session['userEmail'] = 'Guest User'
+            session['userEmail'] = 'guest@cinema.com'
+            userEmailname = session['userEmail']
 
         if request.method == 'POST':
             screeningID = request.form.get('bookSeat')
@@ -223,7 +229,8 @@ def booktickets():
         if 'userEmail' in session:
             userEmailname = session['userEmail']
         else:
-            session['userEmail'] = 'Guest User'
+            session['userEmail'] = 'guest@cinema.com'
+            userEmailname = session['userEmail']
 
         if request.method == 'POST':
             if 'adultPlus' in request.form:
@@ -361,6 +368,7 @@ def booktickets():
 
             elif 'gotoPay' in request.form:
                 if totalSeats == 0 and seatList[0] != 'No seats currently selected':
+                    session['card'] = "none"
                     return redirect(url_for('payments'))
 
 
@@ -402,10 +410,16 @@ def payments():
         priceTotal = 0
         seatList = None
         cardDetails = None
-        cardValue = None
+        cardDetails2 = None
+        newCardNumber = ""
+        cardValue = session['card']
 
         if 'userEmail' in session:
             userEmailname = session['userEmail']
+            user = models.Users.query.filter_by(email=userEmailname).first()
+            cardDetails = models.CardDetails.query.filter_by(userID=user.id).all()
+        else:
+            userEmailname = "guest@cinema.com"
             user = models.Users.query.filter_by(email=userEmailname).first()
             cardDetails = models.CardDetails.query.filter_by(userID=user.id).all()
 
@@ -434,10 +448,7 @@ def payments():
         if 'priceTotal' in session:
             priceTotal = session['priceTotal']
 
-        if 'userEmail' in session:
-            userEmailname = session['userEmail']
-        else:
-            session['userEmail'] = 'Guest User'
+
 
         # if request.method == 'POST':
         #     screeningID = request.form.get('bookSeat')
@@ -446,13 +457,29 @@ def payments():
 
         if request.method == "POST":
             dropdownCard = request.form['dropdownCard']
-            print("1st if",cardValue)
+            print("card " + dropdownCard)
+            print("valie " + cardValue)
             if dropdownCard == "nocard":
-                cardValue = "nocard"
-                print("2nd if",cardValue)
+                session['card'] = "nocard"
+                print("2nd if",session['card'])
             else:
-                cardValue = dropdownCard
-                print("else",cardValue)
+                session['card'] = dropdownCard
+                user = models.Users.query.filter_by(email=userEmailname).first()
+                cardDetails2 = models.CardDetails.query.filter_by(userID=user.id , cardNickname=dropdownCard).first()
+
+                cardNumber = cardDetails2.cardNumber
+                for character in range(12,16):
+                  if (character % 3) == 0:
+                    changedLetter = ord(cardNumber[character]) + 3
+                  elif (character % 2) == 0:
+                    changedLetter = ord(cardNumber[character]) + 2
+                  else:
+                    changedLetter = ord(cardNumber[character]) + 1
+                  newCardNumber += chr(changedLetter)
+
+
+                print(newCardNumber)
+                print("else",session['card'])
 
 
 
@@ -470,7 +497,9 @@ def payments():
                                 userEmailname=session['userEmail'],
                                 cardDetails=cardDetails,
                                 models=models,
-                                cardValue = cardValue
+                                newCardNumber=newCardNumber,
+                                cardDetails2 = cardDetails2,
+                                cardValue = session['card']
                                 )
 
 @app.route('/confirm')
