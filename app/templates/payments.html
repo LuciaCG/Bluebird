@@ -1,6 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 
+Payments page<br>
 
+Name: {{user.name}}<br>
+Email: {{user.email}}<br>
+Movie: {{movieName.movieTitle}}<br>
+Showing selected: {{screening.time}} {{screening.screen_id}}<br>
+No of tickets: <br>
+  Adult: {{adultTotal/9}} - £{{adultTotal}}<br>
+  Child: {{childTotal/6.5}} - £{{childTotal}}<br>
+  Senior: {{seniorTotal/7}} - £{{seniorTotal}}<br>
+  VIP: {{vipTotal/12}} - £{{vipTotal}}<br>
+
+Total Price:  {{priceTotal}}<br>
+
+Seats selected: {{seatList}}<br>
+
+Cards:<br>
+<select>
+  <option value="{{cardDetails.nickname}}">{{cardDetails.nickname}}</option>
+  <option value="{{cardDetails.nickname}}">{{cardDetails.nickname}}</option>
+  <option value="{{cardDetails.nickname}}">{{cardDetails.nickname}}</option>
+</select><br>
+<br>
+
+<input type="submit" id="submit" onclick="document.getElementById('hidden').style.display = 'block';" /> 
+
+<img id="hidden" class="hidden" src="foo.png" />
 
 {% endblock %}

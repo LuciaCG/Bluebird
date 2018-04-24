@@ -39,23 +39,23 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item" id="navhomelink">
           <a class="nav-link" href="/home">Home</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" id="navnowshowinglink">
           <a class="nav-link" href="/nowshowing">Now Showing</a>
         </li>
-        <li class="nav-item" id="loginbutton">
-          <button name="subject" type="submit" value="login"><a href="/login">Login</a></button>
+        <li class="nav-item" id="navloginbutton">
+          <button class ="button button5 navbutton" name="subject" type="submit" value="login"><a class="navButtonText" href="/login">Login</a></button>
         </li>
-        <li class="nav-item" id="regbutton">
-          <button name="subject" type="submit" value="registration"><a href="/register">Registration</a></button>
+        <li class="nav-item" id="navregbutton">
+          <button class ="button button5 navbutton" name="subject" type="submit" value="registration"><a class="navButtonText" href="/register">Registration</a></button>
         </li>
-        <li class="nav-item" id="username">
-          {{userEmailname}}
+        <li class="nav-item" id="navusername">
+          <a class="nav-link" href="/userPage">{{userEmailname}}</a>
         </li>
-        <li class="nav-item" id="logoutbutton">
-          <button name="subject" type="submit" ><a href="/logout">Logout</a></button>
+        <li class="nav-item" id="navlogoutbutton">
+          <button class ="button button5 navbutton" name="subject" type="submit" ><a class="navButtonText" href="/logout">Logout</a></button>
         </li>
       </ul>
 
