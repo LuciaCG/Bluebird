@@ -3,6 +3,7 @@
 
 #include <QLCDNumber>
 #include <QSqlQuery>
+#include <QtNetwork>
 
 namespace Ui {
 class Login;
@@ -22,6 +23,10 @@ private slots:
 private:
     Ui::Login *ui;
     QSqlDatabase firstDB;
+    QNetworkReply * reply;
+    bool connected;
+    QByteArray data;
+
 protected:
     void keyPressEvent(QKeyEvent* pe);
 };

@@ -1,10 +1,8 @@
 #include "login.h"
 #include "ui_login.h"
-//#include "mainwindow.h"
+#include "mainwindow.h"
 
 #include <QtWidgets>
-#include <QtNetwork>
-
 
 Login::Login(QWidget *parent) :
     QWidget(parent),
@@ -14,22 +12,7 @@ Login::Login(QWidget *parent) :
     ui->Username->setFocus();
     QWidget::setTabOrder(ui->Username, ui->Password);
     QWidget::setTabOrder(ui->Password, ui->login);
-
-    /*
-    //Initialising the data base connection
-    QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
-    firstDB.setHostName("bluebird");
-        //getting the relative path of the database
-    QDir bluebird = QDir::current();
-    bluebird.cdUp();
-    QString database = bluebird.path();
-    firstDB.setDatabaseName(database + "/app.db");
-        //connecting
-    firstDB.open();
-    if(!firstDB.open())
-        ui->warning->setText("WARNING: Failed Connexion");
-
-*/
+    connected = false;
 
     QNetworkAccessManager manager;
     QEventLoop eventLoop;
@@ -38,18 +21,16 @@ Login::Login(QWidget *parent) :
     QUrl url("http://localhost:5000/app.json");
 
     QNetworkRequest request(url);
-    QNetworkReply * reply = manager.get(request);
+    reply = manager.get(request);
 
     eventLoop.exec();
 
-    if (reply->error() == QNetworkReply::NoError)
-        ui->warning->setText("Connected");
-    else
+    if (reply->error() != QNetworkReply::NoError)
         ui->warning->setText("WARNING: Failed Connexion");
-
-
-
-
+    else {
+        connected = true;
+        data = reply->readAll();
+    }
 
 }
 
@@ -65,29 +46,40 @@ void Login::on_login_clicked()
     pass = ui->Password->text();
 
 
-    QSqlQuery qry;
-    qry.prepare("SELECT * FROM Employee");
 
-    qry.exec();
+    if (connected){
 
-    bool aux = true;
-    //qry.next(); // WE CAN'T USE "ONLINE"
-    while(qry.next() && aux){
-        if(qry.value("name") == user){
-            QString password = QString(QCryptographicHash::hash(pass.toLocal8Bit(), QCryptographicHash::Sha256).toHex());
-            if (qry.value("password") == password)
-                aux = false;
+
+
+        QJsonDocument response = QJsonDocument::fromJson(data);
+
+        QJsonObject stuff = response.object();
+
+        QJsonValue value = stuff.value("employee");
+
+        QJsonArray array = value.toArray();
+
+        bool found = false;
+        int i = 0;
+
+        while(!found && i < array.size()){
+
+            if(array[i].toObject().value("name").toString() == user){
+                QString password = QString(QCryptographicHash::hash(pass.toLocal8Bit(), QCryptographicHash::Sha256).toHex());
+                if (array[i].toObject().value("password").toString() == password)
+                    found = true;
+            }
+            i++;
+        }
+        if (!found)
+            ui->warning->setText("WARNING: Incorrect Password Or Username");
+        else{
+            ui->warning->setText("");
+            MainWindow *instance = new MainWindow(this, user);
+            instance->show();
+            this->hide();
         }
     }
-    if (aux)
-        ui->warning->setText("WARNING: Incorrect Password Or Username");
-    else{
-        ui->warning->setText("");
-        //MainWindow *instance = new MainWindow(this, user);
-       // instance->show();
-        //this->hide();
-    }
-
 }
 
 void Login::keyPressEvent(QKeyEvent* pe)

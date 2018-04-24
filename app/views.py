@@ -7,7 +7,7 @@ from flask import Flask, render_template, url_for, request, session, redirect
 application = Flask(__name__)
 @app.route("/app.json")
 def Employee_data():
-    data = [ models.Employee.__repr__(models.Employee) for i in models.Employee.query.all() ]
+    data = {"employee" : [ i.as_dict() for i in models.Employee.query.all() ]}
     response = application.make_response(json.dumps(data))
     response.mimetype = "application/json"
     return response

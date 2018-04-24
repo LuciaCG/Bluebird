@@ -73,6 +73,9 @@ class Employee(db.Model):
     def __repr__(self):
         return '' % (self.id, self.name, self.password)
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
