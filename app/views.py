@@ -1,7 +1,7 @@
 from app import app, models, db
 from datetime import timedelta
 from flask import render_template, url_for, request, session, redirect, flash
-from .forms import LoginForm, RegistrationForm, SessionForm, AddCardForm
+from .forms import LoginForm, RegistrationForm, SessionForm, AddCardForm, SearchMovieForm
 from datetime import datetime
 import hashlib
 
@@ -95,11 +95,13 @@ def userPage():
 
 @app.route('/nowshowing', methods=['GET', 'POST'])
 def viewmovies():
+        form = SearchMovieForm()
         movies = models.Movies.query.all()
         movieOne = models.Movies.query.get(1)
         movieTwo = models.Movies.query.get(2)
         movieThree = models.Movies.query.get(3)
-
+        movieSearch = ""
+        session['movieSearch'] = ""
         movieID = None
 
         userEmailname = None
@@ -111,19 +113,26 @@ def viewmovies():
         if request.method == 'POST':
             movieID = request.form.get('subject')
             # return redirect(url_for('showtimes'))
+        if form.validate_on_submit():
+            session['movieSearch'] = form.movieName.data
+            movieSearch = session['movieSearch']
+            print(movieSearch)
+            # return redirect(url_for('viewmovies'))
 
         session['movieVar'] = movieID
 
         if movieID != None:
             return redirect(url_for('showtimes'))
 
-
         return render_template('nowshowing.html',
+                                form = form,
                                 movies = movies,
+                                models = models,
                                 movieOne = movieOne,
                                 movieTwo = movieTwo,
                                 movieThree = movieThree,
-                                userEmailname=session['userEmail']
+                                userEmailname=session['userEmail'],
+                                movieSearch = movieSearch
                                 )
 
 
@@ -227,6 +236,10 @@ def booktickets():
                 session['totalSeats'] = totalSeats
 
             elif 'adultMinus' in request.form:
+                if totalSeats == 0:
+                    seatList.remove(seatList[len(seatList)-1])
+                    if len(seatList) == 0:
+                        seatList.append("No seats currently selected")
                 adultTotal -= 1
                 priceTotal -= 9
                 totalSeats -= 1
@@ -245,6 +258,10 @@ def booktickets():
 
 
             elif 'childMinus' in request.form:
+                if totalSeats == 0:
+                    seatList.remove(seatList[len(seatList)-1])
+                    if len(seatList) == 0:
+                        seatList.append("No seats currently selected")
                 childTotal -= 1
                 priceTotal -= 6.5
                 totalSeats -= 1
@@ -263,6 +280,10 @@ def booktickets():
 
 
             elif 'seniorMinus' in request.form:
+                if totalSeats == 0:
+                    seatList.remove(seatList[len(seatList)-1])
+                    if len(seatList) == 0:
+                        seatList.append("No seats currently selected")
                 seniorTotal -= 1
                 priceTotal -= 7
                 totalSeats -= 1
@@ -281,6 +302,10 @@ def booktickets():
 
 
             elif 'vipMinus' in request.form:
+                if totalSeats == 0:
+                    seatList.remove(seatList[len(seatList)-1])
+                    if len(seatList) == 0:
+                        seatList.append("No seats currently selected")
                 vipTotal -= 1
                 priceTotal -= 12
                 totalSeats -= 1
@@ -335,7 +360,8 @@ def booktickets():
                 priceTotal = adultTotal+childTotal+seniorTotal+vipTotal
 
             elif 'gotoPay' in request.form:
-                return redirect(url_for('payments'))
+                if totalSeats == 0 and seatList[0] != 'No seats currently selected':
+                    return redirect(url_for('payments'))
 
 
 
@@ -436,7 +462,7 @@ def payments():
 def confirm():
    # removes all session data
 
-   
+
 
 
    return redirect(url_for('home'))

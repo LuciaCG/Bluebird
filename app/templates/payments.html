@@ -8,10 +8,10 @@ Email: {{user.email}}<br>
 Movie: {{movieName.movieTitle}}<br>
 Showing selected: {{screening.time}} {{screening.screen_id}}<br>
 No of tickets: <br>
-  Adult: {{adultTotal/9}} - £{{adultTotal}}<br>
-  Child: {{childTotal/6.5}} - £{{childTotal}}<br>
-  Senior: {{seniorTotal/7}} - £{{seniorTotal}}<br>
-  VIP: {{vipTotal/12}} - £{{vipTotal}}<br>
+  Adult: {{adultTotal}} - £{{adultTotal*9}}<br>
+  Child: {{childTotal}} - £{{childTotal*6.5}}<br>
+  Senior: {{seniorTotal}} - £{{seniorTotal*7}}<br>
+  VIP: {{vipTotal}} - £{{vipTotal*12}}<br>
 
 Total Price:  {{priceTotal}}<br>
 
