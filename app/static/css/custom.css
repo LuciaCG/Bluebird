@@ -10,6 +10,10 @@
   /*padding: 0px!important;*/
 }
 
+.hidden {
+  display: none;
+}
+
 .bg-dark {
   background-color: #6c757d!important;
 }

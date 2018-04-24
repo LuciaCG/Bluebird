@@ -28,5 +28,4 @@ class AddCardForm(Form):
         validators.Length(min = 2, max = 2)])
     exYear = StringField('exYear', [validators.Required(),
         validators.Length(min = 4, max = 4)])
-    securityNumber = StringField('securityNumber', [validators.Required(),
-        validators.Length(min = 3, max = 3)])
+    
