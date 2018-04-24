@@ -2,6 +2,7 @@ from app import models, db
 import datetime
 
 
+
 ############## useful queries ###############
 #
 
