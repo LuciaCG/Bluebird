@@ -458,8 +458,16 @@ db.session.commit()
 ############### adding unsers to empoyees tables ##############
 
 guestUser = models.Users(name="guest", password="password123", email="guest@cinema.com")
+PeteUser = models.Users(name="Pete", password="peteUser", email="pete@cinema.com")
+DomUser = models.Users(name="Dom", password="DominicUser", email="dom@cinema.com")
+FreddieUser = models.Users(name="Freddie", password="FreddieUser", email="freddie@cinema.com")
+StefanUser = models.Users(name="Stefan", password="StefanUser", email="stefan@cinema.com")
 
 db.session.add(guestUser)
+db.session.add(PeteUser)
+db.session.add(DomUser)
+db.session.add(FreddieUser)
+db.session.add(StefanUser)
 
 db.session.commit()
 
