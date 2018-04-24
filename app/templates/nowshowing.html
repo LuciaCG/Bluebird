@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <main role="main">
+
+
+
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -50,57 +53,118 @@
     <div class="container">
       <h1 class="jumbotron-heading">Now Showing</h1>
     </div>
+    <br>
+    <form action="" method="post" name="searchMovie">
+      {{ form.hidden_tag() }}
+      <p>Search Movie: {{ form.movieName(cols=40) }}    <input type="submit" value="Submit"> </p>
+      <!-- button for submitting the data -->
+    </form>
   </section>
-  {% for movie in movies %}
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card mb-4 box-shadow">
-          <!-- <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap"> -->
-          <div class="card-body">
-            <p class="card-text" id="nowShowingTitle"><a class = "modal-pointer" data-toggle="modal" data-target="#{{movie.id}}">{{movie.movieTitle}}</a></p>
-            <p class="card-text" id="{{movie.movieTitle}}">{{movie.synopsis}} </p>
-            <script type="text/javascript">
-              var myid=document.getElementById('{{movie.movieTitle}}');
-              myid.innerHTML=myid.innerHTML.substring(0,100)+'...';
-            </script>
-            <p class="card-text">Director: {{movie.director}}</p>
-            <p class="card-text">Starring: {{movie.leadActors}}</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <form method="post">
-                <!-- <p><a class="btn btn-sm btn-outline-secondary" href="/showtimes" input type="submit" name="submit" value=1>View Times and Tickets</a></p> -->
-                <button class ="button button5" name="subject" type="submit" value="{{movie.id}}">Get Times and Tickets</button>
-                </form>
+
+  {% if movieSearch == "" %}
+    {% for movie in movies %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-4 box-shadow">
+            <!-- <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap"> -->
+            <div class="card-body">
+              <p class="card-text" id="nowShowingTitle"><a class = "modal-pointer" data-toggle="modal" data-target="#{{movie.id}}">{{movie.movieTitle}}</a></p>
+              <p class="card-text" id="{{movie.movieTitle}}">{{movie.synopsis}} </p>
+              <script type="text/javascript">
+                var myid=document.getElementById('{{movie.movieTitle}}');
+                myid.innerHTML=myid.innerHTML.substring(0,100)+'...';
+              </script>
+              <p class="card-text">Director: {{movie.director}}</p>
+              <p class="card-text">Starring: {{movie.leadActors}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <form method="post">
+                  <!-- <p><a class="btn btn-sm btn-outline-secondary" href="/showtimes" input type="submit" name="submit" value=1>View Times and Tickets</a></p> -->
+                  <button class ="button button5" name="subject" type="submit" value="{{movie.id}}">Get Times and Tickets</button>
+                  </form>
+                </div>
+                <small class="text-muted">{{movie.ageRating}}</small>
               </div>
-              <small class="text-muted">{{movie.ageRating}}</small>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Modal -->
-  <div class="modal fade" id="{{movie.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">{{movie.movieTitle}}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>{{movie.synopsis}}</p>
-          <p>{{movie.ageRating}}</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <!-- Modal -->
+    <div class="modal fade" id="{{movie.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">{{movie.movieTitle}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{movie.synopsis}}</p>
+            <p>{{movie.ageRating}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
+  {% else: %}
+    {% for movie in models.Movies.query.filter(models.Movies.movieTitle.contains(movieSearch)).all() %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-4 box-shadow">
+            <!-- <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap"> -->
+            <div class="card-body">
+              <p class="card-text" id="nowShowingTitle"><a class = "modal-pointer" data-toggle="modal" data-target="#{{movie.id}}">{{movie.movieTitle}}</a></p>
+              <p class="card-text" id="{{movie.movieTitle}}">{{movie.synopsis}} </p>
+              <script type="text/javascript">
+                var myid=document.getElementById('{{movie.movieTitle}}');
+                myid.innerHTML=myid.innerHTML.substring(0,100)+'...';
+              </script>
+              <p class="card-text">Director: {{movie.director}}</p>
+              <p class="card-text">Starring: {{movie.leadActors}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <form method="post">
+                  <!-- <p><a class="btn btn-sm btn-outline-secondary" href="/showtimes" input type="submit" name="submit" value=1>View Times and Tickets</a></p> -->
+                  <button class ="button button5" name="subject" type="submit" value="{{movie.id}}">Get Times and Tickets</button>
+                  </form>
+                </div>
+                <small class="text-muted">{{movie.ageRating}}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="{{movie.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">{{movie.movieTitle}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{movie.synopsis}}</p>
+            <p>{{movie.ageRating}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+  {% endif %}
 
 
 
