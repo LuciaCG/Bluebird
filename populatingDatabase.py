@@ -490,9 +490,9 @@ db.session.commit()
 # import hashlib
 
 ###### practice card details #####
-a = models.CardDetails(userID=1, cardNumber="4556939797103693", exMonth="11", exYear="2018", securityNumber="592")
+a = models.CardDetails(userID=1, cardNumber="4556939797103693", exMonth="11", exYear="2018")
 
-b = models.CardDetails(userID=1, cardNumber="0123456789123456", exMonth="11", exYear="2018", securityNumber="592")
+b = models.CardDetails(userID=1, cardNumber="0123456789123456", exMonth="11", exYear="2018")
 db.session.add(a)
 db.session.add(b)
 db.session.commit()
