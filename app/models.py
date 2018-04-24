@@ -13,9 +13,9 @@ class Movies(db.Model):
     moviePoster = db.Column(db.String(500))
     carasellPoster = db.Column(db.String(500))
     screening = db.relationship('Screenings', backref='movies', lazy='dynamic')
-
-    def __repr__(self):
-        return '' % (self.id, self.movieTitle, self.synopsis, self.ageRating)
+    #
+    # def __repr__(self):
+    #     return '' % (self.id, self.movieTitle, self.synopsis, self.ageRating)
 
 
 class Screenings(db.Model):
@@ -25,9 +25,9 @@ class Screenings(db.Model):
     time = db.Column(db.DateTime)
     seatReserved = db.relationship('Seat_Reserved', backref='screenings', lazy='dynamic')
     userReciept = db.relationship('Receipts', backref='screenings', lazy='dynamic')
-
-    def __repr__(self):
-        return '' % (self.id, self.movies_id, self.screen_id, self.time)
+    #
+    # def __repr__(self):
+    #     return '' % (self.id, self.movies_id, self.screen_id, self.time)
 
 
 class Screen(db.Model):
@@ -35,18 +35,18 @@ class Screen(db.Model):
     screenName = db.Column(db.String(150), primary_key=True)
     Capacity = (db.Column(db.Integer))
     screening = db.relationship('Screenings', backref='screen', lazy='dynamic')
-
-    def __repr__(self):
-        return '' % (self.screenName, self.Capacity)
+    #
+    # def __repr__(self):
+    #     return '' % (self.screenName, self.Capacity)
 
 class Seats(db.Model):
     row = db.Column(db.String(1), primary_key=True)
     seatNumber = db.Column(db.Integer, primary_key=True)
 
     # userReciept = db.relationship('Reciept', backref='screenings', lazy='dynamic')
-
-    def __repr__(self):
-        return '' % (self.row, self.seatNumber)
+    #
+    # def __repr__(self):
+    #     return '' % (self.row, self.seatNumber)
 
 
 class Seat_Reserved(db.Model):
@@ -59,8 +59,8 @@ class Seat_Reserved(db.Model):
     seatNumberReserved = db.relationship("Seats", foreign_keys=[seatNumberReservedID])
 
 
-    def __repr__(self):
-        return '' % (self.screening, self.rowReservedID, self.seatNumberReservedID)
+    # def __repr__(self):
+    #     return '' % (self.screening, self.rowReservedID, self.seatNumberReservedID)
 
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -74,8 +74,8 @@ class Employee(db.Model):
         a.update(password.encode('utf-8'))
         self.password = a.hexdigest()
 
-    def __repr__(self):
-        return '' % (self.id, self.name, self.password)
+    # def __repr__(self):
+    #     return '' % (self.id, self.name, self.password)
 
 
 class Users(db.Model):
@@ -93,16 +93,16 @@ class Users(db.Model):
         self.password = a.hexdigest()
         self.email = email
 
-    def __repr__(self):
-        return '' % (self.id, self.name, self.password, self.email)
+    # def __repr__(self):
+    #     return '' % (self.id, self.name, self.password, self.email)
 
 
 class TypeOfTickets(db.Model):
     ticketType = db.Column(db.String(25), primary_key=True)
     price = db.Column(db.Float)
 
-    def __repr__(self):
-        return '' % (self.ticketType, self.price)
+    # def __repr__(self):
+    #     return '' % (self.ticketType, self.price)
 
 
 class Receipts(db.Model):
@@ -115,14 +115,14 @@ class Receipts(db.Model):
     change = db.Column(db.Float)
     transactionTime = db.Column(db.DateTime)
 
-    def __repr__(self):
-        return '' % (self.id, self.userName, self.employeeName, self.screening, self.price, self.pricePaid, self.change, self.transactionTime)
+    # def __repr__(self):
+    #     return '' % (self.id, self.userName, self.employeeName, self.screening, self.price, self.pricePaid, self.change, self.transactionTime)
 
 
 class CardDetails(db.Model):
     userID = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    cardNickname = db.Column(db.String(30))
-    cardNumber = db.Column(db.String(16), primary_key=True)
+    cardNickname = db.Column(db.String(30), primary_key=True)
+    cardNumber = db.Column(db.String(16))
     exMonth = db.Column(db.String(2))
     exYear = db.Column(db.String(4))
 
@@ -150,8 +150,8 @@ class CardDetails(db.Model):
 
 
 
-    def __repr__(self):
-        return '' % (self.userID, self.cardNickname, self.cardNumber, self.exMonth, self.exYear)
+    # def __repr__(self):
+    #     return '' % (self.userID, self.cardNickname, self.cardNumber, self.exMonth, self.exYear)
 
     # def __init__(self, userID, cardNumber, exMonth, exYear, securityNumber):
     #     self.userID = userID
