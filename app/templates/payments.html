@@ -61,14 +61,60 @@ Cards:<br>
 
 
 <br>
+<input type="button" id="btnRedirect" value="Redirect" />
+<br />
+<br />
+<div id="dvCountDown" style="display: none">
+  <img src="static/images/marvel.gif">
+Checking your card details. Please wait. <span id="lblCount"></span>&nbsp;seconds.
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    $("#btnRedirect").click(function () {
+        var seconds = 10;
+        $("#dvCountDown").show();
+        $("#lblCount").html(seconds);
+        setInterval(function () {
+            seconds--;
+            $("#lblCount").html(seconds);
+            if (seconds == 0) {
+                $("#dvCountDown").hide();
+                window.location = "http://localhost:5000/confirmation";
+            }
+        }, 1000);
+    });
+});
+</script>
 
-<button class=" button button5"type="submit">Purchase</button>
-
+<!-- <input type="button" value="Purchase" onclick="DelayRedirect()" />
+<br />
+<br />
+<div id="payCheckCountDown" style = "display:none">
+You will be redirected after <span id = "countDown"></span>&nbsp;seconds.
+</div>
+<script type="text/javascript">
+function DelayRedirect() {
+    var seconds = 10;
+    var payCheckCountDown = document.getElementById("payCheckCountDown");
+    var countDown = document.getElementById("countDown");
+    dvCountDown.style.display = "block";
+    lblCount.innerHTML = seconds;
+    setInterval(function () {
+        seconds--;
+        lblCount.innerHTML = seconds;
+        if (seconds == 0) {
+            dvCountDown.style.display = "none";
+            window.location = "http://localhost:5000/confirmation";
+        }
+    }, 1000);
+}
+</script> -->
 {% endblock %}
 
 <!--
   To Do List
- Task 1: Link purchase button to loading transaction modal
+ Task 1: Link purchase button to loading transaction modal Done!(not a modal tho!)
  Task 2: Complete the purchase and reserve the seats selected
  Task 3: Display the reciept on the screen
  Task 4: email a copy of the reciept to the users email

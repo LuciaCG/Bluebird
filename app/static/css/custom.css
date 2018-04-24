@@ -4,6 +4,10 @@
   color: black;
 }
 
+#nowshowing_card {
+  margin-top: 12%!important;
+}
+
 #navbarpadedit {
   margin-bottom: 0px!important;
   border-radius: 0px!important;
@@ -34,10 +38,6 @@
 }
 
 #screenicon {
-  margin-left: 29.5%;
-  margin-bottom: 2px;
-  height: 38px;
-  width: 34.5%;
   border: 4px;
   border-style: ridge;
   /*border-color: black;*/
@@ -48,10 +48,6 @@
   padding-bottom: 5px;
   text-align: center;
 }
-/*#seatstable {
-  margin-left: 20%;
-  margin-right: 20%;
-}*/
 
 #navloginbutton {
   /*margin-top: 12.5px;*/
@@ -121,6 +117,15 @@
 .carousel-text
 {
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#nowshowing_movieposter{
+  margin-bottom: 5px;
+}
+
+#booktickets_poster {
+  height: 305px;
+  width: 245px;
 }
 
 #marvellogohome {

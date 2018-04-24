@@ -101,9 +101,9 @@ def userPage():
 def viewmovies():
         form = SearchMovieForm()
         movies = models.Movies.query.all()
-        movieOne = models.Movies.query.get(1)
-        movieTwo = models.Movies.query.get(2)
-        movieThree = models.Movies.query.get(3)
+        movieOne = models.Movies.query.get(10)
+        movieTwo = models.Movies.query.get(13)
+        movieThree = models.Movies.query.get(17)
         movieSearch = ""
         session['movieSearch'] = ""
         movieID = None
@@ -349,16 +349,6 @@ def booktickets():
                         #    print(totalSeats)
                         #    print(seatList)
 
-                wordlist = list(seatID)
-                if wordlist == None:
-                    print(wordlist)
-                else:
-                    if len(wordlist) == 2:
-                        a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1])
-                    elif len(wordlist) == 3:
-                        a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1]+wordlist[2])
-                    # db.session.add(a)
-                    # db.session.commit()
 
                 priceTotal = adultTotal+childTotal+seniorTotal+vipTotal
 
@@ -412,7 +402,10 @@ def payments():
         cardDetails = None
         cardDetails2 = None
         newCardNumber = ""
-        cardValue = session['card']
+        cardValue = None
+
+        if 'card' in session:
+            cardValue = session['card']
 
         if 'userEmail' in session:
             userEmailname = session['userEmail']
@@ -502,14 +495,47 @@ def payments():
                                 cardValue = session['card']
                                 )
 
-@app.route('/confirm')
+@app.route('/confirmation')
 def confirm():
    # removes all session data
+    wordlist = None
+    seatList = None
+    seatList = session['seatList']
+    print(seatList)
+
+    if 'scrnVar' in session:
+       screeningID = session['scrnVar']
+       screening = models.Screenings.query.filter_by(id=screeningID).first()
 
 
+    if seatList == None:
+       print(wordlist)
+    else:
+        for item in seatList:
+            wordlist = list(item)
+            if len(wordlist) == 2:
+               a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1])
+            elif len(wordlist) == 3:
+               a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1]+wordlist[2])
+            db.session.add(a)
+        db.session.commit()
 
 
-   return redirect(url_for('home'))
+    session.pop('movieSearch', None)
+    session.pop('movieVar')
+    session.pop('scrnVar')
+    session.pop('adult')
+    session.pop('child')
+    session.pop('senior')
+    session.pop('vip')
+    session.pop('totalSeats')
+    session.pop('priceTotal')
+    session.pop('seatList')
+    session.pop('card')
+
+    return render_template('confirmation.html',
+                            userEmailname=session['userEmail']
+                            )
 
 
 @app.route('/logout')
