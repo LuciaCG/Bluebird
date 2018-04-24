@@ -38,6 +38,9 @@ class Screen(db.Model):
 
     def __repr__(self):
         return '' % (self.screenName, self.Capacity)
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 
 class Seats(db.Model):
     row = db.Column(db.String(1), primary_key=True)
@@ -47,6 +50,9 @@ class Seats(db.Model):
 
     def __repr__(self):
         return '' % (self.row, self.seatNumber)
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 
 
 class Seat_Reserved(db.Model):
@@ -61,6 +67,9 @@ class Seat_Reserved(db.Model):
 
     def __repr__(self):
         return '' % (self.screening, self.rowReservedID, self.seatNumberReservedID)
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -106,6 +115,9 @@ class TypeOfTickets(db.Model):
 
     def __repr__(self):
         return '' % (self.ticketType, self.price)
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
 
 
 class Receipts(db.Model):

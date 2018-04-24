@@ -3,6 +3,8 @@
 
 #include <QtWidgets>
 #include <QSqlQuery>
+#include <QtNetwork>
+
 
 class Delegate : public QItemDelegate
  {
