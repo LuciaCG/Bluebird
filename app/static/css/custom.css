@@ -10,6 +10,23 @@
   /*padding: 0px!important;*/
 }
 
+.hidden {
+  display: none;
+}
+
+.bg-dark {
+  background-color: #6c757d!important;
+}
+
+.navButtonText {
+  color: #6D0101;
+}
+
+.navButton: hover {
+  color: #6D0101;
+  text-decoration: none;
+}
+
 #log_reg {
   padding-top: 12.5px;
   height: 50px;
@@ -36,21 +53,61 @@
   margin-right: 20%;
 }*/
 
-#loginbutton {
-  margin-top: 12.5px;
+#navloginbutton {
+  /*margin-top: 12.5px;*/
+  margin-left: 15px;
   height: 25px;
-  color: #6D0101;
+  color: #6D0101!important;
+  padding-top: 0px!important;
 }
 
+#navhomelink {
+  /*margin-top: 12.5px;*/
+  margin-left: 15px;
+  height: 25px;
+  color: #6D0101!important;
+}
+
+#navnowshowinglink {
+  /*margin-top: 12.5px;*/
+  margin-left: 15px;
+  height: 25px;
+  color: #6D0101!important;
+}
+
+.nav-item {
+  margin-top: 2px!important;
+  margin-bottom: 2px!important;
+  /*color: #6D0101!important;*/
+}
+
+.nav-link {
+  padding: 0px!important;
+  color: #6D0101!important;
+}
 #modal-login-back {
   background-color: black;
 }
 
-#regbutton {
-  margin-top: 12.5px;
+#navregbutton {
+  /*margin-top: 12.5px;*/
   margin-left: 15px;
   height: 25px;
-  color: #6D0101;
+  color: #6D0101!important;
+}
+
+#navusername {
+  /*margin-top: 12.5px;*/
+  margin-left: 15px;
+  height: 25px;
+  /*color: #6D0101;*/
+}
+
+#navlogoutbutton {
+  /*margin-top: 12.5px;*/
+  margin-left: 15px;
+  height: 25px;
+  color: #6D0101!important;
 }
 
 #navlogoplace {

@@ -20,3 +20,12 @@ class RegistrationForm(Form):
 
 class SessionForm(Form):
     value = StringField('value', validators=[DataRequired()])
+
+class AddCardForm(Form):
+    cardNumber = StringField('cardNumber', [validators.Required(),
+        validators.Length(min = 16, max = 16)])
+    exMonth = StringField('exMonth', [validators.Required(),
+        validators.Length(min = 2, max = 2)])
+    exYear = StringField('exYear', [validators.Required(),
+        validators.Length(min = 4, max = 4)])
+    

@@ -105,7 +105,9 @@
         {% else %}
           <h5> Total price to pay: £{{priceTotal}}0</h5>
         {% endif %}
-      <button class ="button button5">Book these tickets</button>
+      <form method="post">
+        <button class ="button button5" name="gotoPay" type="submit">Book these tickets</button>
+      </form>
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 from app import app, models, db
 from datetime import timedelta
 from flask import render_template, url_for, request, session, redirect, flash
-from .forms import LoginForm, RegistrationForm, SessionForm
+from .forms import LoginForm, RegistrationForm, SessionForm, AddCardForm
 from datetime import datetime
 import hashlib
 
@@ -62,11 +62,35 @@ def signup():
                         )
         db.session.add(p)
         db.session.commit()
-        return redirect(url_for('home'))
+        return redirect(url_for('login'))
     else:
         return render_template('registration.html',
                             title='Register',
                             form=form)
+
+@app.route('/userPage', methods=['GET', 'POST'])
+def userPage():
+    form = AddCardForm()
+    userEmailname = None
+    if 'userEmail' in session:
+        userEmailname = session['userEmail']
+        user = models.Users.query.filter_by(email=userEmailname).first()
+        if form.validate_on_submit():
+            p = models.CardDetails(userID=user.id,
+                            cardNumber=form.cardNumber.data,
+                            exMonth=form.exMonth.data,
+                            exYear=form.exYear.data
+                            )
+            db.session.add(p)
+            db.session.commit()
+            return redirect(url_for('userPage'))
+    else:
+        session['userEmail'] = 'Guest User'
+    return render_template('userpage.html',
+                            userEmailname=session['userEmail'],
+                            user=user,
+                            form=form
+                            )
 
 @app.route('/nowshowing', methods=['GET', 'POST'])
 def viewmovies():
@@ -171,8 +195,6 @@ def booktickets():
             movieID = session['movieVar']
             movieName = models.Movies.query.filter_by(id=movieID).first()
 
-
-
         if 'scrnVar' in session:
             screeningID = session['scrnVar']
             screening = models.Screenings.query.filter_by(id=screeningID).first()
@@ -207,46 +229,61 @@ def booktickets():
             if 'adultPlus' in request.form:
                 adultPlus = float(request.form.get('adultPlus'))
                 adultTotal += adultPlus
+                priceTotal += adultTotal
                 session['adult'] = adultTotal
+                session['priceTotal'] = priceTotal
 
             elif 'adultMinus' in request.form:
                 adultMinus = float(request.form.get('adultMinus'))
                 adultTotal -= adultMinus
+                priceTotal -= adultTotal
                 session['adult'] = adultTotal
+                session['priceTotal'] = priceTotal
 
             elif 'childPlus' in request.form:
                 childPlus = float(request.form.get('childPlus'))
                 childTotal += childPlus
+                priceTotal += childTotal
                 session['child'] = childTotal
+                session['priceTotal'] = priceTotal
 
             elif 'childMinus' in request.form:
                 childMinus = float(request.form.get('childMinus'))
                 childTotal -= childMinus
+                priceTotal -= childTotal
                 session['child'] = childTotal
+                session['priceTotal'] = priceTotal
 
             elif 'seniorPlus' in request.form:
                 seniorPlus = float(request.form.get('seniorPlus'))
                 seniorTotal += seniorPlus
+                priceTotal += seniorTotal
                 session['senior'] = seniorTotal
+                session['priceTotal'] = priceTotal
 
             elif 'seniorMinus' in request.form:
                 seniorMinus = float(request.form.get('seniorMinus'))
                 seniorTotal -= seniorMinus
+                priceTotal -= seniorTotal
                 session['senior'] = seniorTotal
+                session['priceTotal'] = priceTotal
 
             elif 'vipPlus' in request.form:
                 vipPlus = float(request.form.get('vipPlus'))
                 vipTotal += vipPlus
+                priceTotal += vipTotal
                 session['vip'] = vipTotal
+                session['priceTotal'] = priceTotal
 
             elif 'vipMinus' in request.form:
                 vipMinus = float(request.form.get('vipMinus'))
                 vipTotal -= vipMinus
+                priceTotal -= vipTotal
                 session['vip'] = vipTotal
+                session['priceTotal'] = priceTotal
 
             elif 'bookThisSeat' in request.form:
                 seatID = request.form.get('bookThisSeat')
-
                 if seatList[0] == 'No seats currently selected':
                     seatList[0] = seatID
                     session['seatList'] = seatList
@@ -271,9 +308,17 @@ def booktickets():
                         a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1]+wordlist[2])
                     # db.session.add(a)
                     # db.session.commit()
+
+                priceTotal = adultTotal+childTotal+seniorTotal+vipTotal
+
                 return redirect(url_for('booktickets'))
 
-            priceTotal = adultTotal+childTotal+seniorTotal+vipTotal
+                priceTotal = adultTotal+childTotal+seniorTotal+vipTotal
+
+            elif 'gotoPay' in request.form:
+                return redirect(url_for('payments'))
+
+
 
         return render_template('booktickets.html',
                                 movieName = movieName,
@@ -300,18 +345,51 @@ def booktickets():
 
 @app.route('/payments', methods=['GET', 'POST'])
 def payments():
+        userEmailname = None
+        movieID = None
         screeningID = None
+        seatList = None
+        userEmailname = None
+        adultTotal = 0
+        childTotal = 0
+        seniorTotal = 0
+        vipTotal = 0
+        priceTotal = 0
+        seatList = None
+        cardDetails = None
+
+        if 'userEmail' in session:
+            userEmailname = session['userEmail']
+            user = models.Users.query.filter_by(email=userEmailname).first()
 
         if 'movieVar' in session:
             movieID = session['movieVar']
             movieName = models.Movies.query.filter_by(id=movieID).first()
             screenings = models.Screenings.query.filter_by(movies_id = movieID).all()
 
+        if 'scrnVar' in session:
+            screeningID = session['scrnVar']
+            screening = models.Screenings.query.filter_by(id=screeningID).first()
+            seatsRes = models.Seat_Reserved.query.filter_by(screening=screeningID).all()
 
-        else:
-            return redirect(url_for('home'))
+        if 'adult' in session:
+            adultTotal = session['adult']
 
-        userEmailname = None
+        if 'child' in session:
+            childTotal = session['child']
+
+        if 'senior' in session:
+            seniorTotal = session['senior']
+
+        if 'vip' in session:
+            vipTotal = session['vip']
+
+        if 'priceTotal' in session:
+            priceTotal = session['priceTotal']
+
+
+
+
         if 'userEmail' in session:
             userEmailname = session['userEmail']
         else:
@@ -321,22 +399,28 @@ def payments():
             screeningID = request.form.get('bookSeat')
 
         session['scrnVar'] = screeningID
-        session['adult'] = 0
-        session['child'] = 0
-
-        if screeningID != None:
-            return redirect(url_for('booktickets'))
 
 
 
-        return render_template('showtimes.html',
-                                movieName = movieName,
-                                screenings = screenings,
-                                userEmailname=session['userEmail']
+
+
+
+        return render_template('payments.html',
+                                user=user,
+                                movieName=movieName,
+                                screening=screening,
+                                adultTotal=adultTotal,
+                                childTotal=childTotal,
+                                seniorTotal=seniorTotal,
+                                vipTotal=vipTotal,
+                                priceTotal=priceTotal,
+                                seatList = session['seatList'],
+                                userEmailname=session['userEmail'],
+                                cardDetails=cardDetails
                                 )
 
 @app.route('/logout')
 def logout():
-   # remove the username from the session if it is there
+   # removes all session data
    session.clear()
    return render_template('home.html')
