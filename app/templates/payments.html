@@ -8,28 +8,55 @@ Email: {{user.email}}<br>
 Movie: {{movieName.movieTitle}}<br>
 Showing selected: {{screening.time}} {{screening.screen_id}}<br>
 No of tickets: <br>
-  Adult: {{adultTotal/9}} - £{{adultTotal}}<br>
-  Child: {{childTotal/6.5}} - £{{childTotal}}<br>
-  Senior: {{seniorTotal/7}} - £{{seniorTotal}}<br>
-  VIP: {{vipTotal/12}} - £{{vipTotal}}<br>
+  Adult: {{adultTotal}} - £{{adultTotal*9}}<br>
+  Child: {{childTotal}} - £{{childTotal*6.5}}<br>
+  Senior: {{seniorTotal}} - £{{seniorTotal*7}}<br>
+  VIP: {{vipTotal}} - £{{vipTotal*12}}<br>
 
-Total Price:  {{priceTotal}}<br>
+Total Price:  £{{priceTotal}}<br>
 
 Seats selected: {{seatList}}<br>
 
 Cards:<br>
 <form method="post">
-<select>
+<select name ="dropdownCard" onchange="this.form.submit()">
+  <option value="nocard">Use Different Card</option>
   {% for details in cardDetails %}
     <option value="{{details.nickName}}">{{details.cardNickname}}</option>
   {% endfor %}
-  <option value="nocard">Use Different Card</option>
+
 </select>
 </form><br>
+
+ {% if cardValue == 'nocard' %}
+  <form method="post">
+
+    <h4>Enter Card Details</h4>
+
+    Card Number: <input type="text" name="Cnumber"><br>
+    Expiry Month: <input type="text" name="Emonth"><br>
+    Expiry Year: <input type="text" name="Eyear"><br>
+    Security Number: <input type="text" maxlength="3" name="Snumber"><br>
+
+  </form>
+ {% else %}
+ <form method="post">
+
+
+   Card Name: {{cardDetails.cardNickname}} <br>
+   Card Number: {{cardDetails.cardNumber}} <br>
+   Expiry Month: {{cardDetails.exYear}} <br>
+   Expiry Year: {{cardDetails.exMonth}} <br>
+   Security Number: <input type="text" maxlength="3"  width="30%" name="Snumber"><br>
+
+ </form>
+
+
+ {% endif %}
+
+
 <br>
 
-<input type="submit" id="submit" onclick="document.getElementById('hidden').style.display = 'block';" />
-
-<img id="hidden" class="hidden" src="foo.png" />
+<button class=" button button5"type="submit">Purchase</button>
 
 {% endblock %}

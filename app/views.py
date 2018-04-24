@@ -117,7 +117,6 @@ def viewmovies():
         if movieID != None:
             return redirect(url_for('showtimes'))
 
-
         return render_template('nowshowing.html',
                                 movies = movies,
                                 movieOne = movieOne,
@@ -297,16 +296,16 @@ def booktickets():
                         totalSeats -= 1
                         session['seatList'] = seatList
                         session['totalSeats'] = totalSeats
-                        print(totalSeats)
-                        print(seatList)
+                    #    print(totalSeats)
+                    #    print(seatList)
                 else:
                     if seatID in seatList:
                         seatList.remove(seatID)
                         totalSeats += 1
                         session['seatList'] = seatList
                         session['totalSeats'] = totalSeats
-                        print(totalSeats)
-                        print(seatList)
+                    #    print(totalSeats)
+                    #    print(seatList)
 
                     else:
                         if totalSeats > 0:
@@ -314,8 +313,8 @@ def booktickets():
                             totalSeats -= 1
                             session['seatList'] = seatList
                             session['totalSeats'] = totalSeats
-                            print(totalSeats)
-                            print(seatList)
+                        #    print(totalSeats)
+                        #    print(seatList)
 
                 wordlist = list(seatID)
                 if wordlist == None:
@@ -376,6 +375,7 @@ def payments():
         priceTotal = 0
         seatList = None
         cardDetails = None
+        cardValue = None
 
         if 'userEmail' in session:
             userEmailname = session['userEmail']
@@ -412,10 +412,23 @@ def payments():
         else:
             session['userEmail'] = 'Guest User'
 
-        if request.method == 'POST':
-            screeningID = request.form.get('bookSeat')
+        # if request.method == 'POST':
+        #     screeningID = request.form.get('bookSeat')
 
         session['scrnVar'] = screeningID
+
+        if request.method == "POST":
+            dropdownCard = request.form['dropdownCard']
+            print("1st if",cardValue)
+            if dropdownCard == "nocard":
+                cardValue = "nocard"
+                print("2nd if",cardValue)
+            else:
+                cardValue = dropdownCard
+                print("else",cardValue)
+
+
+
 
         return render_template('payments.html',
                                 user=user,
@@ -429,14 +442,15 @@ def payments():
                                 seatList = session['seatList'],
                                 userEmailname=session['userEmail'],
                                 cardDetails=cardDetails,
-                                models=models
+                                models=models,
+                                cardValue = cardValue
                                 )
 
 @app.route('/confirm')
 def confirm():
    # removes all session data
 
-   
+
 
 
    return redirect(url_for('home'))
