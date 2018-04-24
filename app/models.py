@@ -27,6 +27,8 @@ class Screenings(db.Model):
     def __repr__(self):
         return '' % (self.id, self.movies_id, self.screen_id, self.time)
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class Screen(db.Model):
     # id = db.Column(db.Integer, primary_key=True)

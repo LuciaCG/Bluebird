@@ -111,7 +111,7 @@ font-weight:bold;</string>
 font-size: 21px;</string>
      </property>
      <property name="text">
-      <string>Connection Status</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="clock">

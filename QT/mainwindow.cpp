@@ -36,7 +36,6 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
     }
 
 
-
     QJsonDocument response = QJsonDocument::fromJson(data);
 
     QJsonObject stuff = response.object();

@@ -19,7 +19,12 @@ def Movies_data():
     response.mimetype = "application/json"
     return response
 
-
+@app.route("/screens.json")
+def Screens_data():
+    data = {"screens" : [ i.as_dict() for i in models.Screenings.query.all() ]}
+    response = application.make_response(json.dumps(data, default=str))
+    response.mimetype = "application/json"
+    return response
 
 #Web
 @app.route('/home', methods=['GET', 'POST'])

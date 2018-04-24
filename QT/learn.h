@@ -2,6 +2,7 @@
 #define LEARN_H
 
 #include <QStyledItemDelegate>
+#include <QtNetwork>
 
 namespace Ui {
 class learn;
@@ -25,6 +26,10 @@ private:
     QString name;
     int screen;
     QString user;
+
+    QNetworkReply * reply;
+    bool connected;
+    QByteArray data;
 protected:
     void keyPressEvent(QKeyEvent* pe);
 };
