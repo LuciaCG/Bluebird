@@ -22,7 +22,6 @@ private slots:
 
 private:
     Ui::Login *ui;
-    QSqlDatabase firstDB;
     QNetworkReply * reply;
     bool connected;
     QByteArray data;

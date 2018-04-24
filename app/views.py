@@ -5,13 +5,19 @@ from flask import Flask, render_template, url_for, request, session, redirect
 #QT
 #QT
 application = Flask(__name__)
-@app.route("/app.json")
+@app.route("/employee.json")
 def Employee_data():
     data = {"employee" : [ i.as_dict() for i in models.Employee.query.all() ]}
     response = application.make_response(json.dumps(data))
     response.mimetype = "application/json"
     return response
 
+@app.route("/movies.json")
+def Movies_data():
+    data = {"movies" : [ i.as_dict() for i in models.Movies.query.all() ]}
+    response = application.make_response(json.dumps(data))
+    response.mimetype = "application/json"
+    return response
 
 
 

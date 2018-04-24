@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QModelIndex>
+#include <QtNetwork>
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +26,9 @@ private:
     Ui::MainWindow *ui;
     QModelIndex modelindex;
     QString user;
+    QNetworkReply * reply;
+    bool connected;
+    QByteArray data;
 protected:
     void keyPressEvent(QKeyEvent* pe);
 };

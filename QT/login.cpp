@@ -18,7 +18,7 @@ Login::Login(QWidget *parent) :
     QEventLoop eventLoop;
     QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
-    QUrl url("http://localhost:5000/app.json");
+    QUrl url("http://localhost:5000/employee.json");
 
     QNetworkRequest request(url);
     reply = manager.get(request);
@@ -26,7 +26,7 @@ Login::Login(QWidget *parent) :
     eventLoop.exec();
 
     if (reply->error() != QNetworkReply::NoError)
-        ui->warning->setText("WARNING: Failed Connexion");
+        ui->warning->setText("WARNING: Failed Connection");
     else {
         connected = true;
         data = reply->readAll();
