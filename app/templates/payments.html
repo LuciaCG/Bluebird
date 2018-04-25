@@ -42,8 +42,34 @@ Cards:<br>
     {% if userEmailname == "guest@cinema.com" %}
     Email: <input type="text" name="Snumber"><br>
     {% endif %}
+    <br>
+    <input type="button" id="btnRedirect" value="Redirect" />
+    <br />
+    <br />
+    <div id="dvCountDown" style="display: none">
+      <img src="static/images/marvel.gif">
+    Checking your card details. Please wait. <span id="lblCount"></span>&nbsp;seconds.
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        $("#btnRedirect").click(function () {
+            var seconds = 10;
+            $("#dvCountDown").show();
+            $("#lblCount").html(seconds);
+            setInterval(function () {
+                seconds--;
+                $("#lblCount").html(seconds);
+                if (seconds == 0) {
+                    $("#dvCountDown").hide();
+                    window.location = "http://localhost:5000/confirmation";
+                }
+            }, 1000);
+        });
+    });
+    </script>
+      </form>
 
-  </form>
  {% else %}
  <form method="post">
 
@@ -53,39 +79,38 @@ Cards:<br>
    Expiry Month: {{cardDetails2.exMonth}} <br>
    Expiry Year: {{cardDetails2.exYear}} <br>
    Security Number: <input type="text" maxlength="3"  style="width:40" name="Snumber"><br>
-
+   <br>
+   <input type="button" id="btnRedirect" value="Redirect" />
+   <br />
+   <br />
+   <div id="dvCountDown" style="display: none">
+     <img src="static/images/marvel.gif">
+   Checking your card details. Please wait. <span id="lblCount"></span>&nbsp;seconds.
+   </div>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+   <script type="text/javascript">
+   $(function () {
+       $("#btnRedirect").click(function () {
+           var seconds = 10;
+           $("#dvCountDown").show();
+           $("#lblCount").html(seconds);
+           setInterval(function () {
+               seconds--;
+               $("#lblCount").html(seconds);
+               if (seconds == 0) {
+                   $("#dvCountDown").hide();
+                   window.location = "http://localhost:5000/confirmation";
+               }
+           }, 1000);
+       });
+   });
+   </script>
  </form>
 
 
  {% endif %}
 
 
-<br>
-<input type="button" id="btnRedirect" value="Redirect" />
-<br />
-<br />
-<div id="dvCountDown" style="display: none">
-  <img src="static/images/marvel.gif">
-Checking your card details. Please wait. <span id="lblCount"></span>&nbsp;seconds.
-</div>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript">
-$(function () {
-    $("#btnRedirect").click(function () {
-        var seconds = 10;
-        $("#dvCountDown").show();
-        $("#lblCount").html(seconds);
-        setInterval(function () {
-            seconds--;
-            $("#lblCount").html(seconds);
-            if (seconds == 0) {
-                $("#dvCountDown").hide();
-                window.location = "http://localhost:5000/confirmation";
-            }
-        }, 1000);
-    });
-});
-</script>
 
 <!-- <input type="button" value="Purchase" onclick="DelayRedirect()" />
 <br />

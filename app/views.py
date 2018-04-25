@@ -388,7 +388,6 @@ def booktickets():
 
 @app.route('/payments', methods=['GET', 'POST'])
 def payments():
-        userEmailname = None
         movieID = None
         screeningID = None
         seatList = None
@@ -449,30 +448,31 @@ def payments():
         session['scrnVar'] = screeningID
 
         if request.method == "POST":
-            dropdownCard = request.form['dropdownCard']
-            print("card " + dropdownCard)
-            print("valie " + cardValue)
-            if dropdownCard == "nocard":
-                session['card'] = "nocard"
-                print("2nd if",session['card'])
-            else:
-                session['card'] = dropdownCard
-                user = models.Users.query.filter_by(email=userEmailname).first()
-                cardDetails2 = models.CardDetails.query.filter_by(userID=user.id , cardNickname=dropdownCard).first()
+            if 'Redirect' != request.form:
+                dropdownCard = request.form['dropdownCard']
+                print("card " + dropdownCard)
+                print("valie " + cardValue)
+                if dropdownCard == "nocard":
+                    session['card'] = "nocard"
+                    print("2nd if",session['card'])
+                else:
+                    session['card'] = dropdownCard
+                    user = models.Users.query.filter_by(email=userEmailname).first()
+                    cardDetails2 = models.CardDetails.query.filter_by(userID=user.id , cardNickname=dropdownCard).first()
 
-                cardNumber = cardDetails2.cardNumber
-                for character in range(12,16):
-                  if (character % 3) == 0:
-                    changedLetter = ord(cardNumber[character]) + 3
-                  elif (character % 2) == 0:
-                    changedLetter = ord(cardNumber[character]) + 2
-                  else:
-                    changedLetter = ord(cardNumber[character]) + 1
-                  newCardNumber += chr(changedLetter)
+                    cardNumber = cardDetails2.cardNumber
+                    for character in range(12,16):
+                      if (character % 3) == 0:
+                        changedLetter = ord(cardNumber[character]) + 3
+                      elif (character % 2) == 0:
+                        changedLetter = ord(cardNumber[character]) + 2
+                      else:
+                        changedLetter = ord(cardNumber[character]) + 1
+                      newCardNumber += chr(changedLetter)
 
 
-                print(newCardNumber)
-                print("else",session['card'])
+                      print(newCardNumber)
+                      print("else",session['card'])
 
 
 
@@ -500,6 +500,12 @@ def confirm():
    # removes all session data
     wordlist = None
     seatList = None
+    adultTotal = 0
+    childTotal = 0
+    seniorTotal = 0
+    vipTotal = 0
+    priceTotal = 0
+
     seatList = session['seatList']
     print(seatList)
 
@@ -519,6 +525,27 @@ def confirm():
                a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1]+wordlist[2])
             db.session.add(a)
         db.session.commit()
+
+
+        if 'adult' in session:
+            adultTotal = session['adult']
+
+        if 'child' in session:
+            childTotal = session['child']
+
+        if 'senior' in session:
+            seniorTotal = session['senior']
+
+        if 'vip' in session:
+            vipTotal = session['vip']
+
+        if 'priceTotal' in session:
+            priceTotal = session['priceTotal']
+
+
+
+
+
 
 
     session.pop('movieSearch', None)
