@@ -133,6 +133,8 @@ class Receipts(db.Model):
     def __repr__(self):
         return '' % (self.id, self.userName, self.employeeName, self.screening, self.price, self.pricePaid, self.change, self.transactionTime)
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class CardDetails(db.Model):
     userID = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)

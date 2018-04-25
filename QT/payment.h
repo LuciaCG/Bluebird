@@ -2,6 +2,7 @@
 #define PAYMENT_H
 
 #include <QLCDNumber>
+#include <QtNetwork>
 
 namespace Ui {
 class payment;
@@ -27,6 +28,10 @@ private:
     double paid;
     double change;
     QString seatsSelected;
+
+    QNetworkReply * reply;
+    bool connected;
+    QByteArray data;
 };
 
 #endif // PAYMENT_H

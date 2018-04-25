@@ -10,8 +10,11 @@ chairs::chairs(QWidget *parent, QString _screenName, int _screenID, QString _use
     user(_user)
 {
     ui->setupUi(this);
-    ui->user->setText(screenName);
-    ui->user->setText(QString::number(screenID));
+    ui->user->setText(user);
+
+    QWidget::setTabOrder(ui->tableWidget, ui->selection);
+    QWidget::setTabOrder(ui->selection, ui->logout);
+    QWidget::setTabOrder(ui->logout, ui->back);
 
     // SCREENING
 
@@ -216,7 +219,7 @@ chairs::chairs(QWidget *parent, QString _screenName, int _screenID, QString _use
     QNetworkAccessManager managerT;
     QObject::connect(&managerT, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
-    QUrl urlT("http://localhost:5000/type_of_tickets.json");
+    QUrl urlT("http://localhost:5000/typetickets.json");
 
     QNetworkRequest requestT(urlT);
     replyTickets = managerT.get(requestT);
@@ -234,21 +237,20 @@ chairs::chairs(QWidget *parent, QString _screenName, int _screenID, QString _use
 
     QJsonObject stuffT = responseT.object();
 
-    QJsonValue valueT = stuffT.value("seats");
+    QJsonValue valueT = stuffT.value("tickets");
 
     QJsonArray arrayT = valueT.toArray();
 
-    i = 0;
-    while(i < arrayT.size()){
-        if (arrayT[i].toObject().value("ticketType").toString() == "Child")
-            priceC = arrayT[i].toObject().value("price").toDouble();
-        else if (arrayT[i].toObject().value("ticketType").toString() == "Adult")
-            priceA = arrayT[i].toObject().value("price").toDouble();
-        else if (arrayT[i].toObject().value("ticketType").toString() == "Senior")
-            priceO = arrayT[i].toObject().value("price").toDouble();
-        else if (arrayT[i].toObject().value("ticketType").toString() == "VIP")
-            priceV = arrayT[i].toObject().value("price").toDouble();
-    }
+    priceC = arrayT[0].toObject().value("price").toDouble();
+    priceA = arrayT[1].toObject().value("price").toDouble();
+    priceO = arrayT[2].toObject().value("price").toDouble();
+    priceV = arrayT[3].toObject().value("price").toDouble();
+
+    // read price when numnber of tickets are selected
+    ui->Adult->installEventFilter(this);
+    ui->Child->installEventFilter(this);
+    ui->OAP->installEventFilter(this);
+    ui->VIP->installEventFilter(this);
 
 
     // CLOCK
@@ -375,7 +377,7 @@ void chairs::on_selection_clicked()
                 ui->warning->setText("• Not enough paid");
             }
             else {
-                payment *instance = new payment(this, screen, id, user, ticketTotal, paid, change);
+                payment *instance = new payment(this, screenName, screenID, user, ticketTotal, paid, change);
                 instance->show();
             }
         }

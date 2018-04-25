@@ -47,12 +47,20 @@ def seatreserved_data():
     response.mimetype = "application/json"
     return response
 
-@app.route("/type_of_tickets.json")
+@app.route("/typetickets.json")
 def type_of_tickets_data():
     data = {"tickets" : [ i.as_dict() for i in models.TypeOfTickets.query.all() ]}
     response = application.make_response(json.dumps(data))
     response.mimetype = "application/json"
     return response
+
+@app.route("/receipts.json")
+def receipts_data():
+    data = {"receipt" : [ i.as_dict() for i in models.Receipts.query.all() ]}
+    response = application.make_response(json.dumps(data, default=str))
+    response.mimetype = "application/json"
+    return response
+
 
 #Web
 @app.route('/home', methods=['GET', 'POST'])

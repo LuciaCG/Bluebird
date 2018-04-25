@@ -19,53 +19,108 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 {
   ui->setupUi(this);
   ui->user->setText(user);
+
+  QWidget::setTabOrder(ui->tableWidget, ui->logout);
+  QWidget::setTabOrder(ui->logout, ui->back);
+
+  QTimer *timer = new QTimer(this);
+  //Sets an delay between each updateS
+  timer->setInterval(1000);
+  //using connect time to update the label
+  connect(timer, &QTimer::timeout, [&]() {
+     //Getting current time from the system and turning into string to be displayed
+     QString ct = QTime::currentTime().toString();
+     //setting the clock label to the current time
+     ui->clock->setText(ct);
+  } );
+  //updates the clock
+  timer->start();
+
+
   QString ct = QTime::currentTime().toString();
   QDateTime current = QDateTime::currentDateTime();
-    //Initialising the data base connection
-    QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
-    firstDB.setHostName("bluebird");
-        //getting the relative path of the database
-    QDir bluebird = QDir::current();
-    bluebird.cdUp();
-    QString database = bluebird.path();
-    firstDB.setDatabaseName(database + "/app.db");
-        //connecting
-    firstDB.open();
-    if(!firstDB.open())
-        ui->connetion->setText("FAILED");
-     else
-        ui->connetion->setText("Connected");
 
 
-    //Creating an SQL table model
-    QSqlTableModel *model = new QSqlTableModel(this,firstDB);
-    //Selecting the Table we want from DB
-    model->setTable("Seat__Reserved");
-    model->select();
+  /*///////////////////////////////////
+  QSqlQuery query;
+  query.prepare("INSERT INTO receipts (userName, employeeName,screening,price,pricePaid,change,transactionTime) "
+                "VALUES (?, ?, ?,?,?,?,?)");
+  query.addBindValue("TILL");
+  query.addBindValue(user);
+  query.addBindValue(id);
+  query.addBindValue(ticketTotal);
+  query.addBindValue(paid);
+  query.addBindValue(change);
+  query.addBindValue(current);
 
-//receipts
+  query.exec();
+
+  ////////////////////////////////////////*/
+
+
+
+    QNetworkAccessManager manager;
+    QEventLoop eventLoop;
+    QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+
+    QUrl url("http://localhost:5000/receipts.json");
+
+    QNetworkRequest request(url);
+    reply = manager.get(request);
+
+    eventLoop.exec();
+
+    if (reply->error() != QNetworkReply::NoError)
+          ui->connection->setText("Failed Connection");
+    else {
+        connected = true;
+        data = reply->readAll();
+    }
+
+    QJsonDocument response = QJsonDocument::fromJson(data);
+
+    QJsonObject stuff = response.object();
+
+    QJsonValue value = stuff.value("receipt");
+    QJsonArray array = value.toArray();
+
+    // DISPLAY RECEIPTS
+
+    int auxRow = array.size(), auxCol = 6;
+
+    ui->tableWidget->setRowCount(auxRow);
+    ui->tableWidget->setColumnCount(auxCol);
+
+    QStringList Headers;
+    Headers << "Employee" << "Screening" << "Price" << "Paid" << "Change" << "Transaction Time";
+    ui->tableWidget->setHorizontalHeaderLabels(Headers);
+
+    for(int i = 0; i < array.size(); i++){
+        ui->tableWidget->setItem(i, 0, new QTableWidgetItem(array[i].toObject().value("employeeName").toString()));
+        ui->tableWidget->setItem(i, 1, new QTableWidgetItem(QString::number(array[i].toObject().value("screening").toInt())));
+        ui->tableWidget->setItem(i, 2, new QTableWidgetItem(QString::number(array[i].toObject().value("price").toInt())));
+        ui->tableWidget->setItem(i, 3, new QTableWidgetItem(QString::number(array[i].toObject().value("pricePaid").toInt())));
+        ui->tableWidget->setItem(i, 4, new QTableWidgetItem(QString::number(array[i].toObject().value("change").toInt())));
+        ui->tableWidget->setItem(i, 5, new QTableWidgetItem(array[i].toObject().value("transactionTime").toString()));
+    }
 
     //Displaying the table in the Tableview
-    ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    ui->tableView->setModel(model);
+    ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableView->show();
+    ui->tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+        ui->tableWidget->setFixedSize(ui->tableWidget->horizontalHeader()->length()
+                                      + ui->tableWidget->verticalHeader()->width(),
+                                      ui->tableWidget->height());
 
 
-    QSqlQuery query;
-    query.prepare("INSERT INTO receipts (userName, employeeName,screening,price,pricePaid,change,transactionTime) "
-                  "VALUES (?, ?, ?,?,?,?,?)");
-    query.addBindValue("TILL");
-    query.addBindValue(user);
-    query.addBindValue(id);
-    query.addBindValue(ticketTotal);
-    query.addBindValue(paid);
-    query.addBindValue(change);
-    query.addBindValue(current);
+    ui->tableWidget->show();
 
-    query.exec();
+
+
+
+
+    // PRINT PDF
 
      ui->due->setText(QString::number(ticketTotal));
      QString fileName = seatsSelected + "" + QString::number(id); // Change name to movie ID + Seats being used
@@ -95,6 +150,7 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 payment::~payment()
 {
     delete ui;
+    delete reply;
 }
 
 void payment::on_logout_clicked()

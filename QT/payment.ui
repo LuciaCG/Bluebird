@@ -41,10 +41,10 @@ color:#000000;</string>
     <widget class="QLabel" name="user">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>851</width>
-       <height>91</height>
+       <x>10</x>
+       <y>10</y>
+       <width>221</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -110,7 +110,7 @@ font-size: 21px;</string>
       <string>TextLabel</string>
      </property>
     </widget>
-    <widget class="QLabel" name="connetion">
+    <widget class="QLabel" name="connection">
      <property name="geometry">
       <rect>
        <x>850</x>
@@ -124,7 +124,7 @@ font-size: 21px;</string>
 font-size: 21px;</string>
      </property>
      <property name="text">
-      <string>Connection Status</string>
+      <string/>
      </property>
     </widget>
    </widget>
@@ -154,23 +154,29 @@ font-size: 21px;</string>
      <string>Back</string>
     </property>
    </widget>
-   <widget class="QTableView" name="tableView">
+   <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>110</y>
-      <width>811</width>
-      <height>571</height>
+      <x>150</x>
+      <y>130</y>
+      <width>731</width>
+      <height>531</height>
      </rect>
     </property>
-    <property name="verticalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
+    <property name="styleSheet">
+     <string notr="true">QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold;}</string>
     </property>
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
-    <property name="sizeAdjustPolicy">
-     <enum>QAbstractScrollArea::AdjustToContents</enum>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="tabKeyNavigation">
+     <bool>false</bool>
+    </property>
+    <property name="selectionBehavior">
+     <enum>QAbstractItemView::SelectRows</enum>
     </property>
    </widget>
   </widget>
