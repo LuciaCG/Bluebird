@@ -355,18 +355,29 @@ void chairs::on_selection_clicked()
             seatsSelected = seatsSelected + rowLetter + columnNumString + "_";
 
 
-            /*///////////////////////////////////////////////////
+            double b = screenID;
+            double c = columnNum;
 
-            QSqlQuery query;
-            query.prepare("INSERT INTO Seat__Reserved (screening,rowReservedID,seatNumberReservedID) "
-                          "VALUES (?, ?, ?)");
-            query.addBindValue(id);
-            query.addBindValue(rowLetter);
-            query.addBindValue(columnNum);
+            QUrl serviceUrl = QUrl("http://localhost:5000/postjsonR");
+            QNetworkRequest request1(serviceUrl);
+            QJsonObject json;
 
-            query.exec();
+            json.insert("screening", QJsonValue::fromVariant("1"));
+            json.insert("rowReservedID", QJsonValue::fromVariant(rowLetter));
+            json.insert("seatNumberReservedID", QJsonValue::fromVariant("9"));
+            //json.insert("id", QJsonValue::fromVariant(Array.size() + 1));
+            //json.insert("transactionTime", QJsonValue::fromVariant(QString::number(current)));
+            //json.insert("userName", QJsonValue::fromVariant("Till"));
+            //json.insert("employeeName", QJsonValue::fromVariant(user));
+            //json.insert("screening", QJsonValue::fromVariant(b));
 
-            ///////////////////////////////////////////////////////*/
+            QJsonDocument jsonDoc(json);
+            QByteArray jsonData= jsonDoc.toJson();
+            request1.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
+            request1.setHeader(QNetworkRequest::ContentLengthHeader,QByteArray::number(jsonData.size()));
+            QNetworkAccessManager networkManager;
+
+            networkManager.post(request1, jsonData);
             }
             double paid = ui->doubleSpinBox->value();
             double ticketTotal = totalPrice();
