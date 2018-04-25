@@ -1,0 +1,15 @@
+Congratulations. Your Tickets have been booked and an email has been sent to you!
+
+
+
+Name: {{user.name}}
+Email: {{user.email}}
+Movie: {{movieName.movieTitle}}
+Showing selected: {{screening.time}} {{screening.screen_id}}
+Tickets Purchased:
+Adult: {{adultTotal}} - £{{adultTotal*9}}
+Child: {{childTotal}} - £{{childTotal*6.5}}
+Senior: {{seniorTotal}} - £{{seniorTotal*7}}
+VIP: {{vipTotal}} - £{{vipTotal*12}}
+Total Price:  £{{priceTotal}}
+Seats selected: {{seatList}}

@@ -54,7 +54,7 @@ Cards:<br>
     <script type="text/javascript">
     $(function () {
         $("#btnRedirect").click(function () {
-            var seconds = 10;
+            var seconds = 3;
             $("#dvCountDown").show();
             $("#lblCount").html(seconds);
             setInterval(function () {
@@ -91,7 +91,7 @@ Cards:<br>
    <script type="text/javascript">
    $(function () {
        $("#btnRedirect").click(function () {
-           var seconds = 10;
+           var seconds = 3;
            $("#dvCountDown").show();
            $("#lblCount").html(seconds);
            setInterval(function () {
@@ -112,29 +112,7 @@ Cards:<br>
 
 
 
-<!-- <input type="button" value="Purchase" onclick="DelayRedirect()" />
-<br />
-<br />
-<div id="payCheckCountDown" style = "display:none">
-You will be redirected after <span id = "countDown"></span>&nbsp;seconds.
-</div>
-<script type="text/javascript">
-function DelayRedirect() {
-    var seconds = 10;
-    var payCheckCountDown = document.getElementById("payCheckCountDown");
-    var countDown = document.getElementById("countDown");
-    dvCountDown.style.display = "block";
-    lblCount.innerHTML = seconds;
-    setInterval(function () {
-        seconds--;
-        lblCount.innerHTML = seconds;
-        if (seconds == 0) {
-            dvCountDown.style.display = "none";
-            window.location = "http://localhost:5000/confirmation";
-        }
-    }, 1000);
-}
-</script> -->
+
 {% endblock %}
 
 <!--

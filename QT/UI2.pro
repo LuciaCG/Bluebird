@@ -4,23 +4,29 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql printsupport
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = UI2
 TEMPLATE = app
 CONFIG += c++11
-
 SOURCES += main.cpp\
         mainwindow.cpp \
     learn.cpp \
-    chairs.cpp
+    chairs.cpp \
+    login.cpp \
+    payment.cpp
 
 HEADERS  += mainwindow.h \
     learn.h \
-    chairs.h
+    chairs.h \
+    login.h \
+    payment.h
 
 FORMS    += mainwindow.ui \
     learn.ui \
-    chairs.ui
+    chairs.ui \
+    login.ui \
+    payment.ui

@@ -1,6 +1,9 @@
 db_repository/
 __pycache__/
 app/__pycache__/
-testing.db
+build-UI2-Desktop-Debug/
+*.db
 *.pyc
+*.db
 *.pro.user
+*.debug

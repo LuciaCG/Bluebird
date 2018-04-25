@@ -13,7 +13,7 @@ import datetime
 #   print(movies.synopsis)
 #   print(movies.ageRating)
 #   print()
-#
+
 # from app import models, db
 # import datetime
 # for screens in models.Screen.query.all():
@@ -440,13 +440,14 @@ db.session.commit()
 #
 # db.session.commit()
 
+
 ############### Seat Reserved table tests ##################
 
 
 ############### adding employees to empoyees tables ##############
 
 employeeOnline = models.Employee(name="online", password="online")
-tempEmployee = models.Employee(name="temp empoyee 1", password="password123")
+tempEmployee = models.Employee(name="tempemployee1", password="password123")
 
 db.session.add(employeeOnline)
 db.session.add(tempEmployee)

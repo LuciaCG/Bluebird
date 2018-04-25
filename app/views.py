@@ -1,18 +1,109 @@
 from app import app, models, db
 from datetime import timedelta
-from flask import render_template, url_for, request, session, redirect, flash
+from flask_mail import Message, Mail
+from flask import Flask, render_template, url_for, request, session, redirect, flash
 from .forms import LoginForm, RegistrationForm, SessionForm, AddCardForm, SearchMovieForm
-from datetime import datetime
+import datetime
 import hashlib
+import codecs
+import qrcode
+import json
 
 # @app.before_request
 # def make_session_permanent():
 #     session.permanent = True
 #     app.permanent_session_lifetime = timedelta(seconds=20)
 
+#QT
+#QT
+application = Flask(__name__)
+
+@app.route('/postjson', methods = ['POST'])
+def postJsonHandler():
+    print (request.is_json)
+
+    userNameR = request.get_json()['userName']
+    employeeNameR = request.get_json()['employeeName']
+    screeningR = request.get_json()['screening']
+    priceR = request.get_json()['price']
+    pricePaidR = request.get_json()['pricePaid']
+    changeR = request.get_json()['change']
+    a = models.Receipts(userName=userNameR, employeeName=employeeNameR , screening=screeningR,price=priceR,pricePaid=pricePaidR,change=changeR, transactionTime= datetime.datetime.utcnow())
+
+    db.session.add(a)
+    db.session.commit()
+    return 'JSON posted'
+
+@app.route('/postjsonR', methods = ['POST'])
+def postJsonHandlerR():
+    print (request.is_json)
+    screeningR = request.get_json()['screening']
+    rowReservedIDR = request.get_json()['rowReservedID']
+    seatNumberReservedIDR = request.get_json()['seatNumberReservedID']
+    a = models.Seat_Reserved(screening=screeningR, rowReservedID=rowReservedIDR, seatNumberReservedID=seatNumberReservedIDR)
+
+    db.session.add(a)
+    db.session.commit()
+    return 'JSON posted'
+
+@app.route("/employee.json")
+def Employee_data():
+    data = {"employee" : [ i.as_dict() for i in models.Employee.query.all() ]}
+    response = application.make_response(json.dumps(data))
+    response.mimetype = "application/json"
+    return response
+
+@app.route("/movies.json")
+def Movies_data():
+    data = {"movies" : [ i.as_dict() for i in models.Movies.query.all() ]}
+    response = application.make_response(json.dumps(data))
+    response.mimetype = "application/json"
+    return response
+
+@app.route("/screens.json")
+def Screens_data():
+    data = {"screens" : [ i.as_dict() for i in models.Screenings.query.all() ]}
+    response = application.make_response(json.dumps(data, default=str))
+    response.mimetype = "application/json"
+    return response
+
+@app.route("/screen.json")
+def screen_data():
+    data = {"screen" : [ i.as_dict() for i in models.Screen.query.all() ]}
+    response = application.make_response(json.dumps(data))
+    response.mimetype = "application/json"
+    return response
+
+@app.route("/seats.json")
+def Seats_data():
+    data = {"seats" : [ i.as_dict() for i in models.Seats.query.all() ]}
+    response = application.make_response(json.dumps(data))
+    response.mimetype = "application/json"
+    return response
+
+@app.route("/seatreserved.json")
+def seatreserved_data():
+    data = {"reserved" : [ i.as_dict() for i in models.Seat_Reserved.query.all() ]}
+    response = application.make_response(json.dumps(data))
+    response.mimetype = "application/json"
+    return response
+
+@app.route("/typetickets.json")
+def type_of_tickets_data():
+    data = {"tickets" : [ i.as_dict() for i in models.TypeOfTickets.query.all() ]}
+    response = application.make_response(json.dumps(data))
+    response.mimetype = "application/json"
+    return response
+
+@app.route("/receipts.json")
+def receipts_data():
+    data = {"receipt" : [ i.as_dict() for i in models.Receipts.query.all() ]}
+    response = application.make_response(json.dumps(data, default=str))
+    response.mimetype = "application/json"
+    return response
 
 
-
+#Web
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     userEmailname = None
@@ -30,7 +121,7 @@ def home():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    now = datetime.now()
+    # now = datetime.now()
     form = LoginForm()
     form2 = SessionForm()
 
@@ -499,19 +590,60 @@ def payments():
 def confirm():
    # removes all session data
     wordlist = None
+    movieID = None
+    screeningID = None
     seatList = None
+    userEmailname = None
     adultTotal = 0
     childTotal = 0
     seniorTotal = 0
     vipTotal = 0
     priceTotal = 0
+    seatList = None
+    cardDetails = None
+    cardDetails2 = None
+    newCardNumber = ""
+    cardValue = None
 
-    seatList = session['seatList']
-    print(seatList)
+    if 'movieVar' in session:
+        movieID = session['movieVar']
+        movieName = models.Movies.query.filter_by(id=movieID).first()
+        screenings = models.Screenings.query.filter_by(movies_id = movieID).all()
 
     if 'scrnVar' in session:
-       screeningID = session['scrnVar']
-       screening = models.Screenings.query.filter_by(id=screeningID).first()
+        screeningID = session['scrnVar']
+        screening = models.Screenings.query.filter_by(id=screeningID).first()
+        seatsRes = models.Seat_Reserved.query.filter_by(screening=screeningID).all()
+
+    if 'userEmail' in session:
+        userEmailname = session['userEmail']
+        user = models.Users.query.filter_by(email=userEmailname).first()
+        cardDetails = models.CardDetails.query.filter_by(userID=user.id).all()
+    else:
+        userEmailname = "guest@cinema.com"
+        user = models.Users.query.filter_by(email=userEmailname).first()
+        cardDetails = models.CardDetails.query.filter_by(userID=user.id).all()
+
+    if 'seatList' in session:
+        seatList = session['seatList']
+
+    if 'adult' in session:
+        adultTotal = session['adult']
+
+    if 'child' in session:
+        childTotal = session['child']
+
+    if 'senior' in session:
+        seniorTotal = session['senior']
+
+    if 'vip' in session:
+        vipTotal = session['vip']
+
+    if 'priceTotal' in session:
+        priceTotal = session['priceTotal']
+
+    if 'card' in session:
+        cardValue = session['card']
 
 
     if seatList == None:
@@ -520,33 +652,87 @@ def confirm():
         for item in seatList:
             wordlist = list(item)
             if len(wordlist) == 2:
-               a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1])
+               a = models.Seat_Reserved(screening=screeningID,
+                                        rowReservedID=wordlist[0],
+                                        seatNumberReservedID=wordlist[1])
             elif len(wordlist) == 3:
-               a = models.Seat_Reserved(screening=screeningID, rowReservedID=wordlist[0] , seatNumberReservedID=wordlist[1]+wordlist[2])
+               a = models.Seat_Reserved(screening=screeningID,
+                                        rowReservedID=wordlist[0],
+                                        seatNumberReservedID=wordlist[1]+wordlist[2])
             db.session.add(a)
         db.session.commit()
 
+    currentDay = datetime.datetime.now()
+    employeeName = models.Employee.query.get(1)
+    a = models.Receipts(userName=user.name,
+                        employeeName=employeeName.name,
+                        screening=screening.id,
+                        price=priceTotal,
+                        pricePaid=priceTotal,
+                        change=0.00,
+                        transactionTime=currentDay)
+    db.session.add(a)
+    db.session.commit()
 
-        if 'adult' in session:
-            adultTotal = session['adult']
+    qr = qrcode.QRCode(
+        version = 1,
+        error_correction = qrcode.constants.ERROR_CORRECT_H,
+        box_size = 10,
+        border = 4,
+    )
+    receipt = models.Receipts.query.filter_by(userName=user.name, screening=screening.id, transactionTime=currentDay).first()
 
-        if 'child' in session:
-            childTotal = session['child']
+    data = receipt.id
 
-        if 'senior' in session:
-            seniorTotal = session['senior']
+    qr.add_data(data)
+    qr.make(fit=True)
 
-        if 'vip' in session:
-            vipTotal = session['vip']
+    img = qr.make_image()
 
-        if 'priceTotal' in session:
-            priceTotal = session['priceTotal']
+    img.save("app/static/qrcodes/" + str(receipt.id) + ".png")
 
+    print(userEmailname)
+    msg = Message(recipients=[userEmailname],
+                  sender=('MCUCinema','sc15fr@leeds.ac.uk'),
+                  subject='MCUCinema Receipt'
+                  )
+    with app.open_resource("static/qrcodes/" + str(receipt.id) + ".png") as fp:
+        msg.attach(str(receipt.id) + ".png", str(receipt.id) + "/png", fp.read())
 
+    msg.body = render_template("emailTemp.txt", user=user,
+                                          movieName=movieName,
+                                          screening=screening,
+                                          adultTotal=adultTotal,
+                                          childTotal=childTotal,
+                                          seniorTotal=seniorTotal,
+                                          vipTotal=vipTotal,
+                                          priceTotal=priceTotal,
+                                          seatList = seatList,
+                                          userEmailname=session['userEmail'],
+                                          cardDetails=cardDetails,
+                                          models=models,
+                                          newCardNumber=newCardNumber,
+                                          cardDetails2 = cardDetails2,
+                                          cardValue = cardValue)
 
+    msg.html = render_template("emailTemp.html", user=user,
+                                          movieName=movieName,
+                                          screening=screening,
+                                          adultTotal=adultTotal,
+                                          childTotal=childTotal,
+                                          seniorTotal=seniorTotal,
+                                          vipTotal=vipTotal,
+                                          priceTotal=priceTotal,
+                                          seatList = seatList,
+                                          userEmailname=session['userEmail'],
+                                          cardDetails=cardDetails,
+                                          models=models,
+                                          newCardNumber=newCardNumber,
+                                          cardDetails2 = cardDetails2,
+                                          cardValue = cardValue)
 
-
-
+    mail = Mail(app)
+    mail.send(msg)
 
     session.pop('movieSearch', None)
     session.pop('movieVar')
@@ -561,8 +747,32 @@ def confirm():
     session.pop('card')
 
     return render_template('confirmation.html',
-                            userEmailname=session['userEmail']
+                            user=user,
+                            movieName=movieName,
+                            screening=screening,
+                            adultTotal=adultTotal,
+                            childTotal=childTotal,
+                            seniorTotal=seniorTotal,
+                            vipTotal=vipTotal,
+                            priceTotal=priceTotal,
+                            seatList = seatList,
+                            userEmailname=session['userEmail'],
+                            cardDetails=cardDetails,
+                            models=models,
+                            newCardNumber=newCardNumber,
+                            cardDetails2 = cardDetails2,
+                            cardValue = cardValue
                             )
+
+# def email():
+#     print(userEmailname.email)
+#     msg = Message(recipients=[userEmailname.email],
+#                   sender='xx@zz.yy',
+#                   reply_to='aa@bb.cc',
+#                   subject='MCUCinema Receipt'
+#                   )
+#     confirmation.html = mail.body
+#     mail.send(msg)
 
 
 @app.route('/logout')

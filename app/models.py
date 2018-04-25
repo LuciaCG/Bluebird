@@ -17,39 +17,52 @@ class Movies(db.Model):
     # def __repr__(self):
     #     return '' % (self.id, self.movieTitle, self.synopsis, self.ageRating)
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class Screenings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     movies_id = db.Column(db.Integer, db.ForeignKey('movies.id'))
     screen_id = db.Column(db.String(150), db.ForeignKey('screen.screenName'))
     time = db.Column(db.DateTime)
-    seatReserved = db.relationship('Seat_Reserved', backref='screenings', lazy='dynamic')
+    Seat_Reserved = db.relationship('Seat_Reserved', backref='screenings', lazy='dynamic')
     userReciept = db.relationship('Receipts', backref='screenings', lazy='dynamic')
     #
     # def __repr__(self):
     #     return '' % (self.id, self.movies_id, self.screen_id, self.time)
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class Screen(db.Model):
     # id = db.Column(db.Integer, primary_key=True)
     screenName = db.Column(db.String(150), primary_key=True)
     Capacity = (db.Column(db.Integer))
     screening = db.relationship('Screenings', backref='screen', lazy='dynamic')
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     #
     # def __repr__(self):
     #     return '' % (self.screenName, self.Capacity)
+
 
 class Seats(db.Model):
     row = db.Column(db.String(1), primary_key=True)
     seatNumber = db.Column(db.Integer, primary_key=True)
 
     # userReciept = db.relationship('Reciept', backref='screenings', lazy='dynamic')
-    #
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     # def __repr__(self):
     #     return '' % (self.row, self.seatNumber)
 
 
 class Seat_Reserved(db.Model):
+
     screening = db.Column(db.Integer, db.ForeignKey('screenings.id'), primary_key=True)
 
     rowReservedID = db.Column(db.String(1), db.ForeignKey('seats.row'), primary_key=True)
@@ -58,9 +71,12 @@ class Seat_Reserved(db.Model):
     rowReserved = db.relationship("Seats", foreign_keys=[rowReservedID])
     seatNumberReserved = db.relationship("Seats", foreign_keys=[seatNumberReservedID])
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
     # def __repr__(self):
     #     return '' % (self.screening, self.rowReservedID, self.seatNumberReservedID)
+
 
 class Employee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -76,6 +92,9 @@ class Employee(db.Model):
 
     # def __repr__(self):
     #     return '' % (self.id, self.name, self.password)
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
 class Users(db.Model):
@@ -101,8 +120,12 @@ class TypeOfTickets(db.Model):
     ticketType = db.Column(db.String(25), primary_key=True)
     price = db.Column(db.Float)
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     # def __repr__(self):
     #     return '' % (self.ticketType, self.price)
+
 
 
 class Receipts(db.Model):
@@ -118,6 +141,8 @@ class Receipts(db.Model):
     # def __repr__(self):
     #     return '' % (self.id, self.userName, self.employeeName, self.screening, self.price, self.pricePaid, self.change, self.transactionTime)
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 class CardDetails(db.Model):
     userID = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)

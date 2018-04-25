@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1050</width>
-    <height>680</height>
+    <width>1005</width>
+    <height>690</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Screenings</string>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
@@ -24,8 +24,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1051</width>
-     <height>691</height>
+     <width>1005</width>
+     <height>690</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -44,7 +44,7 @@
      <string notr="true">background-color:#555555;
 color:#000000;</string>
     </property>
-    <widget class="QLabel" name="lblTitle_5">
+    <widget class="QLabel" name="user">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -62,29 +62,29 @@ font-weight:bold;</string>
       <string>&lt;User Logged in&gt;</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="btnHome_3">
+    <widget class="QPushButton" name="logout">
      <property name="geometry">
       <rect>
-       <x>870</x>
-       <y>0</y>
+       <x>890</x>
+       <y>10</y>
        <width>101</width>
        <height>40</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: #FFFFFF;
+      <string notr="true">background-color:#c0c0c0; color: #555555;
 font-size: 21px;
-border:0;</string>
+border:3;</string>
      </property>
      <property name="text">
       <string>Logout</string>
      </property>
     </widget>
-    <widget class="QLabel" name="lblTitle_6">
+    <widget class="QLabel" name="title">
      <property name="geometry">
       <rect>
        <x>310</x>
-       <y>10</y>
+       <y>0</y>
        <width>401</width>
        <height>101</height>
       </rect>
@@ -96,16 +96,16 @@ font-size:26pt;
 font-weight:bold;</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Movies Screening&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Movies&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="connection">
      <property name="geometry">
       <rect>
-       <x>870</x>
-       <y>40</y>
+       <x>820</x>
+       <y>60</y>
        <width>281</width>
-       <height>101</height>
+       <height>61</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -113,10 +113,10 @@ font-weight:bold;</string>
 font-size: 21px;</string>
      </property>
      <property name="text">
-      <string>Connection Status</string>
+      <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="clock_3">
+    <widget class="QLabel" name="clock">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -133,24 +133,53 @@ font-size: 21px;</string>
       <string>TextLabel</string>
      </property>
     </widget>
-    <zorder>lblTitle_5</zorder>
-    <zorder>btnHome_3</zorder>
-    <zorder>lblTitle_6</zorder>
-    <zorder>label_3</zorder>
-    <zorder>clock_3</zorder>
-    <zorder>tableView2_2</zorder>
    </widget>
-   <widget class="QTableView" name="tableView2">
+   <widget class="QPushButton" name="selection">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>150</y>
-      <width>601</width>
-      <height>341</height>
+      <x>780</x>
+      <y>180</y>
+      <width>211</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="back">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>131</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>140</y>
+      <width>611</width>
+      <height>511</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true">QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold;}</string>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="tabKeyNavigation">
+     <bool>false</bool>
     </property>
     <property name="selectionBehavior">
      <enum>QAbstractItemView::SelectRows</enum>
@@ -161,19 +190,6 @@ font-size: 21px;</string>
     <attribute name="verticalHeaderVisible">
      <bool>false</bool>
     </attribute>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>790</x>
-      <y>200</y>
-      <width>211</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Select</string>
-    </property>
    </widget>
   </widget>
  </widget>
