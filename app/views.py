@@ -126,20 +126,27 @@ def login():
     form2 = SessionForm()
 
     if form.validate_on_submit():
-        user = models.Users.query.filter_by(email=form.name.data).first()
-        password = form.password.data
-        a = hashlib.sha256()
-        a.update(password.encode('utf-8'))
-        # auth = models.Teams.authenticate(form.name.data,
-        #                                  form.password.data)
-        if a.hexdigest() == user.password:
-            session['userEmail'] = form.name.data
-            return redirect(url_for('home'))
+        if models.Users.query.filter_by(email=form.name.data).count() == 1:
+            user = models.Users.query.filter_by(email=form.name.data).first()
+            password = form.password.data
+            a = hashlib.sha256()
+            a.update(password.encode('utf-8'))
+            # auth = models.Teams.authenticate(form.name.data,
+            #                                  form.password.data)
+            if a.hexdigest() == user.password:
+                session['userEmail'] = form.name.data
+                return redirect(url_for('home'))
+            else:
+                flash('Email or Password incorrect')
+                return render_template('login.html',
+                                    title='Sign In',
+                                    form=form)
         else:
             flash('Email or Password incorrect')
             return render_template('login.html',
-                                title='Sign In',
-                                form=form)
+                                title='Login',
+                                form=form,
+                                form2=form2)
     else:
         return render_template('login.html',
                             title='Login',
@@ -170,15 +177,19 @@ def userPage():
         userEmailname = session['userEmail']
         user = models.Users.query.filter_by(email=userEmailname).first()
         if form.validate_on_submit():
-            p = models.CardDetails(userID=user.id,
-                            cardNickname=form.cardNickname.data,
-                            cardNumber=form.cardNumber.data,
-                            exMonth=form.exMonth.data,
-                            exYear=form.exYear.data
-                            )
-            db.session.add(p)
-            db.session.commit()
-            return redirect(url_for('userPage'))
+            if models.CardDetails.query.filter_by(userID=user.id, cardNickname=form.cardNickname.data).count() == 0:
+                p = models.CardDetails(userID=user.id,
+                                cardNickname=form.cardNickname.data,
+                                cardNumber=form.cardNumber.data,
+                                exMonth=form.exMonth.data,
+                                exYear=form.exYear.data
+                                )
+                db.session.add(p)
+                db.session.commit()
+                return redirect(url_for('userPage'))
+            else:
+                print("nickname not unique")
+                return redirect(url_for('userPage'))
     else:
         session['userEmail'] = 'guest@cinema.com'
         userEmailname = session['userEmail']
@@ -240,8 +251,6 @@ def showtimes():
             movieID = session['movieVar']
             movieName = models.Movies.query.filter_by(id=movieID).first()
             screenings = models.Screenings.query.filter_by(movies_id = movieID).all()
-
-
         else:
             return redirect(url_for('home'))
 
@@ -306,13 +315,13 @@ def booktickets():
         if 'movieVar' in session:
             movieID = session['movieVar']
             movieName = models.Movies.query.filter_by(id=movieID).first()
+        else:
+            return redirect(url_for('home'))
 
         if 'scrnVar' in session:
             screeningID = session['scrnVar']
             screening = models.Screenings.query.filter_by(id=screeningID).first()
             seatsRes = models.Seat_Reserved.query.filter_by(screening=screeningID).all()
-
-
         else:
             return redirect(url_for('home'))
 
@@ -496,6 +505,8 @@ def payments():
 
         if 'card' in session:
             cardValue = session['card']
+        else:
+            return redirect(url_for('home'))
 
         if 'userEmail' in session:
             userEmailname = session['userEmail']
@@ -510,26 +521,40 @@ def payments():
             movieID = session['movieVar']
             movieName = models.Movies.query.filter_by(id=movieID).first()
             screenings = models.Screenings.query.filter_by(movies_id = movieID).all()
+        else:
+            return redirect(url_for('home'))
 
         if 'scrnVar' in session:
             screeningID = session['scrnVar']
             screening = models.Screenings.query.filter_by(id=screeningID).first()
             seatsRes = models.Seat_Reserved.query.filter_by(screening=screeningID).all()
+        else:
+            return redirect(url_for('home'))
 
         if 'adult' in session:
             adultTotal = session['adult']
+        else:
+            return redirect(url_for('home'))
 
         if 'child' in session:
             childTotal = session['child']
+        else:
+            return redirect(url_for('home'))
 
         if 'senior' in session:
             seniorTotal = session['senior']
+        else:
+            return redirect(url_for('home'))
 
         if 'vip' in session:
             vipTotal = session['vip']
+        else:
+            return redirect(url_for('home'))
 
         if 'priceTotal' in session:
             priceTotal = session['priceTotal']
+        else:
+            return redirect(url_for('home'))
 
 
 
@@ -609,11 +634,15 @@ def confirm():
         movieID = session['movieVar']
         movieName = models.Movies.query.filter_by(id=movieID).first()
         screenings = models.Screenings.query.filter_by(movies_id = movieID).all()
+    else:
+        return redirect(url_for('home'))
 
     if 'scrnVar' in session:
         screeningID = session['scrnVar']
         screening = models.Screenings.query.filter_by(id=screeningID).first()
         seatsRes = models.Seat_Reserved.query.filter_by(screening=screeningID).all()
+    else:
+        return redirect(url_for('home'))
 
     if 'userEmail' in session:
         userEmailname = session['userEmail']
@@ -626,24 +655,38 @@ def confirm():
 
     if 'seatList' in session:
         seatList = session['seatList']
+    else:
+        return redirect(url_for('home'))
 
     if 'adult' in session:
         adultTotal = session['adult']
+    else:
+        return redirect(url_for('home'))
 
     if 'child' in session:
         childTotal = session['child']
+    else:
+        return redirect(url_for('home'))
 
     if 'senior' in session:
         seniorTotal = session['senior']
+    else:
+        return redirect(url_for('home'))
 
     if 'vip' in session:
         vipTotal = session['vip']
+    else:
+        return redirect(url_for('home'))
 
     if 'priceTotal' in session:
         priceTotal = session['priceTotal']
+    else:
+        return redirect(url_for('home'))
 
     if 'card' in session:
         cardValue = session['card']
+    else:
+        return redirect(url_for('home'))
 
 
     if seatList == None:
