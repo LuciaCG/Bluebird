@@ -92,6 +92,7 @@ learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
 learn::~learn()
 {
     delete ui;
+    delete reply;
 }
 
 void learn::on_selection_clicked()
@@ -101,11 +102,24 @@ void learn::on_selection_clicked()
     if ((ui->tableWidget->selectionModel()->isSelected(ui->tableWidget->currentIndex()))) {
         //check what screen has been selected
         int row = index.row();
-        QString time = ui->tableWidget->model()->data(ui->tableWidget->model()->index(row,2)).toString();
-        int id = ui->tableWidget->model()->data(ui->tableWidget->model()->index(row,0)).toInt();
+        int id = 0;
+
+        QString screenName = ui->tableWidget->model()->data(ui->tableWidget->model()->index(row,0)).toString();
+
+        QJsonDocument response = QJsonDocument::fromJson(data);
+        QJsonObject stuff = response.object();
+        QJsonValue value = stuff.value("screens");
+        QJsonArray array = value.toArray();
+        int i = 0;
+        while(i < array.size() ){
+            if (array[i].toObject().value("screen_id").toString() == screenName){
+                id = array[i].toObject().value("id").toInt();
+            }
+            i++;
+        }
 
         //send title to learn
-        chairs *instance = new chairs(this, time, id, user);
+        chairs *instance = new chairs(this, screenName, id, user);
         instance->show();
     }
 }

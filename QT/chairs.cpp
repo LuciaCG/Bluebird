@@ -2,60 +2,101 @@
 #include "ui_chairs.h"
 #include "payment.h"
 
-chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
+chairs::chairs(QWidget *parent, QString _screenName, int _screenID, QString _user) :
     QWidget(parent),
     ui(new Ui::chairs),
-    screen(_screen), // SCREEN NUMBER
-    id(_id),
+    screenName(_screenName), // SCREEN NUMBER
+    screenID(_screenID),
     user(_user)
 {
     ui->setupUi(this);
     ui->user->setText(user);
 
-    //Initialising the data base connection
-    QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
-    firstDB.setHostName("bluebird");
-        //getting the relative path of the database
-    QDir bluebird = QDir::current();
-    bluebird.cdUp();
-    QString database = bluebird.path();
-    firstDB.setDatabaseName(database + "/app.db");
-        //connecting
-    firstDB.open();
-    if(!firstDB.open())
-        ui->connetion->setText("FAILED");
-     else
-        ui->connetion->setText("Connected");
-
-
     // SCREENING
 
-    // get capacity of room
-    QSqlQuery queryRoom;
-    queryRoom.exec("SELECT * FROM Screen");
-    int capacity = 0;
-    while (queryRoom.next()) {
-            if (queryRoom.value(0).toString() == screen){
-                capacity = queryRoom.value(1).toInt();
-             }
-        }
+    QNetworkAccessManager managerCap;
+    QObject::connect(&managerCap, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
-    QSqlQuery querySeats;
-    querySeats.exec("SELECT * FROM Seats");
+    QUrl urlCap("http://localhost:5000/screen.json");
+
+    QNetworkRequest requestCap(urlCap);
+    replyCap = managerCap.get(requestCap);
+
+    eventLoop.exec();
+
+    if (replyCap->error() != QNetworkReply::NoError){
+        ui->connection->setText("Failed Connection");
+        connected = false;
+    }
+    else {
+        connected = true;
+        dataCap = replyCap->readAll();
+    }
+
+    QJsonDocument responseCap = QJsonDocument::fromJson(dataCap);
+
+    QJsonObject stuffCap = responseCap.object();
+
+    QJsonValue valueCap = stuffCap.value("screen");
+
+    QJsonArray arrayCap = valueCap.toArray();
+
+    int capacity = 0;
+    bool found = false;
+    int i = 0;
+
+    while(i < arrayCap.size() && !found){
+
+        if (arrayCap[i].toObject().value("screenName").toString() == screenName){
+            capacity = arrayCap[i].toObject().value("Capacity").toInt();
+            found = true;
+
+        }
+        i++;
+    }
+
+
+    // SEATS
+
+    QNetworkAccessManager managerSeats;
+    QObject::connect(&managerSeats, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+
+    QUrl urlSeats("http://localhost:5000/seats.json");
+
+    QNetworkRequest requestSeats(urlSeats);
+    replySeats = managerSeats.get(requestSeats);
+
+    eventLoop.exec();
+
+    if (replySeats->error() != QNetworkReply::NoError){
+        ui->warning->setText("WARNING: Failed Connection");
+        connected = false;
+    }
+    else
+        dataSeats = replySeats->readAll();
+
+    QJsonDocument responseSeats = QJsonDocument::fromJson(dataSeats);
+
+    QJsonObject stuffSeats = responseSeats.object();
+
+    QJsonValue valueSeats = stuffSeats.value("seats");
+
+    QJsonArray arraySeats = valueSeats.toArray();
+
 
     int auxRow = 0, auxCol = 0;
     QString lastRow = "";
     int lastCol = 0;
 
-    for (int n = 0; n < capacity; n++){ //how many rows and collumns we need?
-        querySeats.next();
-        if (lastRow < querySeats.value(0).toString()){ //we ned more rows
+    for (int i = 0; i < capacity; i++){ //how many rows and collumns we need?
+
+        if (lastRow < arraySeats[i].toObject().value("row").toString()){ //we ned more rows
             auxRow++;
-            lastRow = querySeats.value(0).toString();
+            lastRow = arraySeats[i].toObject().value("row").toString();
         }
-        if (lastCol < querySeats.value(1).toInt()){ //we need more collumns
+        if (lastCol < arraySeats[i].toObject().value("seatNumber").toInt()){ //we need more collumns
             auxCol++;
-            lastCol = querySeats.value(1).toInt();
+            lastCol = arraySeats[i].toObject().value("seatNumber").toInt();
         }
     }
 
@@ -99,72 +140,115 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
     ui->tableWidget->verticalHeader()->setStyleSheet(header);
 
 
-    QSqlQuery queryRes;
 
-    queryRes.prepare("SELECT * FROM seat__reserved WHERE screening = ?;");
-    queryRes.addBindValue(id);
-    queryRes.exec();
+    // SEATS RESERVED
 
-    while(queryRes.next()){
+    QNetworkAccessManager managerRes;
+    QObject::connect(&managerRes, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
-        QString row = queryRes.value(1).toString();
-        int col = queryRes.value(2).toInt() - 1;
-        int row2 = 0;
+    QUrl urlRes("http://localhost:5000/seatreserved.json");
 
-        if (row == "A"){
-            row2 = 0;
-            }
-        else if (row == "B"){
-            row2 = 1;
-            }
-        else if (row == "C")
-            row2 = 2;
-        else if (row == "D")
-            row2 = 3;
-        else if (row == "E")
-            row2 = 4;
-        else if (row == "F")
-            row2 = 5;
-        else if (row == "G")
-            row2 = 6;
+    QNetworkRequest requestRes(urlRes);
+    replyRes = managerRes.get(requestRes);
 
-        QTableWidgetItem *item = new QTableWidgetItem();
-        item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+    eventLoop.exec();
 
-        ui->tableWidget->setItem(row2, col, item);
+    if (replyRes->error() != QNetworkReply::NoError){
+        ui->warning->setText("WARNING: Failed Connection");
+        connected = false;
+    }
+    else
+        dataRes = replyRes->readAll();
 
+    QJsonDocument responseRes = QJsonDocument::fromJson(dataRes);
 
+    QJsonObject stuffRes = responseRes.object();
+
+    QJsonValue valueRes = stuffRes.value("reserved");
+
+    QJsonArray arrayRes = valueRes.toArray();
+
+    i = 0;
+    while(i < arrayRes.size()){
+        if (screenID == arrayRes[i].toObject().value("screening").toInt()){
+
+            QString row = arrayRes[i].toObject().value("rowReservedID").toString();
+            int col = arrayRes[i].toObject().value("seatNumberReservedID").toInt() - 1;
+            int row2 = 0;
+
+            if (row == "A"){
+                row2 = 0;
+                }
+            else if (row == "B"){
+                row2 = 1;
+                }
+            else if (row == "C")
+                row2 = 2;
+            else if (row == "D")
+                row2 = 3;
+            else if (row == "E")
+                row2 = 4;
+            else if (row == "F")
+                row2 = 5;
+            else if (row == "G")
+                row2 = 6;
+
+            QTableWidgetItem *item = new QTableWidgetItem();
+            item->setFlags(item->flags() ^ Qt::ItemIsSelectable);
+
+            ui->tableWidget->setItem(row2, col, item);
+        }
+        i++;
     }
 
-
     // paint reserved seats
-    Delegate * dg = new Delegate(this, id);
+    Delegate * dg = new Delegate(this, screenID);
     ui->tableWidget->setItemDelegate(dg);
-
-
 
 
     // show seats
     ui->tableWidget->show();
 
 
+    // TYPE OF TICKETS
 
+    QNetworkAccessManager managerT;
+    QObject::connect(&managerT, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
 
+    QUrl urlT("http://localhost:5000/type_of_tickets.json");
 
+    QNetworkRequest requestT(urlT);
+    replyTickets = managerT.get(requestT);
 
+    eventLoop.exec();
 
-    QSqlQuery queryPrice;
-    queryPrice.exec("SELECT * FROM  type_of_tickets");
-    while(queryPrice.next()){
-        if (queryPrice.value(0).toString() == "Child")
-            priceC = queryPrice.value(1).toDouble();
-        else if (queryPrice.value(0).toString() == "Adult")
-            priceA = queryPrice.value(1).toDouble();
-        else if (queryPrice.value(0).toString() == "Senior")
-            priceO = queryPrice.value(1).toDouble();
-        else if (queryPrice.value(0).toString() == "VIP")
-            priceV = queryPrice.value(1).toDouble();
+    if (replyTickets->error() != QNetworkReply::NoError){
+        ui->warning->setText("WARNING: Failed Connection");
+        connected = false;
     }
+    else
+        dataTickets = replyTickets->readAll();
+
+    QJsonDocument responseT = QJsonDocument::fromJson(dataTickets);
+
+    QJsonObject stuffT = responseT.object();
+
+    QJsonValue valueT = stuffT.value("seats");
+
+    QJsonArray arrayT = valueT.toArray();
+
+    i = 0;
+    while(i < arrayT.size()){
+        if (arrayT[i].toObject().value("ticketType").toString() == "Child")
+            priceC = arrayT[i].toObject().value("price").toDouble();
+        else if (arrayT[i].toObject().value("ticketType").toString() == "Adult")
+            priceA = arrayT[i].toObject().value("price").toDouble();
+        else if (arrayT[i].toObject().value("ticketType").toString() == "Senior")
+            priceO = arrayT[i].toObject().value("price").toDouble();
+        else if (arrayT[i].toObject().value("ticketType").toString() == "VIP")
+            priceV = arrayT[i].toObject().value("price").toDouble();
+    }
+
 
     // CLOCK
     QTimer *timer = new QTimer(this);
@@ -184,6 +268,10 @@ chairs::chairs(QWidget *parent, QString _screen, int _id, QString _user) :
 chairs::~chairs()
 {
     delete ui;
+    delete replyCap;
+    delete replySeats;
+    delete replyRes;
+    delete replyTickets;
 }
 
 void chairs::on_back_clicked()
@@ -275,6 +363,9 @@ void chairs::on_selection_clicked()
             QString columnNumString = QString::number(columnNum);
             seatsSelected = seatsSelected + rowLetter + columnNumString + "_";
 
+
+            /*///////////////////////////////////////////////////
+
             QSqlQuery query;
             query.prepare("INSERT INTO Seat__Reserved (screening,rowReservedID,seatNumberReservedID) "
                           "VALUES (?, ?, ?)");
@@ -284,7 +375,9 @@ void chairs::on_selection_clicked()
 
             query.exec();
 
+            ///////////////////////////////////////////////////////*/
             }
+
             double paid = ui->doubleSpinBox->value();
 
             double ticketAdult = ui->Adult->value() * priceA;
@@ -296,8 +389,8 @@ void chairs::on_selection_clicked()
             double change = paid - ticketTotal;
 
             //send title to learn
-            payment *instance = new payment(this, screen, id, user, ticketTotal, paid, change, seatsSelected);
-            instance->show();
+            //payment *instance = new payment(this, screen, id, user, ticketTotal, paid, change, seatsSelected);
+            //instance->show();
         }
     }
 }

@@ -82,6 +82,7 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete reply;
 }
 
 void MainWindow::on_select_clicked()

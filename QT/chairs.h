@@ -11,60 +11,75 @@ class Delegate : public QItemDelegate
  Q_OBJECT
  public:
     int id;
-
-
-
+    QNetworkReply * replyRes;
+    QByteArray dataRes;
+    QEventLoop eventLoop;
+    QJsonArray arrayRes;
 
     Delegate(QWidget *parent = 0, int _id = 0) : QItemDelegate(parent) {
         id = _id;
+
+        QNetworkAccessManager managerRes;
+        QObject::connect(&managerRes, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+
+        QUrl urlRes("http://localhost:5000/seatreserved.json");
+
+        QNetworkRequest requestRes(urlRes);
+        replyRes = managerRes.get(requestRes);
+
+        eventLoop.exec();
+
+        if (replyRes->error() == QNetworkReply::NoError)
+            dataRes = replyRes->readAll();
+
+
+        QJsonDocument responseRes = QJsonDocument::fromJson(dataRes);
+        QJsonObject stuffRes = responseRes.object();
+        QJsonValue valueRes = stuffRes.value("reserved");
+        arrayRes = valueRes.toArray();
+
+    }
+
+    ~Delegate(){
+        delete replyRes;
+
     }
 
     void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
     {
-        QSqlDatabase firstDB = QSqlDatabase::addDatabase("QSQLITE");
-        firstDB.setHostName("bluebird");
-            //getting the relative path of the database
-        QDir bluebird = QDir::current();
-        bluebird.cdUp();
-        QString database = bluebird.path();
-        firstDB.setDatabaseName(database + "/app.db");
-            //connecting
-        firstDB.open();
-
-        QSqlQuery queryRes;
-
-        queryRes.prepare("SELECT * FROM seat__reserved WHERE screening = ?;");
-        queryRes.addBindValue(id);
-        queryRes.exec();
-
+        int i = 0;
         bool found = false;
-        while (queryRes.next() && !found){
-            QString row = queryRes.value(1).toString();
-            int col = queryRes.value(2).toInt();
-            int row2 = 0;
 
-            if (row == "A"){
-                row2 = 0;
-                }
-            else if (row == "B"){
-                row2 = 1;
-                }
-            else if (row == "C")
-                row2 = 2;
-            else if (row == "D")
-                row2 = 3;
-            else if (row == "E")
-                row2 = 4;
-            else if (row == "F")
-                row2 = 5;
-            else if (row == "G")
-                row2 = 6;
+        while (i < arrayRes.size() && !found){
 
-            if (index.row() == row2 && index.column() == col -1){
-                painter->fillRect(option.rect, QBrush(Qt::red));
-                found = true;
+            if (id == arrayRes[i].toObject().value("screening").toInt()){
+
+                QString row = arrayRes[i].toObject().value("rowReservedID").toString();
+                int aux = 0;
+
+                if (row == "A")
+                    aux = 0;
+                else if (row == "B")
+                    aux = 1;
+                else if (row == "C")
+                    aux = 2;
+                else if (row == "D")
+                    aux = 3;
+                else if (row == "E")
+                    aux = 4;
+                else if (row == "F")
+                    aux = 5;
+                else if (row == "G")
+                    aux = 6;
+
+                if (index.row() == aux && index.column() == arrayRes[i].toObject().value("seatNumberReservedID").toInt() -1){
+                    painter->fillRect(option.rect, QBrush(Qt::red));
+                    found = true;
+                }
             }
+            i++;
         }
+
      }
  };
 
@@ -79,7 +94,7 @@ class chairs : public QWidget
     Q_OBJECT
 
 public:
-    explicit chairs(QWidget *parent = 0, QString _screen = "", int _id = 0, QString _user = "");
+    explicit chairs(QWidget *parent = 0, QString _screenName = "", int _screenID = 0, QString _user = "");
     ~chairs();
 
 private slots:
@@ -89,11 +104,26 @@ private slots:
 
 private:
     Ui::chairs *ui;
-    QString screen;
-    int id;
+    QString screenName;
+    int screenID;
     QString user;
 
     double priceC, priceA, priceV, priceO;
+
+    QNetworkReply * replyCap;
+    QByteArray dataCap;
+
+    QNetworkReply * replySeats;
+    QByteArray dataSeats;
+
+    QNetworkReply * replyRes;
+    QByteArray dataRes;
+
+    QNetworkReply * replyTickets;
+    QByteArray dataTickets;
+
+    bool connected;
+    QEventLoop eventLoop;
 
 };
 

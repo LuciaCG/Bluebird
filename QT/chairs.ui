@@ -113,7 +113,7 @@ font-size: 21px;</string>
       <string>TextLabel</string>
      </property>
     </widget>
-    <widget class="QLabel" name="connetion">
+    <widget class="QLabel" name="connection">
      <property name="geometry">
       <rect>
        <x>840</x>
@@ -133,7 +133,7 @@ font-size: 21px;</string>
     <zorder>clock</zorder>
     <zorder>title</zorder>
     <zorder>user</zorder>
-    <zorder>connetion</zorder>
+    <zorder>connection</zorder>
     <zorder>logout</zorder>
    </widget>
    <widget class="QPushButton" name="back">

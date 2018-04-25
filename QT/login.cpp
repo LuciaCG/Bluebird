@@ -37,6 +37,7 @@ Login::Login(QWidget *parent) :
 Login::~Login()
 {
     delete ui;
+    delete reply;
 }
 
 void Login::on_login_clicked()

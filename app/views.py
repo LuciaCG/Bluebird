@@ -29,28 +29,28 @@ def Screens_data():
 @app.route("/screen.json")
 def screen_data():
     data = {"screen" : [ i.as_dict() for i in models.Screen.query.all() ]}
-    response = application.make_response(json.dumps(data, default=str))
+    response = application.make_response(json.dumps(data))
     response.mimetype = "application/json"
     return response
 
-@app.route("/Seats.json")
+@app.route("/seats.json")
 def Seats_data():
     data = {"seats" : [ i.as_dict() for i in models.Seats.query.all() ]}
-    response = application.make_response(json.dumps(data, default=str))
+    response = application.make_response(json.dumps(data))
     response.mimetype = "application/json"
     return response
 
 @app.route("/seatreserved.json")
 def seatreserved_data():
-    data = {"seatreserved" : [ i.as_dict() for i in models.seat__reserved.query.all() ]}
-    response = application.make_response(json.dumps(data, default=str))
+    data = {"reserved" : [ i.as_dict() for i in models.Seat_Reserved.query.all() ]}
+    response = application.make_response(json.dumps(data))
     response.mimetype = "application/json"
     return response
 
 @app.route("/type_of_tickets.json")
 def type_of_tickets_data():
-    data = {"typeOfTickets" : [ i.as_dict() for i in models.type_of_tickets.query.all() ]}
-    response = application.make_response(json.dumps(data, default=str))
+    data = {"tickets" : [ i.as_dict() for i in models.TypeOfTickets.query.all() ]}
+    response = application.make_response(json.dumps(data))
     response.mimetype = "application/json"
     return response
 
