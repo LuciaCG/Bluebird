@@ -18,6 +18,7 @@ oldAll:
 	python3 populatingDatabase.py
 
 flask:
+	module add python/3.4.3; \
 	virtualenv flask; \
 	source flask/bin/activate; \
 	flask/bin/pip install flask; \
@@ -29,8 +30,13 @@ flask:
 	flask/bin/pip install flask-wtf; \
 	flask/bin/pip install flask-babel; \
 	flask/bin/pip install coverage; \
+	flask/bin/pip install Pillow; \
+	flask/bin/pip install qrcode; \
+	make freshAll; \
+	python run.py & xterm -hold -e ./ngrok http 5000; \
 
 flask3:
+	module add python/3.4.3; \
 	virtualenv -p python3 flask; \
 	source flask/bin/activate; \
 	flask/bin/pip install flask; \
@@ -42,6 +48,8 @@ flask3:
 	flask/bin/pip install flask-wtf; \
 	flask/bin/pip install flask-babel; \
 	flask/bin/pip install coverage; \
+	make freshAll; \
+	python run.py & xterm -hold -e ./ngrok http 5000; \
 
 clean:
 	rm -rf app.db
