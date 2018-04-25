@@ -46,13 +46,13 @@ learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
 
     QJsonArray array = value.toArray();
 
-    int auxCol = 2;
 
-    //ui->tableWidget->setRowCount(auxRow);
+
+    int auxCol = 2;
     ui->tableWidget->setColumnCount(auxCol);
 
     QStringList Headers;
-    Headers << "screen" << "Times";
+    Headers << "Screen" <<"Times";
     ui->tableWidget->setHorizontalHeaderLabels(Headers);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
@@ -70,6 +70,7 @@ learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
     ui->tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     ui->tableWidget->show();
+
 
 
     QTimer *timer = new QTimer(this);
@@ -105,6 +106,7 @@ void learn::on_selection_clicked()
         int id = 0;
 
         QString screenName = ui->tableWidget->model()->data(ui->tableWidget->model()->index(row,0)).toString();
+        QString time = ui->tableWidget->model()->data(ui->tableWidget->model()->index(row,1)).toString();
 
         QJsonDocument response = QJsonDocument::fromJson(data);
         QJsonObject stuff = response.object();
@@ -112,8 +114,9 @@ void learn::on_selection_clicked()
         QJsonArray array = value.toArray();
         int i = 0;
         while(i < array.size() ){
-            if (array[i].toObject().value("screen_id").toString() == screenName){
-                id = array[i].toObject().value("id").toInt();
+            if (array[i].toObject().value("screen_id").toString() == screenName
+                    && array[i].toObject().value("time").toString() == time){
+                id = (int)(array[i].toObject().value("id").toInt());
             }
             i++;
         }

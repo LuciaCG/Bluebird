@@ -353,6 +353,8 @@ d = models.Seat_Reserved(screening=2, rowReservedID="A", seatNumberReservedID=4)
 e = models.Seat_Reserved(screening=1, rowReservedID="B", seatNumberReservedID=2)
 f = models.Seat_Reserved(screening=1, rowReservedID="E", seatNumberReservedID=4)
 g = models.Seat_Reserved(screening=4, rowReservedID="A", seatNumberReservedID=4)
+h = models.Seat_Reserved(screening=3, rowReservedID="C", seatNumberReservedID=8)
+
 
 db.session.add(a)
 db.session.add(b)
@@ -361,6 +363,7 @@ db.session.add(d)
 db.session.add(e)
 db.session.add(f)
 db.session.add(g)
+db.session.add(h)
 
 db.session.commit()
 

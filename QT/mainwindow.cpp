@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "learn.h"
-
 #include <QtSql>
 #include <QtWidgets>
 
@@ -41,7 +40,6 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
     QJsonObject stuff = response.object();
 
     QJsonValue value = stuff.value("movies");
-
     QJsonArray array = value.toArray();
 
     int auxRow = array.size(), auxCol = 2;
@@ -50,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
     ui->tableWidget->setColumnCount(auxCol);
 
     QStringList Headers;
-    Headers << "Title" << "Rating";
+    Headers << "Movie" << "Rating";
     ui->tableWidget->setHorizontalHeaderLabels(Headers);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
@@ -58,6 +56,7 @@ MainWindow::MainWindow(QWidget *parent, QString _user) :
         ui->tableWidget->setItem(i, 0, new QTableWidgetItem(array[i].toObject().value("movieTitle").toString()));
         ui->tableWidget->setItem(i, 1, new QTableWidgetItem(array[i].toObject().value("ageRating").toString()));
     }
+
 
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->tableWidget->verticalHeader()->setSectionResizeMode(QHeaderView::Stretch);

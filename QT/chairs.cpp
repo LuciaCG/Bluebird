@@ -10,7 +10,8 @@ chairs::chairs(QWidget *parent, QString _screenName, int _screenID, QString _use
     user(_user)
 {
     ui->setupUi(this);
-    ui->user->setText(user);
+    ui->user->setText(screenName);
+    ui->user->setText(QString::number(screenID));
 
     // SCREENING
 
@@ -308,18 +309,6 @@ void chairs::on_selection_clicked()
         else{
             ui->warning->setText("");
 
-            //QItemSelectionModel *selectionModel = ui->tableWidget->selectionModel();
-            //QModelIndexList *selectedRows = selectionModel->selectedIndexes();
-           // if (selectedRows.size() > 0) {
-           // ui->connetion->setText(QString::number(selectedRows->size()));
-            //}
-            // const QModelIndexList list = ui->tableWidget->selectionModel()->selection().indexes();
-           // for (int i = 0; i < list.count(); i++)
-             //   {
-             //   QModelIndex index = list.at(i);
-            //    ui->connetion->setText(QString::number(ui->tableWidget->Sel));
-                //ui->user->setText(list.at(i));//QString::number(index));
-           //     }
             QItemSelectionModel *selections = ui->tableWidget->selectionModel();
             QModelIndexList selected = selections->selectedIndexes();
             QString seatsSelected = "";
@@ -377,21 +366,40 @@ void chairs::on_selection_clicked()
 
             ///////////////////////////////////////////////////////*/
             }
-
             double paid = ui->doubleSpinBox->value();
-
-            double ticketAdult = ui->Adult->value() * priceA;
-            double ticketChild = ui->Child->value() * priceC;
-            double ticketOAP = ui->OAP->value() * priceO;
-            double ticketVIP = ui->VIP->value() * priceV;
-            double ticketTotal = ticketAdult + ticketChild + ticketOAP + ticketVIP;
+            double ticketTotal = totalPrice();
 
             double change = paid - ticketTotal;
 
-            //send title to learn
-            //payment *instance = new payment(this, screen, id, user, ticketTotal, paid, change, seatsSelected);
-            //instance->show();
+            if (change < 0){
+                ui->warning->setText("• Not enough paid");
+            }
+            else {
+                payment *instance = new payment(this, screen, id, user, ticketTotal, paid, change);
+                instance->show();
+            }
         }
     }
+}
+
+bool chairs::eventFilter(QObject *watched, QEvent *event)
+{
+    if(event->type() == QEvent::MouseButtonPress &&
+            (watched == ui->Adult || watched == ui->Child || watched == ui->OAP|| watched == ui->VIP))
+    {
+        watched->event(event);
+        double price = totalPrice();
+        ui->price->setText("To pay: " + QString::number(price));
+    }
+    return false;
+}
+
+double chairs::totalPrice(){
+    double ticketAdult = ui->Adult->value() * priceA;
+    double ticketChild = ui->Child->value() * priceC;
+    double ticketOAP = ui->OAP->value() * priceO;
+    double ticketVIP = ui->VIP->value() * priceV;
+    return ticketAdult + ticketChild + ticketOAP + ticketVIP;
+
 }
 
