@@ -311,74 +311,6 @@ void chairs::on_selection_clicked()
         else{
             ui->warning->setText("");
 
-            QItemSelectionModel *selections = ui->tableWidget->selectionModel();
-            QModelIndexList selected = selections->selectedIndexes();
-            QString seatsSelected = "";
-
-            for( int i = 0 ; i < selected.size(); i++ )
-            {
-             int rowid = selected[i].row();
-             int colid = selected[i].column();
-
-         // ui->tableWidget->selectedItems()
-            QString rowLetter = "";
-            if(rowid == 0)
-            {
-            rowLetter = "A";
-            }
-            if(rowid == 1)
-            {
-            rowLetter = "B";
-            }
-            if(rowid == 2)
-            {
-            rowLetter = "C";
-            }
-            if(rowid == 3)
-            {
-            rowLetter = "D";
-            }
-            if(rowid == 4)
-            {
-            rowLetter = "E";
-            }
-            if(rowid == 5)
-            {
-            rowLetter = "F";
-            }
-            if(rowid == 6)
-            {
-            rowLetter = "G";
-            }
-            int columnNum = colid+1;
-            QString columnNumString = QString::number(columnNum);
-            seatsSelected = seatsSelected + rowLetter + columnNumString + "_";
-
-
-            double b = screenID;
-            double c = columnNum;
-
-            QUrl serviceUrl = QUrl("http://localhost:5000/postjsonR");
-            QNetworkRequest request1(serviceUrl);
-            QJsonObject json;
-
-            json.insert("screening", QJsonValue::fromVariant("1"));
-            json.insert("rowReservedID", QJsonValue::fromVariant(rowLetter));
-            json.insert("seatNumberReservedID", QJsonValue::fromVariant("9"));
-            //json.insert("id", QJsonValue::fromVariant(Array.size() + 1));
-            //json.insert("transactionTime", QJsonValue::fromVariant(QString::number(current)));
-            //json.insert("userName", QJsonValue::fromVariant("Till"));
-            //json.insert("employeeName", QJsonValue::fromVariant(user));
-            //json.insert("screening", QJsonValue::fromVariant(b));
-
-            QJsonDocument jsonDoc(json);
-            QByteArray jsonData= jsonDoc.toJson();
-            request1.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
-            request1.setHeader(QNetworkRequest::ContentLengthHeader,QByteArray::number(jsonData.size()));
-            QNetworkAccessManager networkManager;
-
-            networkManager.post(request1, jsonData);
-            }
             double paid = ui->doubleSpinBox->value();
             double ticketTotal = totalPrice();
 
@@ -388,6 +320,69 @@ void chairs::on_selection_clicked()
                 ui->warning->setText("• Not enough paid");
             }
             else {
+
+                /////////////////////////////////////////////////////
+                //               Chairs
+                /////////////////////////////////////////////////////
+
+                QItemSelectionModel *selections = ui->tableWidget->selectionModel();
+                QModelIndexList selected = selections->selectedIndexes();
+                QString seatsSelected = "";
+
+                for( int i = 0 ; i < selected.size(); i++ )
+                {
+                    int row = selected[i].row();
+                    int col = selected[i].column();
+
+                    QString rowLetter = "";
+                    if(row == 0)
+                        rowLetter = "A";
+                    if(row == 1)
+                        rowLetter = "B";
+                    if(row == 2)
+                        rowLetter = "C";
+                    if(row == 3)
+                        rowLetter = "D";
+                    if(row == 4)
+                        rowLetter = "E";
+                    if(row == 5)
+                        rowLetter = "F";
+                    if(row == 6)
+                        rowLetter = "G";
+
+                    int columnNum = col + 1;
+                    QString columnNumString = QString::number(columnNum);
+                    seatsSelected = seatsSelected + rowLetter + columnNumString + "_";
+
+                    QUrl serviceUrl = QUrl("http://localhost:5000/postjsonR");
+                    QNetworkRequest request1(serviceUrl);
+                    QJsonObject json;
+
+                    json.insert("screening", QJsonValue(int(screenID)));
+                    json.insert("rowReservedID", QJsonValue(QString(rowLetter)));
+                    json.insert("seatNumberReservedID", QJsonValue(int(col)));
+
+
+                    QJsonDocument jsonDoc(json);
+                    QByteArray jsonData= jsonDoc.toJson();
+                    request1.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
+                    request1.setHeader(QNetworkRequest::ContentLengthHeader,QByteArray::number(jsonData.size()));
+                    QNetworkAccessManager networkManager;
+
+                    networkManager.post(request1, jsonData);
+
+                    QNetworkAccessManager managerS;
+                    QEventLoop eventLoop;
+                    QObject::connect(&managerS, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+                    QUrl urlS("http://localhost:5000/seatreserved.json");
+                    QNetworkRequest requestS(urlS);
+                    managerS.get(requestS);
+                    eventLoop.exec();
+                }
+
+
+
+
 
                 //////////////////////////////////////////////////////
                 //                 make receipt
@@ -402,9 +397,6 @@ void chairs::on_selection_clicked()
                 json.insert("price", QJsonValue(double(ticketTotal)));
                 json.insert("pricePaid", QJsonValue(double(paid)));
                 json.insert("change", QJsonValue(double(change)));
-
-                //json.insert("transactionTime", QJsonValue(QString(current.toString())));
-
                 json.insert("userName", QJsonValue(QString("Till")));
                 json.insert("employeeName", QJsonValue(QString(user)));
                 json.insert("screening", QJsonValue(int(screenID)));
@@ -418,7 +410,6 @@ void chairs::on_selection_clicked()
                 networkManager.post(request1, jsonData);
 
                 QNetworkAccessManager manager;
-                QEventLoop eventLoop;
                 QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
                 QUrl url("http://localhost:5000/receipts.json");
                 QNetworkRequest request(url);

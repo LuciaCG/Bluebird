@@ -21,25 +21,18 @@ def postJsonHandler():
 
     db.session.add(a)
     db.session.commit()
-    #print (content)
     return 'JSON posted'
 
 @app.route('/postjsonR', methods = ['POST'])
 def postJsonHandlerR():
     print (request.is_json)
-    #content = request.get_json()
     screeningR = request.get_json()['screening']
     rowReservedIDR = request.get_json()['rowReservedID']
     seatNumberReservedIDR = request.get_json()['seatNumberReservedID']
-    #transactionTimeR = request.get_json()['transactionTime']
     a = models.Seat_Reserved(screening=screeningR, rowReservedID=rowReservedIDR, seatNumberReservedID=seatNumberReservedIDR)
-    #movieTitleR = request.get_json()['movieTitle']
-    #synopsisR = request.get_json()['synopsis']
-    #ageRatingR = request.get_json()['ageRating']
-    #a = models.Movies(movieTitle=movieTitleR, synopsis=synopsisR, ageRating=ageRatingR)
+
     db.session.add(a)
     db.session.commit()
-    print (content)
     return 'JSON posted'
 
 @app.route("/employee.json")
