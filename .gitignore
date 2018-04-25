@@ -6,4 +6,7 @@ build-UI2-Desktop-Debug/
 *.pyc
 *.db
 *.pro.user
-*.debug
+debug/
+*.sh
+app/static/qrcodes/*.png
+flask/

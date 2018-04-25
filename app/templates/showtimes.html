@@ -2,7 +2,7 @@
 {% block content %}
 
 
-<section class="jumbotron text-center">
+<section id="background" class="jumbotron text-center">
   <div class="container">
     <h1 class="jumbotron-heading">{{movieName.movieTitle}}</h1>
   </div>
@@ -16,10 +16,10 @@
     <div class="col-md-12">
       <div class="card mb-4 box-shadow">
         <div class="card-body">
-          <h1>{{screening.time.strftime('%B %d %Y')  }}</h1>
+          <h2>{{screening.time.strftime('%B %d %Y')  }}</h2>
           <h2>{{screening.time.strftime('%-H:00')  }}</h2>
           <form method="post">
-          <button name="bookSeat" type="submit" value="{{screening.id}}">Book a seat</button>
+          <button class ="button button5" name="bookSeat" type="submit" value="{{screening.id}}">Book a seat</button>
           </form>
         </div>
       </div>

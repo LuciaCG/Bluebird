@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="loginpagecontainer">
+  <div id="loginpagediv">
+    <h1>Login</h1>
+    <form action="" method="post" name="login">
+      {{ form.hidden_tag() }}
+      <p>Email</p>
+      <p>{{ form.name(cols=40) }}</p>
+      <p>Password</p>
+      <p>{{ form.password(cols=40) }}</p>
+
+      <!-- button for submitting the data -->
+      <input type="submit" value="Submit">
+
+    </form>
+  </div>
+
+
+</div>
+
+{% with messages = get_flashed_messages() %}
+   {% if messages %}
+    <ul>
+     {% for message in messages %}
+       <li><style> li {display:inline}</style>{{ message }} </li>
+     {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% endblock %}

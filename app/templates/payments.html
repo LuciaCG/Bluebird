@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block content %}
+
+Payments page<br>
+
+Name: {{user.name}}<br>
+Email: {{user.email}}<br>
+Movie: {{movieName.movieTitle}}<br>
+Showing selected: {{screening.time}} {{screening.screen_id}}<br>
+No of tickets: <br>
+  Adult: {{adultTotal}} - £{{adultTotal*9}}<br>
+  Child: {{childTotal}} - £{{childTotal*6.5}}<br>
+  Senior: {{seniorTotal}} - £{{seniorTotal*7}}<br>
+  VIP: {{vipTotal}} - £{{vipTotal*12}}<br>
+
+Total Price:  £{{priceTotal}}<br>
+
+Seats selected: {{seatList}}<br>
+{% if userEmailname != "guest@cinema.com" %}
+Cards:<br>
+<form method="post">
+<select name ="dropdownCard" onchange="this.form.submit()">
+  <option value=""></option>
+  <option value="nocard">Use Different Card</option>
+  {% for details in cardDetails %}
+    <option value="{{details.cardNickname}}">{{details.cardNickname}}</option>
+  {% endfor %}
+{% endif %}
+
+</select>
+</form><br>
+
+ {% if cardValue == 'nocard' or cardValue == 'none' %}
+  <form method="post">
+
+    <h4>Enter Card Details</h4>
+
+    Card Number: <input type="text" name="Cnumber"><br>
+    Expiry Month: <input type="text" style="width:40" name="Emonth"><br>
+    Expiry Year: <input type="text" style="width:40" name="Eyear"><br>
+    Security Number: <input type="text" maxlength="3" style="width:40" name="Snumber"><br>
+    {% if userEmailname == "guest@cinema.com" %}
+    Email: <input type="text" name="Snumber"><br>
+    {% endif %}
+    <br>
+    <input type="button" id="btnRedirect" value="Redirect" />
+    <br />
+    <br />
+    <div id="dvCountDown" style="display: none">
+      <img src="static/images/marvel.gif">
+    Checking your card details. Please wait. <span id="lblCount"></span>&nbsp;seconds.
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+    $(function () {
+        $("#btnRedirect").click(function () {
+            var seconds = 3;
+            $("#dvCountDown").show();
+            $("#lblCount").html(seconds);
+            setInterval(function () {
+                seconds--;
+                $("#lblCount").html(seconds);
+                if (seconds == 0) {
+                    $("#dvCountDown").hide();
+                    window.location = "http://localhost:5000/confirmation";
+                }
+            }, 1000);
+        });
+    });
+    </script>
+      </form>
+
+ {% else %}
+ <form method="post">
+
+
+   Card Name: {{cardDetails2.cardNickname}} <br>
+   Card Number: ************{{newCardNumber}} <br>
+   Expiry Month: {{cardDetails2.exMonth}} <br>
+   Expiry Year: {{cardDetails2.exYear}} <br>
+   Security Number: <input type="text" maxlength="3"  style="width:40" name="Snumber"><br>
+   <br>
+   <input type="button" id="btnRedirect" value="Redirect" />
+   <br />
+   <br />
+   <div id="dvCountDown" style="display: none">
+     <img src="static/images/marvel.gif">
+   Checking your card details. Please wait. <span id="lblCount"></span>&nbsp;seconds.
+   </div>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+   <script type="text/javascript">
+   $(function () {
+       $("#btnRedirect").click(function () {
+           var seconds = 3;
+           $("#dvCountDown").show();
+           $("#lblCount").html(seconds);
+           setInterval(function () {
+               seconds--;
+               $("#lblCount").html(seconds);
+               if (seconds == 0) {
+                   $("#dvCountDown").hide();
+                   window.location = "http://localhost:5000/confirmation";
+               }
+           }, 1000);
+       });
+   });
+   </script>
+ </form>
+
+
+ {% endif %}
+
+
+
+
+{% endblock %}
+
+<!--
+  To Do List
+ Task 1: Link purchase button to loading transaction modal Done!(not a modal tho!)
+ Task 2: Complete the purchase and reserve the seats selected
+ Task 3: Display the reciept on the screen
+ Task 4: email a copy of the reciept to the users email
+ Task 6: Debug and Error check
+ Task 5: Style
+
+
+ -->

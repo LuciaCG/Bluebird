@@ -1,39 +1,128 @@
 {% extends "base.html" %}
 {% block content %}
-
-Book a ticket page<br>
-
-
-{{movieName.movieTitle}}<br>
-{{movieName.synopsis}}<br>
-{{movieName.ageRating}}<br>
-
-{{screening.time}}<br>
-
-{{screening.screen_id}}<br>
-Seats Reserved<br>
-{% for seats in seatsRes %}
-
-  {{seats.rowReservedID}}
-  {{seats.seatNumberReservedID}}
-
-{% endfor %}<br>
-All Seats<br>
-
-<table>
-{% for seats in seatsAll %}
-<tr>
-  <td>
-    <form method="post">
-      <button name="bookThisSeat" type="submit" value="{{seats.row}}{{seats.seatNumber}}">{{seats.row}}{{seats.seatNumber}}</button>
-    </form>
-  </td>
-</tr>
-
-{% endfor %}<br>
-</table>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" align="center">
+      <h1> Now Booking Your Tickets </h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2>{{screening.time}} {{screening.screen_id}}</h2><br>
+      <h2>{{movieName.movieTitle}}</h2><br>
+      {{movieName.synopsis}}<br>
+      {{movieName.ageRating}}<br>
+    </div>
+    <div class="col-md-6" align="center">
+      <img id="booktickets_poster" src={{movieName.moviePoster}} alt="poster">
+    </div>
 
 
+
+  </div>
+  <div class="row" >
+    <div class="col-md-6">
+    <h3 style="width:100%" > Choose Type and Number of Tickets </h3><br>
+    <div class="col-md-6">
+      <form name= "Tickets" method="post">
+      {% if adultTotal <= 0 %}
+      <h4>Adult - £9.00 </h4> <h5> Total Number of Adult Tickets: {{(adultTotal)}} </h5> <button class ="button button4" name="adultMinus" disabled type="submit" value="9.00" > - </button> <button class ="button button5" name="adultPlus" type="submit" value="9"> + </button> £{{adultTotal*9}} <br>
+      {% else %}
+      <h4>Adult - £9.00 </h4> <h5> Total Number of Adult Tickets: {{(adultTotal)}} </h5> <button class ="button button5" name="adultMinus" type="submit" value="9.00" > - </button> <button class ="button button5" name="adultPlus" type="submit" value="9"> + </button> £{{adultTotal*9}} <br>
+      {% endif %}
+      {% if childTotal/6.5 <= 0 %}
+      <h4>Child - £6.50 </h4> <h5> Total Number of Child Tickets: {{(childTotal)}} </h5>  <button class ="button button4" name="childMinus" disabled type="submit" value="6.50" > - </button> <button class ="button button5" name="childPlus" type="submit" value="6.5"> + </button> £{{childTotal*6.5}}<br>
+      {% else %}
+      <h4>Child - £6.50 </h4> <h5> Total Number of Child Tickets: {{(childTotal)}} </h5>  <button class ="button button5" name="childMinus" type="submit" value="6.50" > - </button> <button class ="button button5" name="childPlus" type="submit" value="6.5"> + </button> £{{childTotal*6.5}}<br>
+      {% endif %}
+      </form>
+    </div>
+    <div class="col-md-6">
+      <form name= "Tickets" method="post">
+      {% if seniorTotal/7 <= 0 %}
+      <h4>Senior - £7.00 </h4> <h5> Total Number of Senior Tickets: {{(seniorTotal)}} </h5> <button class ="button button4" name="seniorMinus" disabled type="submit" value="7.00" > - </button> <button class ="button button5" name="seniorPlus" type="submit" value="7"> + </button> £{{seniorTotal*7}} <br>
+      {% else %}
+      <h4>Senior - £7.00 </h4> <h5> Total Number of Senior Tickets: {{(seniorTotal)}} </h5> <button class ="button button5" name="seniorMinus" type="submit" value="7.00" > - </button> <button class ="button button5" name="seniorPlus" type="submit" value="7"> + </button> £{{seniorTotal*7}} <br>
+      {% endif %}
+      {% if vipTotal/12 <= 0 %}
+      <h4>VIP - £12.00 </h4> <h5> Total Number of VIP Tickets: {{(vipTotal)}} </h5>  <button class ="button button4" name="vipMinus" disabled type="submit" value="12.00" > - </button> <button class ="button button5" name="vipPlus" type="submit" value="12"> + </button> £{{vipTotal*12}}<br>
+      {% else %}
+      <h4>VIP - £12.00 </h4> <h5> Total Number of VIP Tickets: {{(vipTotal)}} </h5>  <button class ="button button5" name="vipMinus" type="submit" value="12.00" > - </button> <button class ="button button5" name="vipPlus" type="submit" value="12"> + </button> £{{vipTotal*12}}<br>
+      {% endif %}
+      </form>
+    </div>
+
+
+
+
+
+  </div>
+  <div class="col-md-6">
+  <br>
+    <div align="center" id="screenicon">
+      <h2 id="screentext">Screen</h2>
+    </div>
+    <br>
+      <div class="row">
+    <table width="100%">
+      {% for row in rows %}
+    <!-- <th>
+          {{row.row}}
+    </th> -->
+      <tr width="100%">
+        {% for seat in seatNumber %}
+        <td align="center">
+          <!-- {{seat}}{{row}} -->
+          {% if models.Seat_Reserved.query.filter_by(screening=screening.id, rowReservedID=row.row, seatNumberReservedID=seat.seatNumber).count() == 1%}
+          <form method="post" >
+            <button class ="button button4" disabled name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
+          </form>
+          {% elif row.row + seat.seatNumber|string in seatList and seatList %}
+          <form name="seats" method="post" >
+            <button class ="button button3" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
+          </form>
+          {% else %}
+          <form name="seats" method="post" >
+            <button class ="button button5" name="bookThisSeat" type="submit" value="{{row.row}}{{seat.seatNumber}}">{{row.row}}{{seat.seatNumber}}</button>
+          </form>
+          {% endif %}
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}<br>
+    </table>
+  </div>
+
+<div class="row" style="margin-left:25%;">
+  <br>
+<button class="button button5" disabled> Available </button>
+<button class="button button4" disabled> Reserved </button>
+<button class="button button3" disabled> Selected </button>
+</div>
+  </div>
+
+
+
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12" align="center">
+      (  {{seatList}} )
+      {% if priceTotal <= 0 %}
+        <h5> Total price to pay: £{{priceTotal}}</h5>
+      {% else %}
+        <h5> Total price to pay: £{{priceTotal}}</h5>
+      {% endif %}
+      <form method="post">
+        <button class ="button button5" name="gotoPay" type="submit">Book these tickets</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<br>
 
 
 

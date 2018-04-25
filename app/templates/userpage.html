@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+{{user.name}}
+{{user.email}}
+
+
+<div class="row">
+  <div class="col-md-12">
+    <h3>Add a Card</h3>
+    <form action="" method="post" name="addCard">
+      {{ form.hidden_tag() }}
+      <p>Please enter a card nickname</p>
+      <p>{{ form.cardNickname(cols=40) }}</p>
+      <p>Card Number</p>
+      <p>{{ form.cardNumber(cols=40) }}</p>
+      <p>Month Expiry Date</p>
+      <p>{{ form.exMonth(cols=40) }}</p>
+      <p>Year Expiry Date</p>
+      <p>{{ form.exYear(cols=40) }}</p>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>
+
+{% endblock %}

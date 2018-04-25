@@ -1,0 +1,23 @@
+{% block content %}
+<h3>Your Tickets!</h3>
+<h2>Collect your tickets from any automatic <br> collection point or till point at the cinema </h2>
+
+<h3>THIS EMAIL IS YOUR TICKET</h3><br>
+<h3>SIMPLY SHOW THE ATTACHED QR CODE<h3><br>
+
+
+
+Name: {{user.name}}<br>
+Email: {{user.email}}<br>
+Movie: {{movieName.movieTitle}}<br>
+Showing selected: {{screening.time}} {{screening.screen_id}}<br>
+Tickets Purchased: <br>
+Adult: {{adultTotal}} - £{{adultTotal*9}}<br>
+Child: {{childTotal}} - £{{childTotal*6.5}}<br>
+Senior: {{seniorTotal}} - £{{seniorTotal*7}}<br>
+VIP: {{vipTotal}} - £{{vipTotal*12}}<br>
+Total Price:  £{{priceTotal}}<br>
+Seats selected: {{seatList}}<br>
+
+
+{% endblock %}

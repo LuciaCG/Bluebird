@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="signuppagecontainer">
+  <div id="signuppagediv">
+    <h1>Sign Up</h1>
+    <form action="" method="post" name="signup">
+      {{ form.hidden_tag() }}
+      <p>Please enter your full name</p>
+      <p>{{ form.name(cols=40) }}</p>
+      <p>Please enter your email</p>
+      <p>{{ form.email(cols=40) }}</p>
+      <p>Choose a password (8-16 characters)</p>
+      <p>{{ form.password(cols=40) }}</p>
+      <p>Please confirm your password</p>
+      <p>{{ form.confirm(cols=40) }}</p>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>
+<div id="signuppagefooter">
+  <a href="{{ url_for('login')}}">Back to Login page</a>
+</div>
+{% endblock %}

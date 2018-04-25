@@ -4,10 +4,31 @@
   color: black;
 }
 
+#nowshowing_card {
+  margin-top: 12%!important;
+}
+
 #navbarpadedit {
   margin-bottom: 0px!important;
   border-radius: 0px!important;
   /*padding: 0px!important;*/
+}
+
+.hidden {
+  display: none;
+}
+
+.bg-dark {
+  background-color: #6c757d!important;
+}
+
+.navButtonText {
+  color: #6D0101;
+}
+
+.navButton: hover {
+  color: #6D0101;
+  text-decoration: none;
 }
 
 #log_reg {
@@ -16,21 +37,73 @@
   float:right;
 }
 
-#loginbutton {
-  margin-top: 12.5px;
-  height: 25px;
-  color: #6D0101;
+#screenicon {
+  border: 4px;
+  border-style: ridge;
+  /*border-color: black;*/
+}
+#screentext {
+  margin: 0px;
+  /*margin-left: 37%;*/
+  padding-bottom: 5px;
+  text-align: center;
 }
 
+#navloginbutton {
+  /*margin-top: 12.5px;*/
+  margin-left: 15px;
+  height: 25px;
+  color: #6D0101!important;
+  padding-top: 0px!important;
+}
+
+#navhomelink {
+  /*margin-top: 12.5px;*/
+  margin-left: 15px;
+  height: 25px;
+  color: #6D0101!important;
+}
+
+#navnowshowinglink {
+  /*margin-top: 12.5px;*/
+  margin-left: 15px;
+  height: 25px;
+  color: #6D0101!important;
+}
+
+.nav-item {
+  margin-top: 2px!important;
+  margin-bottom: 2px!important;
+  /*color: #6D0101!important;*/
+}
+
+.nav-link {
+  padding: 0px!important;
+  color: #6D0101!important;
+}
 #modal-login-back {
   background-color: black;
 }
 
-#regbutton {
-  margin-top: 12.5px;
+#navregbutton {
+  /*margin-top: 12.5px;*/
   margin-left: 15px;
   height: 25px;
-  color: #6D0101;
+  color: #6D0101!important;
+}
+
+#navusername {
+  /*margin-top: 12.5px;*/
+  margin-left: 15px;
+  height: 25px;
+  /*color: #6D0101;*/
+}
+
+#navlogoutbutton {
+  /*margin-top: 12.5px;*/
+  margin-left: 15px;
+  height: 25px;
+  color: #6D0101!important;
 }
 
 #navlogoplace {
@@ -44,6 +117,15 @@
 .carousel-text
 {
   text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+#nowshowing_movieposter{
+  margin-bottom: 5px;
+}
+
+#booktickets_poster {
+  height: 305px;
+  width: 245px;
 }
 
 #marvellogohome {
@@ -63,9 +145,36 @@
 
 #background
 {
-    /*background-image: url(../images/polygon-background.jpg);*/
+    background-image: url(../images/snow.jpg);
 }
 
+.button5 {
+    background-color: white;
+    color: black;
+    border: 2px solid #555555;
+    border-radius: 8px;
+}
+
+.button5:hover {
+    background-color: #555555;
+    border-radius: 8px;
+    color: white;
+}
+
+.button4{
+  background-color: #555555;
+  border-radius: 8px;
+  color: white;
+
+}
+
+.button3{
+  background-color: #690300;
+  color: black;
+  border: 2px solid #555555;
+  border-radius: 8px;
+  color: white;
+}
 
 .modal-pointer
 {

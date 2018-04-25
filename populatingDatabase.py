@@ -2,6 +2,7 @@ from app import models, db
 import datetime
 
 
+
 ############## useful queries ###############
 #
 
@@ -19,14 +20,6 @@ import datetime
 #   print(screens.screenName)
 #   print(screens.Capacity)
 #   print()
-#
-# from app import models, db
-# import datetime
-# for screenings in models.Screenings.query.filter_by(movies_id = 1).all():
-#    print(models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle)
-#    print(screenings.screen_id)
-#    print(screenings.time)
-#    print()
 #
 # from app import models, db
 # import datetime
@@ -78,7 +71,7 @@ import datetime
 # models.Movies.query.filter_by(id=screenings.movies_id).first().movieTitle
 # a = models.Movies.query.filter_by(movieTitle="...").first()
 
-
+#
 # from app import models, db
 # import datetime
 # seatNumber = models.Seats.query.with_entities(models.Seats.seatNumber).group_by(models.Seats.seatNumber).all()
@@ -92,13 +85,14 @@ import datetime
 #     for b in seatNumber:
 #         if x == 15:
 #             break
-#         print(a.row , b.seatNumber)
+#         c = models.Seats.query.filter_by(row = a.row, seatNumber = b.seatNumber).first()
+#         print(b.seatNumber)
+#         print(c.row , c.seatNumber)
 #         x+=1
+#         print(x)
 
+# models.Seat_Reserved.query.filter_by(screening=1, rowReservedID=row, seatNumberReservedID=number).count()
 
-
-
-        # print(x)
 
 
 
@@ -110,6 +104,10 @@ import datetime
 ############### del all relivant db tables ##############
 for movies in models.Movies.query.all():
     db.session.delete(movies)
+    db.session.commit()
+
+for cards in models.CardDetails.query.all():
+    db.session.delete(cards)
     db.session.commit()
 
 for screen in models.Screen.query.all():
@@ -139,21 +137,60 @@ for user in models.Users.query.all():
 for ticket in models.TypeOfTickets.query.all():
     db.session.delete(ticket)
     db.session.commit()
-
 ############### del all relivant db tables ##############
 
 ############### adding movie to Movies tables ##############
-newMovieBlackPanther = models.Movies(movieTitle="Black Panther", synopsis="T'Challa, the King of Wakanda, rises to the throne in the isolated, technologically advanced African nation, but his claim is challenged by a vengeful outsider who was a childhood victim of T'Challa's father's mistake", ageRating="12A")
-newMovieTheGreatestShowman = models.Movies(movieTitle="The Greatest Showman", synopsis="Celebrates the birth of show business, and tells of a visionary who rose from nothing to create a spectacle that became a worldwide sensation.", ageRating="PG")
-newMovieRedSparrow = models.Movies(movieTitle="Red Sparrow", synopsis="Ballerina Dominika Egorova is recruited to 'Sparrow School,' a Russian intelligence service where she is forced to use her body as a weapon. Her first mission, targeting a C.I.A. agent, threatens to unravel the security of both nations.", ageRating="15")
+newMovieIronMan = models.Movies(movieTitle="Iron Man", synopsis="After being held captive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.", ageRating="12A", director="Jon Favreau", leadActors="Robert Downey Jr., Terrence Howard, Gwyneth Paltrow, Jeff Bridges", moviePoster="static/images/IronManPoster.jpg", carasellPoster="static/images/image")
+newMovieTheIncredibleHulk = models.Movies(movieTitle="The Incredible Hulk", synopsis="Bruce Banner, a scientist on the run from the U.S. Government, must find a cure for the monster he turns into, whenever he loses his temper.", ageRating="12", director="Louis Leterrier", leadActors="Edward Norton, Liv Tyler, Tim Roth", moviePoster="static/images/HulkPoster.jpg", carasellPoster="static/images/image")
+newMovieIronMan2 = models.Movies(movieTitle="Iron Man 2", synopsis="With the world now aware of his identity as Iron Man, Tony Stark must contend with both his declining health and a vengeful mad man with ties to his father's legacy.", ageRating="12", director="Jon Favreau", leadActors="Robert Downey Jr., Don Cheadle, Gwyneth Paltrow, Scarlett Johansson, Mickey Rourke,", moviePoster="static/images/IronMan2Poster.jpg", carasellPoster="static/images/image")
+newMovieThor = models.Movies(movieTitle="Thor", synopsis="The powerful, but arrogant god Thor, is cast out of Asgard to live amongst humans in Midgard (Earth), where he soon becomes one of their finest defenders.", ageRating="12", director="Kenneth Branagh", leadActors="Chris Hemsworth, Anthony Hopkins, Natalie Portman", moviePoster="static/images/ThorPoster.jpg", carasellPoster="static/images/image")
+newMovieCaptainAmericaTFA = models.Movies(movieTitle="Captain America: The First Avenger", synopsis="Steve Rogers, a rejected military soldier transforms into Captain America after taking a dose of a \"Super-Soldier serum\". But being Captain America comes at a price as he attempts to take down a war monger and a terrorist organization.", ageRating="12", director="Joe Johnston", leadActors="Chris Evans, Hugo Weaving, Samuel L. Jackson, Hayley Atwell", moviePoster="static/images/CaptainAmerica1Poster.jpg", carasellPoster="static/images/image")
+newMovieTheAvengers = models.Movies(movieTitle="Avengers Assemble", synopsis="Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.", ageRating="12", director="Joss Whedon", leadActors="Robert Downey Jr., Chris Evans, Scarlett Johansson, Mark Ruffalo, Chris Hemsworth, Tom Hiddleston", moviePoster="static/images/Avengers1Poster.jpg", carasellPoster="static/images/image")
+newMovieIronMan3 = models.Movies(movieTitle="Iron Man 3", synopsis="When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin, he starts an odyssey of rebuilding and retribution.", ageRating="12", director="Shane Black", leadActors="Robert Downey Jr., Guy Pearce, Gwyneth Paltrow", moviePoster="static/images/IronMan3Poster.jpg", carasellPoster="static/images/image")
+newMovieThorTheDarkWorld = models.Movies(movieTitle="Thor: The Dark World", synopsis="When Dr. Jane Foster gets cursed with a powerful entity known as the Aether, Thor is heralded of the cosmic event known as the Convergence and the genocidal Dark Elves.", ageRating="12", director="Alan Taylor", leadActors="Chris Hemsworth, Natalie Portman, Christopher Eccleston", moviePoster="static/images/Thor2Poster.jpg", carasellPoster="static/images/image")
+newMovieCaptainAmericaTWS = models.Movies(movieTitle="Captain America: The Winter Soldier", synopsis="As Steve Rogers struggles to embrace his role in the modern world, he teams up with a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat from history: an assassin known as the Winter Soldier.", ageRating="12", director="Joe Russo, Anthony Russo", leadActors="Chris Evans, Samuel L. Jackson, Scarlett Johansson, Robert Redford, Sebastian Stan, Anthony Mackie", moviePoster="static/images/CaptainAmerica2Poster.jpg", carasellPoster="static/images/image")
+newMovieGuardiansoftheGalaxy = models.Movies(movieTitle="Guardians of the Galaxy", synopsis="A group of intergalactic criminals are forced to work together to stop a fanatical warrior from taking control of the universe.", ageRating="12", director="James Gunn", leadActors="Chris Pratt, Zoe Saldana, Dave Bautista, Bradley Cooper, Vin Diesel, Lee Pace", moviePoster="static/images/GoGPoster.jpg", carasellPoster="static/images/guardiansOfTheGalaxyWidePoster.jpg")
+newMovieAvengersAOU = models.Movies(movieTitle="Avengers: Age of Ultron", synopsis="When Tony Stark and Bruce Banner try to jump-start a dormant peacekeeping program called Ultron, things go horribly wrong and it's up to Earth's mightiest heroes to stop the villainous Ultron from enacting his terrible plan.", ageRating="12", director="Joss Whedon", leadActors="Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth, James Spader", moviePoster="static/images/Avengers2Poster.jpg", carasellPoster="static/images/image")
+newMovieAntMan = models.Movies(movieTitle="Ant-Man", synopsis="Forced out of his own company by former protege Darren Cross, Dr. Hank Pym (Michael Douglas) recruits the talents of Scott Lang (Paul Rudd), a master thief just released from prison. Lang becomes Ant-Man, trained by Pym and armed with a suit that allows him to shrink in size, possess superhuman strength and control an army of ants. The miniature hero must use his new skills to prevent Cross, also known as Yellowjacket, from perfecting the same technology and using it as a weapon for evil.", ageRating="12A", director="Peyton Reed", leadActors="Paul Rudd, Michael Douglas, Corey Stoll, Evangeline Lilly", moviePoster="static/images/Ant-ManPoster.jpg", carasellPoster="static/images/image")
+newMovieCaptainAmericaCivilWar = models.Movies(movieTitle="Captain America: Civil War", synopsis="Political pressure mounts to install a system of accountability when the actions of the Avengers lead to collateral damage. The new status quo deeply divides members of the team. Captain America (Chris Evans) believes superheroes should remain free to defend humanity without government interference. Iron Man (Robert Downey Jr.) sharply disagrees and supports oversight. As the debate escalates into an all-out feud, Black Widow (Scarlett Johansson) and Hawkeye (Jeremy Renner) must pick a side.", ageRating="12A", director="Anthony Russo, Joe Russo", leadActors="Chris Evans, Robert Downey Jr., Scarlett Johansson", moviePoster="static/images/CaptainAmericaCivilWarPoster.jpg", carasellPoster="static/images/CaptainAmericaCivilWar.jpg")
+newMovieDoctorStrange = models.Movies(movieTitle="Doctor Strange", synopsis="While on a journey of physical and spiritual healing, a brilliant neurosurgeon is drawn into the world of the mystic arts.", ageRating="12A", director="Scott Derrickson", leadActors="Benedict Cumberbatch, Chiwetel Ejiofor, Rachel McAdams, Tilda Swinton, Mads Mikkelsen", moviePoster="static/images/DoctorStrangePoster.jpg", carasellPoster="static/images/image")
+newMovieGuardiansoftheGalaxy2 = models.Movies(movieTitle="Guardians of the Galaxy: Vol. 2", synopsis="The Guardians must fight to keep their newfound family together as they unravel the mystery of Peter Quill's true parentage.", ageRating="12A", director="James Gunn", leadActors="Chris Pratt, Zoe Saldana, Dave Bautista, Bradley Cooper, Vin Diesel, Kurt Russell", moviePoster="static/images/GoG2Poster.jpg", carasellPoster="static/images/guardiansOfTheGalaxyWidePoster.jpg")
+newMovieSpiderManHomecoming = models.Movies(movieTitle="Spider-Man: Homecoming", synopsis="Thrilled by his experience with the Avengers, young Peter Parker returns home to live with his Aunt May. Under the watchful eye of mentor Tony Stark, Parker starts to embrace his newfound identity as Spider-Man. He also tries to return to his normal daily routine -- distracted by thoughts of proving himself to be more than just a friendly neighborhood superhero. Peter must soon put his powers to the test when the evil Vulture emerges to threaten everything that he holds dear.", ageRating="12A", director="Jon Watts", leadActors="Tom Holland, Michael Keaton, Robert Downey Jr.", moviePoster="static/images/SpidermanHomecomingPoster.jpg", carasellPoster="static/images/image")
+newMovieThorRagnarok = models.Movies(movieTitle="Thor: Ragnarok", synopsis="Thor is imprisoned on the planet Sakaar, and must race against time to return to Asgard and stop Ragnarok, the destruction of his world, which is at the hands of the powerful and ruthless villain Hela.", ageRating="12A", director="Taika Waititi", leadActors="Chris Hemsworth, Tom Hiddleston, Cate Blanchett, Mark Ruffalo", moviePoster="static/images/ThorRagnarokPoster.jpg", carasellPoster="static/images/ThorCaresellPoster.jpg")
+newMovieBlackPanther = models.Movies(movieTitle="Black Panther", synopsis="T'Challa, the King of Wakanda, rises to the throne in the isolated, technologically advanced African nation, but his claim is challenged by a vengeful outsider who was a childhood victim of T'Challa's father's mistake", ageRating="12A", director="Ryan Coogler", leadActors="Chadwick Boseman, Michael B. Jordan, Lupita Nyong'o", moviePoster="static/images/Black-Panther-poster.jpg", carasellPoster="static/images/image")
+newMovieAvengersIW = models.Movies(movieTitle="Avengers: Infinity War", synopsis="The Avengers and their allies must be willing to sacrifice all in an attempt to defeat the powerful Thanos before his blitz of devastation and ruin puts an end to the universe.", ageRating="12A", director="Anthony Russo, Joe Russo", leadActors="Robert Downey Jr., Chris Evans, Chris Hemsworth, Karen Gillan, Tom Holland, Scarlett Johansson, Chris Pratt, Zoe Saldana", moviePoster="static/images/Avengers3Poster.jpg", carasellPoster="static/images/image")
+newMovieAntManandtheWasp = models.Movies(movieTitle="Ant-Man and the Wasp", synopsis="As Scott Lang balances being both a Super Hero and a father, Hope van Dyne and Dr. Hank Pym present an urgent new mission that finds the Ant-Man fighting alongside The Wasp to uncover secrets from their past.", ageRating="12A", director="Peyton Reed", leadActors="Hannah John-Kamen, Paul Rudd, Evangeline Lilly", moviePoster="static/images/Ant-Man2Poster.jpeg", carasellPoster="static/images/image")
+newMovieCaptainMarvel = models.Movies(movieTitle="Captain Marvel", synopsis="Carol Danvers becomes one of the universe's most powerful heroes when Earth is caught in the middle of a galactic war between two alien races.", ageRating="12A", director="Anna Boden, Ryan Fleck", leadActors="Ben Mendelsohn, Brie Larson, Lee Pace", moviePoster="static/images/CaptainMarvel.jpg", carasellPoster="static/images/image")
+newMovieAvengers4 = models.Movies(movieTitle="Untitled Avengers Movie", synopsis="The plot is yet to be revealed. Will be the 4th installment of the 'Avengers' series.", ageRating="12A", director="Anthony Russo, Joe Russo", leadActors="Robert Downey Jr., Chris Evans, Chris Hemsworth, Karen Gillan, Tom Holland, Scarlett Johansson, Chris Pratt, Zoe Saldana", moviePoster="static/images/Avengers4.jpeg", carasellPoster="static/images/image")
 
-
+#thor Ragnarok
+#Civil
+#GoG
 
 
 #adding and commit the movies to the database
+db.session.add(newMovieIronMan)
+db.session.add(newMovieTheIncredibleHulk)
+db.session.add(newMovieIronMan2)
+db.session.add(newMovieThor)
+db.session.add(newMovieCaptainAmericaTFA)
+db.session.add(newMovieTheAvengers)
+db.session.add(newMovieIronMan3)
+db.session.add(newMovieThorTheDarkWorld)
+db.session.add(newMovieCaptainAmericaTWS)
+db.session.add(newMovieGuardiansoftheGalaxy)
+db.session.add(newMovieAvengersAOU)
+db.session.add(newMovieAntMan)
+db.session.add(newMovieCaptainAmericaCivilWar)
+db.session.add(newMovieDoctorStrange)
+db.session.add(newMovieGuardiansoftheGalaxy2)
+db.session.add(newMovieSpiderManHomecoming)
+db.session.add(newMovieThorRagnarok)
 db.session.add(newMovieBlackPanther)
-db.session.add(newMovieTheGreatestShowman)
-db.session.add(newMovieRedSparrow)
+db.session.add(newMovieAvengersIW)
+db.session.add(newMovieAntManandtheWasp)
+db.session.add(newMovieCaptainMarvel)
+db.session.add(newMovieAvengers4)
 db.session.commit()
 
 ############### adding movie to Movies tables ##############
@@ -170,56 +207,95 @@ db.session.add(screen2)
 db.session.add(screen3)
 db.session.commit()
 
-screen1ID = models.Screen.query.filter_by(screenName="Screen 1").first().screenName
-screen2ID = models.Screen.query.filter_by(screenName="Screen 2").first().screenName
-screen3ID = models.Screen.query.filter_by(screenName="Screen 3").first().screenName
+# screen1ID = models.Screen.query.filter_by(screenName="Screen 1").first().screenName
+# screen2ID = models.Screen.query.filter_by(screenName="Screen 2").first().screenName
+# screen3ID = models.Screen.query.filter_by(screenName="Screen 3").first().screenName
 
 ############### adding screens to Screen tables ##############
+
+currentDay = datetime.datetime.now().date()
+dates = []
+for i in range(1,9):
+  newCurrentDays= currentDay + datetime.timedelta(days=i)
+  dates.append(newCurrentDays)
+
+for i in dates:
+  print(i.year , i.month , i.day)
+
+dayCount = 0
+screenCount = 1
+for i in models.Movies.query.all():
+  screeningTime1 = datetime.datetime(dates[dayCount].year,dates[dayCount].month, dates[dayCount].day, 12 , tzinfo=datetime.timezone.utc)
+  screeningTime2 = datetime.datetime(dates[dayCount].year,dates[dayCount].month, dates[dayCount].day, 15 , tzinfo=datetime.timezone.utc)
+  screeningTime3 = datetime.datetime(dates[dayCount].year,dates[dayCount].month, dates[dayCount].day, 18 , tzinfo=datetime.timezone.utc)
+  if(screenCount == 1):
+      screening1 = models.Screenings(movies_id=i.id, screen_id="Screen 1" ,time = screeningTime1)
+      screening2 = models.Screenings(movies_id=i.id, screen_id="Screen 1" ,time = screeningTime2)
+      screening3 = models.Screenings(movies_id=i.id, screen_id="Screen 1" ,time = screeningTime3)
+      screenCount += 1
+  elif(screenCount == 2):
+      screening1 = models.Screenings(movies_id=i.id, screen_id="Screen 2" ,time = screeningTime1)
+      screening2 = models.Screenings(movies_id=i.id, screen_id="Screen 2" ,time = screeningTime2)
+      screening3 = models.Screenings(movies_id=i.id, screen_id="Screen 2" ,time = screeningTime3)
+      screenCount += 1
+  elif(screenCount == 3):
+      screening1 = models.Screenings(movies_id=i.id, screen_id="Screen 3" ,time = screeningTime1)
+      screening2 = models.Screenings(movies_id=i.id, screen_id="Screen 3" ,time = screeningTime2)
+      screening3 = models.Screenings(movies_id=i.id, screen_id="Screen 3" ,time = screeningTime3)
+      screenCount = 1
+      dayCount += 1
+  else:
+      print("something went wrong")
+  db.session.add(screening1)
+  db.session.add(screening2)
+  db.session.add(screening3)
+  db.session.commit()
 
 
 ############### adding screenings to Screenings tables ##############
 #setting times for screenings
 ## 02/03/2018 at 6pm
-screeningTime1 = datetime.datetime(2018, 2, 18, 12, tzinfo=datetime.timezone.utc)
-screeningTime2 = datetime.datetime(2018, 2, 18, 18, tzinfo=datetime.timezone.utc)
-screeningTime3 = datetime.datetime(2018, 2, 18, 20, tzinfo=datetime.timezone.utc)
-screeningTime4 = datetime.datetime(2018, 2, 19, 12, tzinfo=datetime.timezone.utc)
-screeningTime5 = datetime.datetime(2018, 2, 19, 18, tzinfo=datetime.timezone.utc)
-screeningTime6 = datetime.datetime(2018, 2, 19, 20, tzinfo=datetime.timezone.utc)
-screeningTime7 = datetime.datetime(2018, 3, 2, 9, tzinfo=datetime.timezone.utc)
-screeningTime8 = datetime.datetime(2018, 3, 2, 14, tzinfo=datetime.timezone.utc)
-screeningTime9 = datetime.datetime(2018, 3, 2, 21, tzinfo=datetime.timezone.utc)
+# screeningTime1 = datetime.datetime(2018, 2, 18, 12, tzinfo=datetime.timezone.utc)
+# screeningTime2 = datetime.datetime(2018, 2, 18, 18, tzinfo=datetime.timezone.utc)
+# screeningTime3 = datetime.datetime(2018, 2, 18, 20, tzinfo=datetime.timezone.utc)
+# screeningTime4 = datetime.datetime(2018, 2, 19, 12, tzinfo=datetime.timezone.utc)
+# screeningTime5 = datetime.datetime(2018, 2, 19, 18, tzinfo=datetime.timezone.utc)
+# screeningTime6 = datetime.datetime(2018, 2, 19, 20, tzinfo=datetime.timezone.utc)
+# screeningTime7 = datetime.datetime(2018, 3, 2, 9, tzinfo=datetime.timezone.utc)
+# screeningTime8 = datetime.datetime(2018, 3, 2, 14, tzinfo=datetime.timezone.utc)
+# screeningTime9 = datetime.datetime(2018, 3, 2, 21, tzinfo=datetime.timezone.utc)
+#
+#  #assigning times to black panther
+# blackPatherID = models.Movies.query.filter_by(movieTitle="Black Panther").first().id
+# blackPantherScreening1 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime1)
+# blackPantherScreening2 = models.Screenings(movies_id=blackPatherID, screen_id=screen2ID ,time = screeningTime2)
+# blackPantherScreening3 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime3)
+# blackPantherScreening4 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime4)
+# blackPantherScreening5 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime5)
+# blackPantherScreening6 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime6)
 
- #assigning times to black panther
-blackPatherID = models.Movies.query.filter_by(movieTitle="Black Panther").first().id
-blackPantherScreening1 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime1)
-blackPantherScreening2 = models.Screenings(movies_id=blackPatherID, screen_id=screen2ID ,time = screeningTime2)
-blackPantherScreening3 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime3)
-blackPantherScreening4 = models.Screenings(movies_id=blackPatherID, screen_id=screen1ID ,time = screeningTime4)
-blackPantherScreening5 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime5)
-blackPantherScreening6 = models.Screenings(movies_id=blackPatherID, screen_id=screen3ID ,time = screeningTime6)
-
- #assigning times to the greatest showman
-theGreatestShowmanID = models.Movies.query.filter_by(movieTitle="The Greatest Showman").first().id
-theGreatestShowmanScreening1 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen1ID ,time = screeningTime7)
-theGreatestShowmanScreening2 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen2ID ,time = screeningTime8)
-theGreatestShowmanScreening3 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen3ID , time = screeningTime9)
+#  #assigning times to the greatest showman
+# theGreatestShowmanID = models.Movies.query.filter_by(movieTitle="The Greatest Showman").first().id
+# theGreatestShowmanScreening1 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen1ID ,time = screeningTime7)
+# theGreatestShowmanScreening2 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen2ID ,time = screeningTime8)
+# theGreatestShowmanScreening3 = models.Screenings(movies_id=theGreatestShowmanID, screen_id=screen3ID , time = screeningTime9)
 
 
 
 
 #adding and commit the screenings to the database
-db.session.add(blackPantherScreening1)
-db.session.add(blackPantherScreening2)
-db.session.add(blackPantherScreening3)
-db.session.add(blackPantherScreening4)
-db.session.add(blackPantherScreening5)
-db.session.add(blackPantherScreening6)
+# db.session.add(blackPantherScreening1)
+# db.session.add(blackPantherScreening2)
+# db.session.add(blackPantherScreening3)
+# db.session.add(blackPantherScreening4)
+# db.session.add(blackPantherScreening5)
+# db.session.add(blackPantherScreening6)
+# #
+# db.session.add(theGreatestShowmanScreening1)
+# db.session.add(theGreatestShowmanScreening2)
+# db.session.add(theGreatestShowmanScreening3)
+# db.session.commit()
 
-db.session.add(theGreatestShowmanScreening1)
-db.session.add(theGreatestShowmanScreening2)
-db.session.add(theGreatestShowmanScreening3)
-db.session.commit()
 
 ############### adding screenings to Screenings tables ##############
 
@@ -346,26 +422,24 @@ db.session.commit()
 # from app import models, db
 # import datetime
 
-a = models.Seat_Reserved(screening=1, rowReservedID="A", seatNumberReservedID=4)
-b = models.Seat_Reserved(screening=1, rowReservedID="A", seatNumberReservedID=1)
-c = models.Seat_Reserved(screening=1, rowReservedID="B", seatNumberReservedID=4)
-d = models.Seat_Reserved(screening=2, rowReservedID="A", seatNumberReservedID=4)
-e = models.Seat_Reserved(screening=1, rowReservedID="B", seatNumberReservedID=2)
-f = models.Seat_Reserved(screening=1, rowReservedID="E", seatNumberReservedID=4)
-g = models.Seat_Reserved(screening=4, rowReservedID="A", seatNumberReservedID=4)
-h = models.Seat_Reserved(screening=3, rowReservedID="C", seatNumberReservedID=8)
+# a = models.Seat_Reserved(screening=1, rowReservedID="A", seatNumberReservedID=4)
+# b = models.Seat_Reserved(screening=1, rowReservedID="A", seatNumberReservedID=1)
+# c = models.Seat_Reserved(screening=1, rowReservedID="B", seatNumberReservedID=4)
+# d = models.Seat_Reserved(screening=2, rowReservedID="A", seatNumberReservedID=4)
+# e = models.Seat_Reserved(screening=1, rowReservedID="B", seatNumberReservedID=2)
+# f = models.Seat_Reserved(screening=1, rowReservedID="E", seatNumberReservedID=4)
+# g = models.Seat_Reserved(screening=4, rowReservedID="A", seatNumberReservedID=4)
+#
+# db.session.add(a)
+# db.session.add(b)
+# db.session.add(c)
+# db.session.add(d)
+# db.session.add(e)
+# db.session.add(f)
+# db.session.add(g)
+#
+# db.session.commit()
 
-
-db.session.add(a)
-db.session.add(b)
-db.session.add(c)
-db.session.add(d)
-db.session.add(e)
-db.session.add(f)
-db.session.add(g)
-db.session.add(h)
-
-db.session.commit()
 
 ############### Seat Reserved table tests ##################
 
@@ -385,8 +459,20 @@ db.session.commit()
 ############### adding unsers to empoyees tables ##############
 
 guestUser = models.Users(name="guest", password="password123", email="guest@cinema.com")
+PeteUser = models.Users(name="Pete", password="peter1234", email="sc16ph@leeds.ac.uk")
+DomUser = models.Users(name="Dom", password="dominic1234", email="sc16dah@leeds.ac.uk")
+FreddieUser = models.Users(name="Freddie", password="freddie1234", email="sc15fr@leeds.ac.uk")
+StefanUser = models.Users(name="Stefan", password="stefan1234", email="sc16sr@leeds.ac.uk")
+RoryUser = models.Users(name="Rory", password="rory1234", email="sc16rk@leeds.ac.uk")
+LuciaUser = models.Users(name="Lucia", password="lucia1234", email="sc17lc@leeds.ac.uk")
 
 db.session.add(guestUser)
+db.session.add(PeteUser)
+db.session.add(DomUser)
+db.session.add(FreddieUser)
+db.session.add(StefanUser)
+db.session.add(RoryUser)
+db.session.add(LuciaUser)
 
 db.session.commit()
 
@@ -412,14 +498,83 @@ a = models.Receipts(userName="guest", employeeName="online", screening=1, price=
 db.session.add(a)
 db.session.commit()
 
-
+###################### encryption queries ###########################
 # from app import models, db
 # import datetime
 # import hashlib
-# a = models.CardDetails(userID=1, cardNumber="1212121212121212", exMonth="11", exYear="1111", securityNumber="111")
-# db.session.add(a)
-# db.session.commit()
+
+###### practice card details #####
+a = models.CardDetails(userID=1, cardNickname="Card1", cardNumber="4556939797103693", exMonth="11", exYear="2018")
+b = models.CardDetails(userID=1, cardNickname="Card2", cardNumber="0123456789123456", exMonth="11", exYear="2018")
+db.session.add(a)
+db.session.add(b)
+db.session.commit()
 #
 #
 # for a in models.CardDetails.query.all():
-    #  print(a.userID , a.cardNumber)
+#      print(a.userID , a.cardNumber)
+
+##########################################################
+
+# cardNumber = "4556939797103693"
+# newCardNumber = ""
+#
+# for character in range(0,16):
+#   if (character % 3) == 0:
+#     changedLetter = ord(cardNumber[character]) - 3
+#   elif (character % 2) == 0:
+#     changedLetter = ord(cardNumber[character]) - 2
+#   else:
+#     changedLetter = ord(cardNumber[character]) - 1
+#   newCardNumber += chr(changedLetter)
+#
+#
+# cardNumber = newCardNumber
+# cardNumber
+
+##########################################################
+
+# newCardNumber = ""
+#
+# for character in range(12,16):
+#   if (character % 3) == 0:
+#     changedLetter = ord(cardNumber[character]) + 3
+#   elif (character % 2) == 0:
+#     changedLetter = ord(cardNumber[character]) + 2
+#   else:
+#     changedLetter = ord(cardNumber[character]) + 1
+#   newCardNumber += chr(changedLetter)
+#
+#
+# cardNumber = newCardNumber
+# cardNumber
+
+##########################################################
+
+# newCardNumber = ""
+#
+# for character in range(12,16):
+#   if (character % 3) == 0:
+#     changedLetter = ord(a.cardNumber[character]) + 3
+#   elif (character % 2) == 0:
+#     changedLetter = ord(a.cardNumber[character]) + 2
+#   else:
+#     changedLetter = ord(a.cardNumber[character]) + 1
+#   newCardNumber += chr(changedLetter)
+#
+#
+# newCardNumber
+
+##########################################################
+
+# for character in range(0,16):
+#   index=
+#   print(index)
+#   if (index%3) == 0:
+#     print("mod3")
+#   elif (index%2) == 0:
+#     print("mod2")
+#   else:
+#     print("odd")
+
+###################### encryption queries ###########################

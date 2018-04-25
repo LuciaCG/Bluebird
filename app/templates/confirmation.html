@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Congratulations. Your Tickets have been booked and an email has been sent to you!</h3>
+
+
+
+Name: {{user.name}}<br>
+Email: {{user.email}}<br>
+Movie: {{movieName.movieTitle}}<br>
+Showing selected: {{screening.time}} {{screening.screen_id}}<br>
+Tickets Purchased: <br>
+Adult: {{adultTotal}} - £{{adultTotal*9}}<br>
+Child: {{childTotal}} - £{{childTotal*6.5}}<br>
+Senior: {{seniorTotal}} - £{{seniorTotal*7}}<br>
+VIP: {{vipTotal}} - £{{vipTotal*12}}<br>
+Total Price:  £{{priceTotal}}<br>
+Seats selected: {{seatList}}<br>
+
+{{email}}
+
+{% endblock %}
