@@ -29,6 +29,8 @@ flask:
 	flask/bin/pip install flask-wtf; \
 	flask/bin/pip install flask-babel; \
 	flask/bin/pip install coverage; \
+	flask/bin/pip install Pillow; \
+	flask/bin/pip install qrcode; \
 
 flask3:
 	virtualenv -p python3 flask; \
@@ -50,6 +52,7 @@ clean:
 	rm -rf app/__pycache__
 	rm -rf *.pyc
 	rm -rf app/*.pyc
+	rm -rf app/static/qrcodes/*.jpg
 
 cleanFlask:
 	rm -rf flask/

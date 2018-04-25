@@ -1,7 +1,9 @@
-{% extends "base.html" %}
 {% block content %}
+<h3>Your Tickets!</h3>
+<h2>Collect your tickets from any automatic <br> collection point or till point at the cinema </h2>
 
-<h3>Congratulations. Your Tickets have been booked and an email has been sent to you!</h3>
+<h3>THIS EMAIL IS YOUR TICKET</h3><br>
+<h3>SIMPLY SHOW THE ATTACHED QR CODE<h3><br>
 
 
 
@@ -17,6 +19,5 @@ VIP: {{vipTotal}} - £{{vipTotal*12}}<br>
 Total Price:  £{{priceTotal}}<br>
 Seats selected: {{seatList}}<br>
 
-{{email}}
 
 {% endblock %}
