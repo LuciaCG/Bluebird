@@ -5,6 +5,28 @@ from flask import Flask, render_template, url_for, request, session, redirect
 #QT
 #QT
 application = Flask(__name__)
+
+@app.route('/postjson', methods = ['POST'])
+def postJsonHandler():
+    print (request.is_json)
+    #content = request.get_json()
+    userNameR = request.get_json()['userName']
+    employeeNameR = request.get_json()['employeeName']
+    screeningR = request.get_json()['screening']
+    priceR = request.get_json()['price']
+    pricePaidR = request.get_json()['pricePaid']
+    changeR = request.get_json()['change']
+    #transactionTimeR = request.get_json()['transactionTime']
+    a = models.Receipts(userName=userNameR, employeeName=employeeNameR , screening=screeningR,price=priceR,pricePaid=pricePaidR,change=changeR)
+    #movieTitleR = request.get_json()['movieTitle']
+    #synopsisR = request.get_json()['synopsis']
+    #ageRatingR = request.get_json()['ageRating']
+    #a = models.Movies(movieTitle=movieTitleR, synopsis=synopsisR, ageRating=ageRatingR)
+    db.session.add(a)
+    db.session.commit()
+    print (content)
+    return 'JSON posted'
+
 @app.route("/employee.json")
 def Employee_data():
     data = {"employee" : [ i.as_dict() for i in models.Employee.query.all() ]}

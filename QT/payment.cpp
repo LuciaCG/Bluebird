@@ -34,30 +34,86 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
      ui->clock->setText(ct);
   } );
   //updates the clock
-  timer->start();
+    timer->start();
 
 
-  QString ct = QTime::currentTime().toString();
-  QDateTime current = QDateTime::currentDateTime();
+    QString ct = QTime::currentTime().toString();
+    QDateTime current = QDateTime::currentDateTime();
+
+    /*
+    // WRITE NEW RECEIPT
+
+    double b = id;
+
+    QFile File("http://localhost:5000/postjson");
+    File.open(QIODevice::ReadOnly | QIODevice::Text);
+
+    QJsonParseError JsonParseError;
+    QJsonDocument JsonDocument = QJsonDocument::fromJson(File.readAll(), &JsonParseError);
+
+    File.close();
+
+    QJsonObject RootObject = JsonDocument.object();
+    QJsonValueRef ArrayRef = RootObject.find("receipt").value();
+    QJsonArray Array = ArrayRef.toArray();
+
+    QJsonArray::iterator ArrayIterator = Array.begin();
+    QJsonValueRef ElementOneValueRef = ArrayIterator[0];
+
+    QJsonObject ElementOneObject = Array.at(0).toObject();
+
+    ElementOneObject.insert("price", QJsonValue::fromVariant(ticketTotal));
+    ElementOneObject.insert("pricePaid", QJsonValue::fromVariant(paid));
+    ElementOneObject.insert("id", QJsonValue::fromVariant(Array.size() + 1));
+    ElementOneObject.insert("change", QJsonValue::fromVariant(change));
+    ElementOneObject.insert("transactionTime", QJsonValue::fromVariant(current));
+    ElementOneObject.insert("userName", QJsonValue::fromVariant("Till"));
+    ElementOneObject.insert("employeeName", QJsonValue::fromVariant(user));
+    ElementOneObject.insert("screening", QJsonValue::fromVariant(b));
 
 
-  /*///////////////////////////////////
-  QSqlQuery query;
-  query.prepare("INSERT INTO receipts (userName, employeeName,screening,price,pricePaid,change,transactionTime) "
-                "VALUES (?, ?, ?,?,?,?,?)");
-  query.addBindValue("TILL");
-  query.addBindValue(user);
-  query.addBindValue(id);
-  query.addBindValue(ticketTotal);
-  query.addBindValue(paid);
-  query.addBindValue(change);
-  query.addBindValue(current);
-
-  query.exec();
-
-  ////////////////////////////////////////*/
+    ElementOneValueRef = ElementOneObject;
+    ArrayRef = Array;
+    JsonDocument.setObject(RootObject);
 
 
+    File.open(QFile::WriteOnly | QFile::Text | QFile::Truncate);
+    File.write(JsonDocument.toJson());
+    File.close();
+    */
+
+
+    //QUrl url1 = QUrl("http://localhost:5000/postjson");
+    double b = id;
+
+    QUrl serviceUrl = QUrl("http://localhost:5000/postjson");
+    QNetworkRequest request1(serviceUrl);
+    QJsonObject json;
+
+    json.insert("price", QJsonValue::fromVariant(ticketTotal));
+    json.insert("pricePaid", QJsonValue::fromVariant(paid));
+    //json.insert("id", QJsonValue::fromVariant(Array.size() + 1));
+    json.insert("change", QJsonValue::fromVariant(change));
+    //json.insert("transactionTime", QJsonValue::fromVariant(QString::number(current)));
+    json.insert("userName", QJsonValue::fromVariant("Till"));
+    json.insert("employeeName", QJsonValue::fromVariant(user));
+    json.insert("screening", QJsonValue::fromVariant(b));
+
+//    json.insert("movieTitle","test");
+//    json.insert("synopsis","test");
+//    json.insert("ageRating","12");
+    QJsonDocument jsonDoc(json);
+    QByteArray jsonData= jsonDoc.toJson();
+    request1.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
+    request1.setHeader(QNetworkRequest::ContentLengthHeader,QByteArray::number(jsonData.size()));
+    QNetworkAccessManager networkManager;
+
+    networkManager.post(request1, jsonData);
+
+
+
+
+    // DISPLAY RECEIPTS
 
     QNetworkAccessManager manager;
     QEventLoop eventLoop;
@@ -77,14 +133,12 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
         data = reply->readAll();
     }
 
-    QJsonDocument response = QJsonDocument::fromJson(data);
+    QJsonDocument newResponse = QJsonDocument::fromJson(data);
 
-    QJsonObject stuff = response.object();
+    QJsonObject stuff = newResponse.object();
 
     QJsonValue value = stuff.value("receipt");
     QJsonArray array = value.toArray();
-
-    // DISPLAY RECEIPTS
 
     int auxRow = array.size(), auxCol = 6;
 
@@ -115,7 +169,6 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 
 
     ui->tableWidget->show();
-
 
 
 
@@ -163,4 +216,10 @@ void payment::on_back_clicked()
 {
     this->hide();
     this->parentWidget()->show();
+}
+
+void payment::on_next_clicked()
+{
+    this->parentWidget()->parentWidget()->parentWidget()->show(); //show movies page
+    this->parentWidget()->parentWidget()->close();
 }

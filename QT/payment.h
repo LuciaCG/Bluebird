@@ -19,6 +19,8 @@ public:
 private slots:
     void on_back_clicked();
     void on_logout_clicked();
+    void on_next_clicked();
+
 private:
     Ui::payment *ui;
     QString screen;
@@ -30,6 +32,8 @@ private:
     QString seatsSelected;
 
     QNetworkReply * reply;
+    QNetworkReply * reply1;
+
     bool connected;
     QByteArray data;
 };
