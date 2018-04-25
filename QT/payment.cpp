@@ -38,7 +38,6 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 
 
     QString ct = QTime::currentTime().toString();
-    QDateTime current = QDateTime::currentDateTime();
 
     /*
     // WRITE NEW RECEIPT
@@ -82,26 +81,21 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
     File.close();
     */
 
-
-    //QUrl url1 = QUrl("http://localhost:5000/postjson");
-    double b = id;
-
+    /*
     QUrl serviceUrl = QUrl("http://localhost:5000/postjson");
     QNetworkRequest request1(serviceUrl);
     QJsonObject json;
 
-    json.insert("price", QJsonValue::fromVariant(ticketTotal));
-    json.insert("pricePaid", QJsonValue::fromVariant(paid));
-    //json.insert("id", QJsonValue::fromVariant(Array.size() + 1));
-    json.insert("change", QJsonValue::fromVariant(change));
-    //json.insert("transactionTime", QJsonValue::fromVariant(QString::number(current)));
-    json.insert("userName", QJsonValue::fromVariant("Till"));
-    json.insert("employeeName", QJsonValue::fromVariant(user));
-    json.insert("screening", QJsonValue::fromVariant(b));
+    json.insert("price", QJsonValue(double(ticketTotal)));
+    json.insert("pricePaid", QJsonValue(double(paid)));
+    json.insert("change", QJsonValue(double(change)));
 
-//    json.insert("movieTitle","test");
-//    json.insert("synopsis","test");
-//    json.insert("ageRating","12");
+    json.insert("transactionTime", QJsonValue::fromVariant(current));
+
+    json.insert("userName", QJsonValue(QString("Till")));
+    json.insert("employeeName", QJsonValue(QString(user)));
+    json.insert("screening", QJsonValue(int(id)));
+
     QJsonDocument jsonDoc(json);
     QByteArray jsonData= jsonDoc.toJson();
     request1.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
@@ -110,7 +104,7 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 
     networkManager.post(request1, jsonData);
 
-
+*/
 
 
     // DISPLAY RECEIPTS
@@ -152,9 +146,9 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
     for(int i = 0; i < array.size(); i++){
         ui->tableWidget->setItem(i, 0, new QTableWidgetItem(array[i].toObject().value("employeeName").toString()));
         ui->tableWidget->setItem(i, 1, new QTableWidgetItem(QString::number(array[i].toObject().value("screening").toInt())));
-        ui->tableWidget->setItem(i, 2, new QTableWidgetItem(QString::number(array[i].toObject().value("price").toInt())));
-        ui->tableWidget->setItem(i, 3, new QTableWidgetItem(QString::number(array[i].toObject().value("pricePaid").toInt())));
-        ui->tableWidget->setItem(i, 4, new QTableWidgetItem(QString::number(array[i].toObject().value("change").toInt())));
+        ui->tableWidget->setItem(i, 2, new QTableWidgetItem(QString::number(array[i].toObject().value("price").toDouble())));
+        ui->tableWidget->setItem(i, 3, new QTableWidgetItem(QString::number(array[i].toObject().value("pricePaid").toDouble())));
+        ui->tableWidget->setItem(i, 4, new QTableWidgetItem(QString::number(array[i].toObject().value("change").toDouble())));
         ui->tableWidget->setItem(i, 5, new QTableWidgetItem(array[i].toObject().value("transactionTime").toString()));
     }
 

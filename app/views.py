@@ -1,6 +1,7 @@
 import json
 from app import app, models, db
 from flask import Flask, render_template, url_for, request, session, redirect
+import datetime
 
 #QT
 #QT
@@ -9,22 +10,18 @@ application = Flask(__name__)
 @app.route('/postjson', methods = ['POST'])
 def postJsonHandler():
     print (request.is_json)
-    #content = request.get_json()
+
     userNameR = request.get_json()['userName']
     employeeNameR = request.get_json()['employeeName']
     screeningR = request.get_json()['screening']
     priceR = request.get_json()['price']
     pricePaidR = request.get_json()['pricePaid']
     changeR = request.get_json()['change']
-    #transactionTimeR = request.get_json()['transactionTime']
-    a = models.Receipts(userName=userNameR, employeeName=employeeNameR , screening=screeningR,price=priceR,pricePaid=pricePaidR,change=changeR)
-    #movieTitleR = request.get_json()['movieTitle']
-    #synopsisR = request.get_json()['synopsis']
-    #ageRatingR = request.get_json()['ageRating']
-    #a = models.Movies(movieTitle=movieTitleR, synopsis=synopsisR, ageRating=ageRatingR)
+    a = models.Receipts(userName=userNameR, employeeName=employeeNameR , screening=screeningR,price=priceR,pricePaid=pricePaidR,change=changeR, transactionTime= datetime.datetime.utcnow())
+
     db.session.add(a)
     db.session.commit()
-    print (content)
+    #print (content)
     return 'JSON posted'
 
 @app.route('/postjsonR', methods = ['POST'])

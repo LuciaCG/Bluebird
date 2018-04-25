@@ -388,6 +388,43 @@ void chairs::on_selection_clicked()
                 ui->warning->setText("• Not enough paid");
             }
             else {
+
+                //////////////////////////////////////////////////////
+                //                 make receipt
+                //////////////////////////////////////////////////////
+
+                //QDateTime current = QDateTime::currentDateTime();
+
+                QUrl serviceUrl = QUrl("http://localhost:5000/postjson");
+                QNetworkRequest request1(serviceUrl);
+                QJsonObject json;
+
+                json.insert("price", QJsonValue(double(ticketTotal)));
+                json.insert("pricePaid", QJsonValue(double(paid)));
+                json.insert("change", QJsonValue(double(change)));
+
+                //json.insert("transactionTime", QJsonValue(QString(current.toString())));
+
+                json.insert("userName", QJsonValue(QString("Till")));
+                json.insert("employeeName", QJsonValue(QString(user)));
+                json.insert("screening", QJsonValue(int(screenID)));
+
+                QJsonDocument jsonDoc(json);
+                QByteArray jsonData= jsonDoc.toJson();
+                request1.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
+                request1.setHeader(QNetworkRequest::ContentLengthHeader,QByteArray::number(jsonData.size()));
+                QNetworkAccessManager networkManager;
+
+                networkManager.post(request1, jsonData);
+
+                QNetworkAccessManager manager;
+                QEventLoop eventLoop;
+                QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
+                QUrl url("http://localhost:5000/receipts.json");
+                QNetworkRequest request(url);
+                manager.get(request);
+                eventLoop.exec();
+
                 payment *instance = new payment(this, screenName, screenID, user, ticketTotal, paid, change);
                 instance->show();
             }
