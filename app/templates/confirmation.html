@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div style="text-align:center;">
+
 <h3>Congratulations. Your Tickets have been booked and an email has been sent to you!</h3>
 
 
+      <img src="static/images/marvel.gif">
 
-Name: {{user.name}}<br>
+    </div>
+<!-- Name: {{user.name}}<br>
 Email: {{user.email}}<br>
 Movie: {{movieName.movieTitle}}<br>
 Showing selected: {{screening.time}} {{screening.screen_id}}<br>
@@ -17,6 +21,6 @@ VIP: {{vipTotal}} - £{{vipTotal*12}}<br>
 Total Price:  £{{priceTotal}}<br>
 Seats selected: {{seatList}}<br>
 
-{{email}}
+{{email}} -->
 
 {% endblock %}

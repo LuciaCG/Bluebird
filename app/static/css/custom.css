@@ -31,6 +31,16 @@
   text-decoration: none;
 }
 
+#container {
+    display: flex;              /* establish flex container */
+    flex-direction: column;     /* stack flex items vertically */
+    justify-content: center;    /* center items vertically, in this case */
+    align-items: center;
+    text-align: center;        /* center items horizontally, in this case */
+
+
+}
+
 #log_reg {
   padding-top: 12.5px;
   height: 50px;
@@ -128,6 +138,12 @@
   width: 245px;
 }
 
+#payment_poster {
+  height: 305px;
+  width: 245px;
+  position: relative;
+}
+
 #marvellogohome {
   max-width: 100%;
 }
@@ -141,6 +157,13 @@
 #map {
   height: 500px;
   width: 100%;
+}
+
+#securitycodeicon{
+  height: 4%;
+  width: 10%;
+  margin-bottom: 20px;
+  margin-left: 5px;
 }
 
 #background

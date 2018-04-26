@@ -502,6 +502,7 @@ def payments():
         cardDetails2 = None
         newCardNumber = ""
         cardValue = None
+        varname = None
 
         if 'card' in session:
             cardValue = session['card']
@@ -564,17 +565,22 @@ def payments():
         session['scrnVar'] = screeningID
 
         if request.method == "POST":
-            if 'Redirect' != request.form:
+            # varname = request.form['Book Now']
+            if 'Book Now' not in request.form:
                 dropdownCard = request.form['dropdownCard']
                 print("card " + dropdownCard)
                 print("valie " + cardValue)
                 if dropdownCard == "nocard":
                     session['card'] = "nocard"
-                    print("2nd if",session['card'])
+
+
+
                 else:
                     session['card'] = dropdownCard
                     user = models.Users.query.filter_by(email=userEmailname).first()
                     cardDetails2 = models.CardDetails.query.filter_by(userID=user.id , cardNickname=dropdownCard).first()
+
+
 
                     cardNumber = cardDetails2.cardNumber
                     for character in range(12,16):
@@ -589,6 +595,16 @@ def payments():
 
                       print(newCardNumber)
                       print("else",session['card'])
+            # elif varname == "Book Now":
+            if 'Book Now' in request.form:
+                currentDay = datetime.datetime.now()
+                eMonth = request.form['Emonth']
+                eyear = request.form['Eyear']
+                print(currentDay)
+                if eMonth >= currentDay.month and eMonth >= 1 and eMonth <= 12 and eYear >= currentDay.year:
+                    print("hello")
+                else:
+                    return redirect(url_for('payments'))
 
 
 
