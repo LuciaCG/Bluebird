@@ -1,5 +1,6 @@
 #include "payment.h"
 #include "ui_payment.h"
+#include "chairs.h"
 
 #include <QtWidgets>
 #include <QSqlQuery>
@@ -39,7 +40,6 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
   ui->user->setText(user);
 
   QWidget::setTabOrder(ui->tableWidget, ui->logout);
-  QWidget::setTabOrder(ui->logout, ui->back);
 
   QTimer *timer = new QTimer(this);
   //Sets an delay between each updateS
@@ -175,12 +175,6 @@ void payment::on_logout_clicked()
 {
     this->parentWidget()->parentWidget()->parentWidget()->parentWidget()->show(); //show log in page
     this->parentWidget()->parentWidget()->parentWidget()->close();
-}
-
-void payment::on_back_clicked()
-{
-    this->hide();
-    this->parentWidget()->show();
 }
 
 void payment::on_next_clicked()

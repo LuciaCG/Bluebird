@@ -102,7 +102,7 @@ private slots:
     void on_back_clicked();
     void on_selection_clicked();
     double totalPrice();
-    bool eventFilter(QObject *watched, QEvent *event);
+   // bool eventFilter(QObject *watched, QEvent *event);
 
 private:
     Ui::chairs *ui;

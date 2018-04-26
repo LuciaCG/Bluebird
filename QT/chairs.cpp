@@ -255,7 +255,26 @@ chairs::chairs(QWidget *parent, QString _screenName, int _screenID, QString _use
     ui->OAP->installEventFilter(this);
     ui->VIP->installEventFilter(this);
 
+    QTimer *update = new QTimer(this);
+    update->setInterval(100);
+    //using connect time to update the label
+    connect(update, &QTimer::timeout, [&]() {
+       //Getting current time from the system and turning into string to be displayed
+        double ticketAdult = ui->Adult->value() * priceA;
+        double ticketChild = ui->Child->value() * priceC;
+        double ticketOAP = ui->OAP->value() * priceO;
+        double ticketVIP = ui->VIP->value() * priceV;
+        double priceupdate = ticketAdult + ticketChild + ticketOAP + ticketVIP;
 
+        ui->price->setText("To pay: " + QString::number(priceupdate));
+
+       QString ct = QTime::currentTime().toString();
+       ui->clock->setText(ct);
+    } );
+    update->start();
+
+
+    //updates the clock
     // CLOCK
     QTimer *timer = new QTimer(this);
     //Sets an delay between each updateS
@@ -263,10 +282,20 @@ chairs::chairs(QWidget *parent, QString _screenName, int _screenID, QString _use
     //using connect time to update the label
     connect(timer, &QTimer::timeout, [&]() {
        //Getting current time from the system and turning into string to be displayed
+        double ticketAdult = ui->Adult->value() * priceA;
+        double ticketChild = ui->Child->value() * priceC;
+        double ticketOAP = ui->OAP->value() * priceO;
+        double ticketVIP = ui->VIP->value() * priceV;
+        double priceupdate = ticketAdult + ticketChild + ticketOAP + ticketVIP;
+
+        ui->price->setText("To pay: " + QString::number(priceupdate));
+
        QString ct = QTime::currentTime().toString();
        //setting the clock label to the current time
        ui->clock->setText(ct);
     } );
+
+
     //updates the clock
     timer->start();
 }
@@ -363,7 +392,7 @@ void chairs::on_selection_clicked()
 
                     json.insert("screening", QJsonValue(int(screenID)));
                     json.insert("rowReservedID", QJsonValue(QString(rowLetter)));
-                    json.insert("seatNumberReservedID", QJsonValue(int(col)));
+                    json.insert("seatNumberReservedID", QJsonValue(int(col+1)));
 
 
                     QJsonDocument jsonDoc(json);
@@ -421,6 +450,7 @@ void chairs::on_selection_clicked()
     }
 }
 
+/*
 bool chairs::eventFilter(QObject *watched, QEvent *event)
 {
     if(event->type() == QEvent::MouseButtonPress &&
@@ -432,6 +462,7 @@ bool chairs::eventFilter(QObject *watched, QEvent *event)
     }
     return false;
 }
+*/
 
 double chairs::totalPrice(){
     double ticketAdult = ui->Adult->value() * priceA;

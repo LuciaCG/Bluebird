@@ -17,7 +17,6 @@ public:
     ~payment();
 
 private slots:
-    void on_back_clicked();
     void on_logout_clicked();
     void on_next_clicked();
     static void printQr();

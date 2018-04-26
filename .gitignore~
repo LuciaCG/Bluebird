@@ -2,8 +2,12 @@ db_repository/
 __pycache__/
 app/__pycache__/
 build-UI2-Desktop-Debug/
+build-UI2-Desktop-Release/
 *.db
 *.pyc
 *.db
 *.pro.user
-*.debug
+debug/
+*.sh
+app/static/qrcodes/*.png
+flask/

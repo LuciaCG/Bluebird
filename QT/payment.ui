@@ -146,19 +146,6 @@ font-size: 21px;</string>
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="back">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>180</y>
-      <width>111</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Back</string>
-    </property>
-   </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
@@ -187,8 +174,8 @@ font-size: 21px;</string>
    <widget class="QPushButton" name="next">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>380</y>
+      <x>10</x>
+      <y>320</y>
       <width>111</width>
       <height>41</height>
      </rect>
