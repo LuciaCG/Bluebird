@@ -502,7 +502,6 @@ def payments():
         cardDetails2 = None
         newCardNumber = ""
         cardValue = None
-        varname = None
 
         if 'card' in session:
             cardValue = session['card']
@@ -565,7 +564,6 @@ def payments():
         session['scrnVar'] = screeningID
 
         if request.method == "POST":
-            # varname = request.form['Book Now']
             if 'Book Now' not in request.form:
                 dropdownCard = request.form['dropdownCard']
                 print("card " + dropdownCard)
@@ -595,17 +593,6 @@ def payments():
 
                       print(newCardNumber)
                       print("else",session['card'])
-            # elif varname == "Book Now":
-            if 'Book Now' in request.form:
-                currentDay = datetime.datetime.now()
-                eMonth = request.form['Emonth']
-                eyear = request.form['Eyear']
-                print(currentDay)
-                if eMonth >= currentDay.month and eMonth >= 1 and eMonth <= 12 and eYear >= currentDay.year:
-                    print("hello")
-                else:
-                    return redirect(url_for('payments'))
-
 
 
 
