@@ -504,10 +504,19 @@ db.session.commit()
 # import hashlib
 
 ###### practice card details #####
-a = models.CardDetails(userID=1, cardNickname="Card1", cardNumber="4556939797103693", exMonth="11", exYear="2018")
-b = models.CardDetails(userID=1, cardNickname="Card2", cardNumber="0123456789123456", exMonth="11", exYear="2018")
+a = models.CardDetails(userID=2, cardNickname="petes Card", cardNumber="1234567890123456", exMonth="11", exYear="2019")
+b = models.CardDetails(userID=3, cardNickname="doms Card", cardNumber="1234567890123456", exMonth="11", exYear="2019")
+c = models.CardDetails(userID=4, cardNickname="rorys Card", cardNumber="1234567890123456", exMonth="11", exYear="2019")
+d = models.CardDetails(userID=5, cardNickname="freddies Card", cardNumber="1234567890123456", exMonth="11", exYear="2019")
+e = models.CardDetails(userID=6, cardNickname="lucias Card", cardNumber="1234567890123456", exMonth="11", exYear="2019")
+f = models.CardDetails(userID=7, cardNickname="stefans Card", cardNumber="1234567890123456", exMonth="11", exYear="2019")
+
 db.session.add(a)
 db.session.add(b)
+db.session.add(c)
+db.session.add(d)
+db.session.add(e)
+db.session.add(f)
 db.session.commit()
 #
 #
