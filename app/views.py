@@ -178,7 +178,7 @@ def userPage():
         user = models.Users.query.filter_by(email=userEmailname).first()
         if form.validate_on_submit():
             if models.CardDetails.query.filter_by(userID=user.id, cardNickname=form.cardNickname.data).count() == 0:
-                p = models.CardDetails(userID=user.id,
+                p=models.CardDetails(userID=user.id,
                                 cardNickname=form.cardNickname.data,
                                 cardNumber=form.cardNumber.data,
                                 exMonth=form.exMonth.data,

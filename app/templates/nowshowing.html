@@ -105,7 +105,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">{{movie.movieTitle}}</h5>
+            <h3 class="modal-title" id="exampleModalLongTitle">{{movie.movieTitle}}</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -113,6 +113,9 @@
           <div class="modal-body">
             <p>{{movie.synopsis}}</p>
             <p>{{movie.ageRating}}</p>
+            <div class="col-md-4" align="center">
+              <img id="nowshowing_movieposter" class="first-slide" src={{movie.moviePoster}} alt="poster" width="100%">
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -167,8 +170,8 @@
           <div class="modal-body">
             <p>{{movie.synopsis}}</p>
             <p>{{movie.ageRating}}</p>
-            <div class="col-md-6" align="center">
-              <img id="booktickets_poster" src={{movieName.moviePoster}} alt="poster">
+            <div class="col-md-4" align="center">
+              <img id="nowshowing_movieposter" class="first-slide" src={{movie.moviePoster}} alt="poster" width="100%">
             </div>
           </div>
 
