@@ -17,7 +17,8 @@ oldAll:
 	python3 db_migrate.py
 	python3 populatingDatabase.py
 
-flask:
+product:
+	make cleanFlask; \
 	module add python/3.4.3; \
 	virtualenv flask; \
 	source flask/bin/activate; \
@@ -33,10 +34,12 @@ flask:
 	flask/bin/pip install Pillow; \
 	flask/bin/pip install qrcode; \
 	make freshAll; \
-	python run.py & xterm -hold -e ./ngrok http 5000; \
-
+	sleep 4 && xterm -hold -e make executeQT & xterm -hold -e python run.py & xterm -hold -e ./ngrok http 5000; \
+	pkill python; \
 
 flask3:
+	make cleanFlask; \
+	make compileQT; \
 	module add python/3.4.3; \
 	virtualenv -p python3 flask; \
 	source flask/bin/activate; \
@@ -50,7 +53,14 @@ flask3:
 	flask/bin/pip install flask-babel; \
 	flask/bin/pip install coverage; \
 	make freshAll; \
-	python run.py & xterm -hold -e ./ngrok http 5000; \
+	sleep 4 && xterm -hold -e make executeQT & xterm -hold -e python run.py & xterm -hold -e ./ngrok http 5000; \
+	pkill python; \
+
+executeQT:
+	cd QT; \
+	qmake-qt5 UI2.pro -spec linux-g++; \
+	make; \
+	./UI2; \
 
 clean:
 	rm -rf app.db
@@ -61,5 +71,5 @@ clean:
 	rm -rf app/*.pyc
 	rm -rf app/static/qrcodes/*.jpg
 
-cleanFlask:
-	rm -rf flask/
+make cleanFlask:
+		rm -rf flask; \
