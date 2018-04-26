@@ -43,8 +43,8 @@ color:#000000;</string>
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>861</width>
-       <height>101</height>
+       <width>221</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -133,55 +133,53 @@ font-size: 21px;</string>
     <zorder>connection</zorder>
     <zorder>user</zorder>
    </widget>
-   <widget class="QLabel" name="due">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>140</y>
-      <width>271</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>130</y>
-      <width>731</width>
-      <height>531</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QHeaderView::section { background-color:#555555; color:#FFFFFF; font-weight:bold;}</string>
-    </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="editTriggers">
-     <set>QAbstractItemView::NoEditTriggers</set>
-    </property>
-    <property name="tabKeyNavigation">
-     <bool>false</bool>
-    </property>
-    <property name="selectionBehavior">
-     <enum>QAbstractItemView::SelectRows</enum>
-    </property>
-   </widget>
    <widget class="QPushButton" name="next">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>320</y>
-      <width>111</width>
-      <height>41</height>
+      <x>320</x>
+      <y>410</y>
+      <width>331</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="text">
      <string>New</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Changes">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>290</y>
+      <width>331</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">text-align: center;
+font-size:26pt;
+font-weight:bold;</string>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Movie">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>170</y>
+      <width>331</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">text-align: center;
+font-size:26pt;
+font-weight:bold;</string>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
     </property>
    </widget>
   </widget>

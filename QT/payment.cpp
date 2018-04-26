@@ -9,19 +9,6 @@
 
 
 
-// Prints the given QR Code to the console.
-/*
-static void printQr(const QrCode &qr) {
-    int border = 4;
-    for (int y = -border; y < qr.getSize() + border; y++) {
-        for (int x = -border; x < qr.getSize() + border; x++) {
-            std::cout << (qr.getModule(x, y) ? "##" : "  ");
-        }
-        std::cout << std::endl;
-    }
-    std::cout << std::endl;
-}
-*/
 payment::payment(QWidget *parent, QString _screen, int _id , QString _user, double _ticketTotal, double _paid, double _change, QString _seatsSelected,QString _movieTime,QString _movieName) :
     QWidget(parent),
     ui(new Ui::payment),
@@ -38,8 +25,10 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 {
   ui->setupUi(this);
   ui->user->setText(user);
-
-  QWidget::setTabOrder(ui->tableWidget, ui->logout);
+  ui->title->setText("Checkout");
+  //QWidget::setTabOrder(ui->user, ui->logout);
+  //QWidget::setTabOrder(ui->logout, ui->next);
+  //QWidget::setTabOrder(ui->next, ui->user);
 
   QTimer *timer = new QTimer(this);
   //Sets an delay between each updateS
@@ -59,7 +48,7 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 
 
     // DISPLAY RECEIPTS
-
+    /*
     QNetworkAccessManager manager;
     QEventLoop eventLoop;
     QObject::connect(&manager, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
@@ -114,20 +103,8 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 
 
     ui->tableWidget->show();
-
-    //const char *text = "Hello, world!";  // User-supplied text
-   // const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW;  // Error correction level
-   // QrCode qr0 = QrCode::encodeText("Hello, world!", QrCode::Ecc::MEDIUM);
-   //std::string svg = qr0.toSvgString(4);
-    /*
-    // Make and print the QR Code symbol
-    const QrCode qr = QrCode::encodeText(text, errCorLvl);
-    printQr(qr);
-    std::cout << qr.toSvgString(4) << std::endl;
     */
-    // PRINT PDF
-
-     ui->due->setText(QString::number(ticketTotal));
+     //ui->due->setText(QString::number(ticketTotal));
      QString fileName = seatsSelected + "" + QString::number(id); // Change name to movie ID + Seats being used
      if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
 
@@ -141,7 +118,6 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
      QString split = seatsSelected;
      split.replace(QString("_"), QString(" "));
      QTextDocument doc;
-     ui->user->setText(path);
      doc.setHtml(" <img src="+pathReceipt+" >"
                  "<h1> RECEIPT FOR: "+movieName+"</h1> "
                  "\n"
@@ -163,6 +139,9 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
                  );
      doc.setPageSize(printer.pageRect().size());
      doc.print(&printer);
+
+    ui->Movie->setText(screen);
+    ui->Changes->setText("Chanege: £"+QString::number(change));
 }
 payment::~payment()
 {

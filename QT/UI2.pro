@@ -8,7 +8,6 @@
 QT       += core gui sql printsupport
 QT       += network
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
 TARGET = UI2
 TEMPLATE = app
 INCLUDEPATH += 3rdparty/cpp

@@ -147,6 +147,12 @@ chairs::chairs(QWidget *parent, QString _screenName, int _screenID, QString _use
     ui->tableWidget->verticalHeader()->setStyleSheet(header);
 
 
+    QTimer *Seatsupdate = new QTimer(this);
+    Seatsupdate->setInterval(100);
+    //using connect time to update the label
+    connect(Seatsupdate, &QTimer::timeout, [&]() {
+
+
 
     // SEATS RESERVED
 
@@ -215,6 +221,9 @@ chairs::chairs(QWidget *parent, QString _screenName, int _screenID, QString _use
 
     // show seats
     ui->tableWidget->show();
+
+    } );
+    Seatsupdate->start();
 
 
     // TYPE OF TICKETS

@@ -3,11 +3,11 @@
 #include "mainwindow.h"
 
 #include <QtWidgets>
-
 Login::Login(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Login)
 {
+
     ui->setupUi(this);
     ui->Username->setFocus();
     QWidget::setTabOrder(ui->Username, ui->Password);
