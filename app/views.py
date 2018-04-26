@@ -45,7 +45,7 @@ def postJsonHandler():
 
     img = qr.make_image()
 
-    img.save("app/static/images/" + str(request.get_json()['seatsslected']) + ".png")
+    img.save("app/static/qrcodes/" + str(request.get_json()['seatsslected']) + ".png")
 
     return 'JSON posted'
 

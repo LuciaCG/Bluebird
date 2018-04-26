@@ -113,7 +113,7 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
      printer.setPaperSize(QPrinter::A4);
      printer.setOutputFileName(fileName);
 
-     QString path = "../app/static/images/" + seatsSelected+QString::number(id)+".png";
+     QString path = "../app/static/qrcodes/" + seatsSelected+QString::number(id)+".png";
      QString pathReceipt = "../app/static/images/logoReceipt";
      QString split = seatsSelected;
      split.replace(QString("_"), QString(" "));
@@ -141,7 +141,7 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
      doc.print(&printer);
 
     ui->Movie->setText(screen);
-    ui->Changes->setText("Chanege: £"+QString::number(change));
+    ui->Changes->setText("Change: £"+QString::number(change));
 }
 payment::~payment()
 {
@@ -161,4 +161,3 @@ void payment::on_next_clicked()
     this->parentWidget()->parentWidget()->parentWidget()->show(); //show movies page
     this->parentWidget()->parentWidget()->close();
 }
-
