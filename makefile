@@ -52,7 +52,6 @@ flask3:
 	flask/bin/pip install flask-wtf; \
 	flask/bin/pip install flask-babel; \
 	flask/bin/pip install coverage; \
-<<<<<<< HEAD
 	make freshAll; \
 	sleep 4 && xterm -hold -e make executeQT & xterm -hold -e python run.py & xterm -hold -e ./ngrok http 5000; \
 	pkill python; \
@@ -62,10 +61,7 @@ executeQT:
 	qmake-qt5 UI2.pro -spec linux-g++; \
 	make; \
 	./UI2; \
-=======
-	# make freshAll; \
-	# python run.py & xterm -hold -e ./ngrok http 5000; \
->>>>>>> web_UI
+
 
 clean:
 	rm -rf app.db
@@ -74,7 +70,8 @@ clean:
 	rm -rf app/__pycache__
 	rm -rf *.pyc
 	rm -rf app/*.pyc
-	rm -rf app/static/qrcodes/*.jpg
+	rm -rf app/static/qrcodes/*.png
+
 
 make cleanFlask:
 		rm -rf flask; \

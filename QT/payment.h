@@ -19,8 +19,7 @@ public:
 private slots:
     void on_logout_clicked();
     void on_next_clicked();
-    static void printQr();
-
+    
 private:
     Ui::payment *ui;
     QString screen;
