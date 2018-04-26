@@ -6,17 +6,6 @@
 #include <QPrinter>
 #include <QtSql>
 
-#include <cstdint>
-#include <cstdlib>
-#include <cstring>
-#include <iostream>
-#include <string>
-#include <vector>
-#include "BitBuffer.hpp"
-#include "QrCode.hpp"
-using std::uint8_t;
-using qrcodegen::QrCode;
-using qrcodegen::QrSegment;
 
 
 // Prints the given QR Code to the console.
