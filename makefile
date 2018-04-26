@@ -17,9 +17,8 @@ oldAll:
 	python3 db_migrate.py
 	python3 populatingDatabase.py
 
-flask:
+product:
 	make cleanFlask; \
-	make compileQT; \
 	module add python/3.4.3; \
 	virtualenv flask; \
 	source flask/bin/activate; \
