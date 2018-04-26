@@ -43,8 +43,8 @@ color:#000000;</string>
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>221</width>
-       <height>31</height>
+       <width>861</width>
+       <height>101</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -127,6 +127,11 @@ font-size: 21px;</string>
       <string/>
      </property>
     </widget>
+    <zorder>logout</zorder>
+    <zorder>title</zorder>
+    <zorder>clock</zorder>
+    <zorder>connection</zorder>
+    <zorder>user</zorder>
    </widget>
    <widget class="QLabel" name="due">
     <property name="geometry">

@@ -15,7 +15,6 @@ learn::learn(QWidget *parent, QString _name, int _id, QString _user) :
     ui->user->setText(user);
     ui->title->setText(name);
     ui->tableWidget->setFocus();
-
     QWidget::setTabOrder(ui->tableWidget, ui->selection);
     QWidget::setTabOrder(ui->selection, ui->logout);
     QWidget::setTabOrder(ui->logout, ui->back);
@@ -104,7 +103,7 @@ void learn::on_selection_clicked()
         //check what screen has been selected
         int row = index.row();
         int id = 0;
-
+        QString movieTime = "";
         QString screenName = ui->tableWidget->model()->data(ui->tableWidget->model()->index(row,0)).toString();
         QString time = ui->tableWidget->model()->data(ui->tableWidget->model()->index(row,1)).toString();
 
@@ -117,12 +116,15 @@ void learn::on_selection_clicked()
             if (array[i].toObject().value("screen_id").toString() == screenName
                     && array[i].toObject().value("time").toString() == time){
                 id = (int)(array[i].toObject().value("id").toInt());
+                movieTime = array[i].toObject().value("time").toString();
             }
             i++;
         }
 
         //send title to learn
-        chairs *instance = new chairs(this, screenName, id, user);
+        QString movieName = name;
+
+        chairs *instance = new chairs(this, screenName, id, user, movieTime, movieName);
         instance->show();
     }
 }

@@ -6,7 +6,33 @@
 #include <QPrinter>
 #include <QtSql>
 
-payment::payment(QWidget *parent, QString _screen, int _id , QString _user, double _ticketTotal, double _paid, double _change, QString _seatsSelected) :
+#include <cstdint>
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
+#include <string>
+#include <vector>
+#include "BitBuffer.hpp"
+#include "QrCode.hpp"
+using std::uint8_t;
+using qrcodegen::QrCode;
+using qrcodegen::QrSegment;
+
+
+// Prints the given QR Code to the console.
+/*
+static void printQr(const QrCode &qr) {
+    int border = 4;
+    for (int y = -border; y < qr.getSize() + border; y++) {
+        for (int x = -border; x < qr.getSize() + border; x++) {
+            std::cout << (qr.getModule(x, y) ? "##" : "  ");
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+}
+*/
+payment::payment(QWidget *parent, QString _screen, int _id , QString _user, double _ticketTotal, double _paid, double _change, QString _seatsSelected,QString _movieTime,QString _movieName) :
     QWidget(parent),
     ui(new Ui::payment),
   screen(_screen), // SCREEN NUMBER
@@ -15,7 +41,10 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
   ticketTotal(_ticketTotal),
   paid(_paid),
   change(_change),
-  seatsSelected(_seatsSelected)
+  seatsSelected(_seatsSelected),
+  movieTime(_movieTime),
+  movieName(_movieName)
+
 {
   ui->setupUi(this);
   ui->user->setText(user);
@@ -38,73 +67,6 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 
 
     QString ct = QTime::currentTime().toString();
-
-    /*
-    // WRITE NEW RECEIPT
-
-    double b = id;
-
-    QFile File("http://localhost:5000/postjson");
-    File.open(QIODevice::ReadOnly | QIODevice::Text);
-
-    QJsonParseError JsonParseError;
-    QJsonDocument JsonDocument = QJsonDocument::fromJson(File.readAll(), &JsonParseError);
-
-    File.close();
-
-    QJsonObject RootObject = JsonDocument.object();
-    QJsonValueRef ArrayRef = RootObject.find("receipt").value();
-    QJsonArray Array = ArrayRef.toArray();
-
-    QJsonArray::iterator ArrayIterator = Array.begin();
-    QJsonValueRef ElementOneValueRef = ArrayIterator[0];
-
-    QJsonObject ElementOneObject = Array.at(0).toObject();
-
-    ElementOneObject.insert("price", QJsonValue::fromVariant(ticketTotal));
-    ElementOneObject.insert("pricePaid", QJsonValue::fromVariant(paid));
-    ElementOneObject.insert("id", QJsonValue::fromVariant(Array.size() + 1));
-    ElementOneObject.insert("change", QJsonValue::fromVariant(change));
-    ElementOneObject.insert("transactionTime", QJsonValue::fromVariant(current));
-    ElementOneObject.insert("userName", QJsonValue::fromVariant("Till"));
-    ElementOneObject.insert("employeeName", QJsonValue::fromVariant(user));
-    ElementOneObject.insert("screening", QJsonValue::fromVariant(b));
-
-
-    ElementOneValueRef = ElementOneObject;
-    ArrayRef = Array;
-    JsonDocument.setObject(RootObject);
-
-
-    File.open(QFile::WriteOnly | QFile::Text | QFile::Truncate);
-    File.write(JsonDocument.toJson());
-    File.close();
-    */
-
-    /*
-    QUrl serviceUrl = QUrl("http://localhost:5000/postjson");
-    QNetworkRequest request1(serviceUrl);
-    QJsonObject json;
-
-    json.insert("price", QJsonValue(double(ticketTotal)));
-    json.insert("pricePaid", QJsonValue(double(paid)));
-    json.insert("change", QJsonValue(double(change)));
-
-    json.insert("transactionTime", QJsonValue::fromVariant(current));
-
-    json.insert("userName", QJsonValue(QString("Till")));
-    json.insert("employeeName", QJsonValue(QString(user)));
-    json.insert("screening", QJsonValue(int(id)));
-
-    QJsonDocument jsonDoc(json);
-    QByteArray jsonData= jsonDoc.toJson();
-    request1.setHeader(QNetworkRequest::ContentTypeHeader,"application/json");
-    request1.setHeader(QNetworkRequest::ContentLengthHeader,QByteArray::number(jsonData.size()));
-    QNetworkAccessManager networkManager;
-
-    networkManager.post(request1, jsonData);
-
-*/
 
 
     // DISPLAY RECEIPTS
@@ -164,9 +126,16 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
 
     ui->tableWidget->show();
 
-
-
-
+    //const char *text = "Hello, world!";  // User-supplied text
+   // const QrCode::Ecc errCorLvl = QrCode::Ecc::LOW;  // Error correction level
+   // QrCode qr0 = QrCode::encodeText("Hello, world!", QrCode::Ecc::MEDIUM);
+   //std::string svg = qr0.toSvgString(4);
+    /*
+    // Make and print the QR Code symbol
+    const QrCode qr = QrCode::encodeText(text, errCorLvl);
+    printQr(qr);
+    std::cout << qr.toSvgString(4) << std::endl;
+    */
     // PRINT PDF
 
      ui->due->setText(QString::number(ticketTotal));
@@ -178,18 +147,30 @@ payment::payment(QWidget *parent, QString _screen, int _id , QString _user, doub
      printer.setPaperSize(QPrinter::A4);
      printer.setOutputFileName(fileName);
 
+     QString path = "../app/static/images/" + seatsSelected+QString::number(id)+".png";
+     QString pathReceipt = "../app/static/images/logoReceipt";
+     QString split = seatsSelected;
+     split.replace(QString("_"), QString(" "));
      QTextDocument doc;
-
-     doc.setHtml("<h1> RECEIPT FOR: Seats: "+ seatsSelected + " Screening:" + QString::number(id) +"</h1>"
+     ui->user->setText(path);
+     doc.setHtml(" <img src="+pathReceipt+" >"
+                 "<h1> RECEIPT FOR: "+movieName+"</h1> "
+                 "\n"
+                 "<h1>Seats: "+ split + "</h1>"
+                 "\n"
+                 "<p>Screening: " + QString::number(id) +"</p>"
                  "\n"
                  "<p>Till Employee: "+ user + " </p>"
                  "\n"
                  "<p>Screening ID : "+ QString::number(id) +"</p>"
                  "<h2>MOVIE SCREEN : "+screen +"</h2>"
+                 "<h3>MOVIE TIME: "+ movieTime + "</h3>"
                  "<p>amount paid: £"+ QString::number(paid) +"</p>"
                  "<p>Price: £"+ QString::number(ticketTotal) +"</p>"
                  "<p>Change: £"+ QString::number(change) +"</p>"
                  "<p>Time of transaction: "+ ct + "</p>"
+                 "\n"
+                 "<p> <img src="+path+" ></p>"
                  );
      doc.setPageSize(printer.pageRect().size());
      doc.print(&printer);
@@ -199,6 +180,7 @@ payment::~payment()
     delete ui;
     delete reply;
 }
+
 
 void payment::on_logout_clicked()
 {
@@ -217,3 +199,4 @@ void payment::on_next_clicked()
     this->parentWidget()->parentWidget()->parentWidget()->show(); //show movies page
     this->parentWidget()->parentWidget()->close();
 }
+

@@ -2,12 +2,15 @@
 #include "ui_chairs.h"
 #include "payment.h"
 
-chairs::chairs(QWidget *parent, QString _screenName, int _screenID, QString _user) :
+chairs::chairs(QWidget *parent, QString _screenName, int _screenID, QString _user,QString _movieTime,QString _movieName) :
     QWidget(parent),
     ui(new Ui::chairs),
     screenName(_screenName), // SCREEN NUMBER
     screenID(_screenID),
-    user(_user)
+    user(_user),
+    movieTime(_movieTime),
+    movieName(_movieName)
+
 {
     ui->setupUi(this);
     ui->user->setText(user);
@@ -380,15 +383,9 @@ void chairs::on_selection_clicked()
                     eventLoop.exec();
                 }
 
-
-
-
-
                 //////////////////////////////////////////////////////
                 //                 make receipt
                 //////////////////////////////////////////////////////
-
-                //QDateTime current = QDateTime::currentDateTime();
 
                 QUrl serviceUrl = QUrl("http://localhost:5000/postjson");
                 QNetworkRequest request1(serviceUrl);
@@ -400,6 +397,7 @@ void chairs::on_selection_clicked()
                 json.insert("userName", QJsonValue(QString("Till")));
                 json.insert("employeeName", QJsonValue(QString(user)));
                 json.insert("screening", QJsonValue(int(screenID)));
+                json.insert("seatsslected", QJsonValue(QString(seatsSelected+QString::number(screenID))));
 
                 QJsonDocument jsonDoc(json);
                 QByteArray jsonData= jsonDoc.toJson();
@@ -416,7 +414,7 @@ void chairs::on_selection_clicked()
                 manager.get(request);
                 eventLoop.exec();
 
-                payment *instance = new payment(this, screenName, screenID, user, ticketTotal, paid, change);
+                payment *instance = new payment(this, screenName, screenID, user, ticketTotal, paid, change,seatsSelected,movieTime,movieName);
                 instance->show();
             }
         }

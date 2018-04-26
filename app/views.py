@@ -28,10 +28,25 @@ def postJsonHandler():
     priceR = request.get_json()['price']
     pricePaidR = request.get_json()['pricePaid']
     changeR = request.get_json()['change']
-    a = models.Receipts(userName=userNameR, employeeName=employeeNameR , screening=screeningR,price=priceR,pricePaid=pricePaidR,change=changeR, transactionTime= datetime.datetime.utcnow())
-
+    a = models.Receipts(userName=userNameR, employeeName=employeeNameR , screening=screeningR,price=priceR,pricePaid=pricePaidR,change=changeR, transactionTime= datetime.datetime.now())
     db.session.add(a)
     db.session.commit()
+    qr = qrcode.QRCode(
+        version = 1,
+        error_correction = qrcode.constants.ERROR_CORRECT_H,
+        box_size = 10,
+        border = 4,
+    )
+
+    data = request.get_json()['seatsslected']
+
+    qr.add_data(data)
+    qr.make(fit=True)
+
+    img = qr.make_image()
+
+    img.save("app/static/images/" + str(request.get_json()['seatsslected']) + ".png")
+
     return 'JSON posted'
 
 @app.route('/postjsonR', methods = ['POST'])

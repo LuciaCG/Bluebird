@@ -94,7 +94,7 @@ class chairs : public QWidget
     Q_OBJECT
 
 public:
-    explicit chairs(QWidget *parent = 0, QString _screenName = "", int _screenID = 0, QString _user = "");
+    explicit chairs(QWidget *parent = 0, QString _screenName = "", int _screenID = 0, QString _user = "",QString _movieTime = "",QString _movieName = "");
     ~chairs();
 
 private slots:
@@ -109,6 +109,9 @@ private:
     QString screenName;
     int screenID;
     QString user;
+    QString movieTime;
+    QString movieName;
+
 
     double priceC, priceA, priceV, priceO;
 
