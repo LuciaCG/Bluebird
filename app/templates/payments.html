@@ -1,23 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
 
-Payments page<br>
+<div id="container">
+<h2>Payment</h2><br>
 
-Name: {{user.name}}<br>
+<h3>Name: {{user.name}}<br>
 Email: {{user.email}}<br>
 Movie: {{movieName.movieTitle}}<br>
-Showing selected: {{screening.time}} {{screening.screen_id}}<br>
-No of tickets: <br>
+<div class="col-rt-6" align="center">
+  <img id="payment_poster" src={{movieName.moviePoster}} alt="poster">
+</div>
+Showing selected: {{screening.time}} {{screening.screen_id}}</h3>
+<h3>Number of tickets: <br>
   Adult: {{adultTotal}} - £{{adultTotal*9}}<br>
   Child: {{childTotal}} - £{{childTotal*6.5}}<br>
   Senior: {{seniorTotal}} - £{{seniorTotal*7}}<br>
-  VIP: {{vipTotal}} - £{{vipTotal*12}}<br>
+  VIP: {{vipTotal}} - £{{vipTotal*12}} </h3>
 
-Total Price:  £{{priceTotal}}<br>
+<h3>Total Price:  £{{priceTotal}}</h3>
 
-Seats selected: {{seatList}}<br>
+<h3>Seats selected: {{seatList}}</h3>
 {% if userEmailname != "guest@cinema.com" %}
-Cards:<br>
+<h4>Select Your Card</h4>
 <form method="post">
 <select name ="dropdownCard" onchange="this.form.submit()">
   <option value=""></option>
@@ -28,22 +32,29 @@ Cards:<br>
 {% endif %}
 
 </select>
-</form><br>
+</form>
+
 
  {% if cardValue == 'nocard' or cardValue == 'none' %}
   <form method="post">
 
+
     <h4>Enter Card Details</h4>
 
-    Card Number: <input type="text" name="Cnumber"><br>
-    Expiry Month: <input type="text" style="width:40" name="Emonth"><br>
-    Expiry Year: <input type="text" style="width:40" name="Eyear"><br>
-    Security Number: <input type="text" maxlength="3" style="width:40" name="Snumber"><br>
-    {% if userEmailname == "guest@cinema.com" %}
-    Email: <input type="text" name="Snumber"><br>
-    {% endif %}
+    <div  style="text-align:left;">
+  <h4>  Card Number: <input type="text"  placeholder="Card Number" maxlength="16" name="Cnumber"><br>
     <br>
-    <input type="button" id="btnRedirect" value="Redirect" />
+    Expiry Date: <input type="text" style="width:55;" placeholder="Month" maxlength="2" name="Emonth">
+      <input type="text" style="width:42;" placeholder="Year" maxlength="4" name="Eyear"><br>
+    <br>
+    Security Number: <input type="text" maxlength="3" style="width:45;" placeholder="CSC" name="Snumber"><img id="securitycodeicon" src="../static/images/securitycode.png" alt="Security Code"><br>
+    <br>
+    {% if userEmailname == "guest@cinema.com" %}
+    Email: <input type="text" style="width:250;" placeholder="marvelstudio@cinema.com" name="Snumber"></h4><br>
+    {% endif %}
+    </div>
+    <br>
+    <input type="button" id="btnRedirect" value="Book Now" />
     <br />
     <br />
     <div id="dvCountDown" style="display: none">
@@ -54,7 +65,7 @@ Cards:<br>
     <script type="text/javascript">
     $(function () {
         $("#btnRedirect").click(function () {
-            var seconds = 3;
+            var seconds = 6;
             $("#dvCountDown").show();
             $("#lblCount").html(seconds);
             setInterval(function () {
@@ -91,7 +102,7 @@ Cards:<br>
    <script type="text/javascript">
    $(function () {
        $("#btnRedirect").click(function () {
-           var seconds = 3;
+           var seconds = 6;
            $("#dvCountDown").show();
            $("#lblCount").html(seconds);
            setInterval(function () {
@@ -112,7 +123,7 @@ Cards:<br>
 
 
 
-
+</div>
 {% endblock %}
 
 <!--

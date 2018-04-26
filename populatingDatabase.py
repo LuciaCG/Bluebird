@@ -196,9 +196,9 @@ db.session.commit()
 ############### adding movie to Movies tables ##############
 
 ############### adding screens to Screen tables ##############
-screen1 = models.Screen(screenName="Screen 1", Capacity=35)
-screen2 = models.Screen(screenName="Screen 2", Capacity=40)
-screen3 = models.Screen(screenName="Screen 3", Capacity=20)
+screen1 = models.Screen(screenName="Screen 1", Capacity=50)
+screen2 = models.Screen(screenName="Screen 2", Capacity=50)
+screen3 = models.Screen(screenName="Screen 3", Capacity=50)
 
 
 #adding and commit the movies to the database
